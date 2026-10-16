@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.secrets*
+artifacts/*
+!artifacts/*.json
+*.pt
+*.pte
+*.npz
+*.ckpt
+mne_data/
+.claude/worktrees/
+.DS_Store
