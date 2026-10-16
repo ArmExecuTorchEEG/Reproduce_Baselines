@@ -6,11 +6,11 @@ Project overview and repo map: https://github.com/ArmExecuTorchEEG
 ## Ownership
 | Path | Owner | Others may |
 |---|---|---|
-| `src/data/` | msoliman6 | PR |
-| `src/models/`, `src/train.py`, `src/eval.py` | jihyungku | PR |
-| `src/quantize.py`, `src/export.py`, `src/verify_pte.py` | msoliman6 | PR |
-| `src/experiments/` | (unassigned) | PR |
-| `configs/default.yaml` | jihyungku | PR; never change `seed`, `window`, `fs` silently |
+| `src/data/` | TBD | PR |
+| `src/models/`, `src/train.py`, `src/eval.py` | TBD | PR |
+| `src/quantize.py`, `src/export.py`, `src/verify_pte.py` | TBD | PR |
+| `src/experiments/` | TBD | PR |
+| `configs/default.yaml` | TBD | PR; never change `seed`, `window`, `fs` silently |
 | `results/` | author of the run | add only; never overwrite another run's file |
 
 ## Contracts
