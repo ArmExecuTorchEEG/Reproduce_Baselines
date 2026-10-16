@@ -7,21 +7,31 @@ Project overview and repo map: https://github.com/ArmExecuTorchEEG
 | Path | Owner | Others may |
 |---|---|---|
 | `src/data/` | TBD | PR |
-| `src/models/`, `src/train.py`, `src/eval.py` | TBD | PR |
-| `src/quantize.py`, `src/export.py`, `src/verify_pte.py` | TBD | PR |
+| `src/models/`, `src/train.py`, `src/eval.py`, `src/run_all.py` | TBD | PR |
+| `src/quantize.py`, `src/export.py`, `artifacts/*.json` | TBD | PR |
 | `src/experiments/` | TBD | PR |
 | `configs/default.yaml` | TBD | PR; never change `seed`, `window`, `fs` silently |
 | `results/` | author of the run | add only; never overwrite another run's file |
 
 ## Contracts
-Model input `(1,1,22,500)` int8, output `(1,2)`. `artifacts/tinyeegnet_int8.pte`, `artifacts/test_vectors.npz`, `artifacts/preprocess_params.json`. Release tag `v0.1-baseline`. Consumed by Emulator_Deploy and Edge_Deploy.
+Model input `(1,1,22,500)` int8, output `(1,2)` logits. Release tag `v0.1-baseline`. Consumed by Emulator_Deploy and Edge_Deploy.
+- `artifacts/tinyeegnet_int8.pte`: Ethos-U85 (`ethos-u85-256`) delegated; float I/O with CPU quantize/dequantize at the boundary, as the starter's `create_ai_layer.py` exports it.
+- `artifacts/test_vectors.npz`: `x` int8 (20,1,22,500), `logits` float32 (20,2), `y` int64 (20,).
+- `artifacts/preprocess_params.json`: `sos`, `tmin`, `tmax`, `fs`, `n_samples`, `channel_order`, `ea_matrix` (22×22 Euclidean Alignment matrix of the export subject), `input_scale`, `input_quant_scale`, `input_zero_point`, `class_map`. `ea_matrix` replaced per-channel mean/std; Edge_Deploy must apply it.
+- `artifacts/tinyeegnet_float.pt`, `artifacts/calibration.npz` (200 training windows): inputs for the starter's `create_ai_layer.py`.
+- Filter is causal (`sosfilt` on the continuous signal); window cue+0.5 s to cue+2.5 s; `src/models/tinyeegnet.py` must stay identical to `Emulator_Deploy/model/model.py`.
+- Test data (target subject session 2 trials 25–144) is never used for early stopping, model selection, normalisation or calibration.
+- The delegated `.pte` does not run on the x86 runtime. Host int8 check = fake-quant model (`src/quantize.py`); target check = FVP in Emulator_Deploy (pending, not run yet).
 
 ## Commands
 ```
-python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+python3.12 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+pip install --no-deps ml_dtypes==0.5.1 flatbuffers==24.3.25 tosa-tools==2026.5.0   # TOSA serializer; --no-deps is load-bearing
 python -m pytest tests/                 # must pass before any PR
-python -m src.train --subject 1 --classes 2
-python -m src.export --target ethos-u85-256 --out artifacts/tinyeegnet_int8.pte
+python -m src.train --mode loso --subject 1 --seed 0 --out runs/loso_s1_seed0
+python -m src.quantize --run runs/loso_s1_seed0          # int8 (fake-quant) predictions for the run
+python -m src.run_all --jobs 6                           # all runs + results/results.md
+python -m src.export --checkpoint runs/loso_sN_seed0/model.pt --subject N --out artifacts/tinyeegnet_int8.pte
 ```
 Large files (`.pt`, `.pte`, `.npz`, `~/mne_data`) are git-ignored; attach them to the GitHub release.
 
