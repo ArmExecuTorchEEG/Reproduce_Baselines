@@ -12,3 +12,4 @@ artifacts/*
 mne_data/
 .claude/worktrees/
 .DS_Store
+runs/

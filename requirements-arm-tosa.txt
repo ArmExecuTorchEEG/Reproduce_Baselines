@@ -1,0 +1,17 @@
+# install with: pip install --no-deps -r requirements-arm-tosa.txt
+#
+# TOSA serialization dependencies for the Arm Ethos-U AOT export (src/export.py).
+# Mirrors CMSIS-Executorch/requirements-arm-tosa.txt; versions are the ones
+# installed in this repo's .venv (pip show) and used for the v0.1 export.
+#
+# --no-deps is deliberate: tosa-tools 2026.5.0 declares flatbuffers==25.2.10,
+# numpy<2.2 and the extras jsonschema and semver, while the executorch 1.5.1 Arm
+# backend pins flatbuffers==24.3.25. Letting pip resolve tosa-tools' dependencies
+# would upgrade flatbuffers and break serialization, so `pip check` reports these
+# unmet requirements on purpose; the export path uses none of them.
+#
+# tosa-tools provides the `tosa_serializer` module and ships wheels for CPython
+# 3.10 to 3.13 only (this repo uses 3.12). Install requirements.txt first.
+ml_dtypes==0.5.1
+flatbuffers==24.3.25
+tosa-tools==2026.5.0
