@@ -1,0 +1,113 @@
+{
+  "official_repository": "https://github.com/Arm-Examples/CMSIS-Executorch",
+  "official_commit": "0a243f1ee054c64e3cc698f5a8c42c63ba3710c7",
+  "target": "ethos-u85-256",
+  "system_config": "Ethos_U85_SYS_DRAM_Mid",
+  "memory_mode": "Shared_Sram",
+  "profile": "official Corstone-320 template; E8 memory mapping unvalidated",
+  "fvp": {
+    "ran": false,
+    "blocker": "No native macOS FVP, Docker, CMSIS-Toolbox, or Arm firmware compiler found"
+  },
+  "versions": {
+    "torch": "2.14.0",
+    "torchao": "0.18.0",
+    "executorch": "1.5.1",
+    "ethos-u-vela": "5.1.0",
+    "tosa-tools": "2026.5.0",
+    "flatbuffers": "24.3.25"
+  },
+  "stages": {
+    "checkpoint_reload": "passed; matches original environment logits",
+    "quantization": "passed; 200 balanced training-only calibration windows",
+    "vela_compilation_and_serialization": "passed",
+    "int8_input_boundary": "passed"
+  },
+  "parameters": 1938,
+  "checkpoint_sha256": "1dd02a4d5b61999d49238da87a492fe4b103d29d71b17622010f4890d5e34ec9",
+  "float_development": {
+    "accuracy": 0.9305555555555556,
+    "balanced_accuracy": 0.9305555555555556,
+    "confusion_matrix": [
+      [
+        136,
+        8
+      ],
+      [
+        12,
+        132
+      ]
+    ],
+    "n": 288
+  },
+  "float_operators": {
+    "aten.pad.default": 2,
+    "aten.conv2d.default": 4,
+    "aten.batch_norm.default": 3,
+    "aten.relu.default": 2,
+    "aten.avg_pool2d.default": 2,
+    "aten.dropout.default": 2,
+    "aten.flatten.using_ints": 1,
+    "aten.linear.default": 1
+  },
+  "quantized_qdq_development": {
+    "accuracy": 0.9305555555555556,
+    "balanced_accuracy": 0.9305555555555556,
+    "confusion_matrix": [
+      [
+        138,
+        6
+      ],
+      [
+        14,
+        130
+      ]
+    ],
+    "n": 288
+  },
+  "accuracy_change_points": 0.0,
+  "prediction_agreement": 0.9861111044883728,
+  "maximum_logit_difference": 1.567457914352417,
+  "quantized_metrics_scope": "host PT2E Q/DQ reference; not compiled Vela/FVP numerical execution",
+  "delegates": [
+    {
+      "name": "lowered_module_0",
+      "backend": "EthosUBackend",
+      "compiled_bytes": 9920,
+      "operators": {
+        "<EdgeOpOverload: quantized_decomposed.dequantize_per_tensor.default>: schema = quantized_decomposed::dequantize_per_tensor(Tensor input, float scale, int zero_point, int quant_min, int quant_max, ScalarType dtype, *, ScalarType? out_dtype=None) -> Tensor": 10,
+        "<EdgeOpOverload: aten.pad.default>: schema = aten::pad(Tensor self, SymInt[] pad, str mode=\"constant\", float? value=None) -> Tensor": 2,
+        "<EdgeOpOverload: quantized_decomposed.quantize_per_tensor.default>: schema = quantized_decomposed::quantize_per_tensor(Tensor input, float scale, int zero_point, int quant_min, int quant_max, ScalarType dtype) -> Tensor": 10,
+        "<EdgeOpOverload: quantized_decomposed.dequantize_per_channel.default>: schema = quantized_decomposed::dequantize_per_channel(Tensor input, Tensor scales, Tensor? zero_points, int axis, int quant_min, int quant_max, ScalarType dtype, *, ScalarType? out_dtype=None) -> Tensor": 9,
+        "<EdgeOpOverload: aten.convolution.default>: schema = aten::convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups) -> Tensor": 4,
+        "<EdgeOpOverload: aten.relu.default>: schema = aten::relu(Tensor self) -> Tensor": 2,
+        "<EdgeOpOverload: aten.avg_pool2d.default>: schema = aten::avg_pool2d(Tensor self, int[2] kernel_size, int[2] stride=[], int[2] padding=0, bool ceil_mode=False, bool count_include_pad=True, int? divisor_override=None) -> Tensor": 2,
+        "<EdgeOpOverload: aten.view_copy.default>: schema = aten::view_copy(Tensor self, SymInt[] size) -> Tensor": 1,
+        "<EdgeOpOverload: aten.linear.default>: schema = aten::linear(Tensor input, Tensor weight, Tensor? bias=None) -> Tensor": 1
+      }
+    }
+  ],
+  "residual_cpu_operators": [
+    "<EdgeOpOverload: quantized_decomposed.quantize_per_tensor.default>: schema = quantized_decomposed::quantize_per_tensor(Tensor input, float scale, int zero_point, int quant_min, int quant_max, ScalarType dtype) -> Tensor",
+    "<built-in function getitem>",
+    "<EdgeOpOverload: quantized_decomposed.dequantize_per_tensor.default>: schema = quantized_decomposed::dequantize_per_tensor(Tensor input, float scale, int zero_point, int quant_min, int quant_max, ScalarType dtype, *, ScalarType? out_dtype=None) -> Tensor"
+  ],
+  "float_io_pte_bytes": 12080,
+  "input_quantization": {
+    "scale": 0.07146575301885605,
+    "zero_point": 6,
+    "quant_min": -128,
+    "quant_max": 127,
+    "dtype": "torch.int8",
+    "shape": [
+      1,
+      1,
+      22,
+      500
+    ],
+    "formula": "clip(round(normalized_float / scale) + zero_point, quant_min, quant_max)"
+  },
+  "int8_io_pte_bytes": 13008,
+  "status": "compiled; FVP and physical E8 execution not validated",
+  "existing_files_unchanged": true
+}

@@ -1,0 +1,259 @@
+{
+  "run": "combined-seed42-20261016",
+  "seed": 42,
+  "config": {
+    "seed": 42,
+    "fs": 250,
+    "window": [
+      1.0,
+      3.0
+    ],
+    "protocol": "combined-participant-v1",
+    "filter_hz": [
+      7,
+      30
+    ],
+    "filter_prototype_order": 4,
+    "artifact_policy": "retain_all",
+    "normalization": "training_only_channel_mean_std",
+    "model": {
+      "dropout": 0.5,
+      "activation": "relu"
+    },
+    "training": {
+      "epochs": 200,
+      "early_stop": 20,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "optimizer": "Adam",
+      "loss": "CrossEntropyLoss",
+      "checkpoint_metric": "validation_loss",
+      "device": "cpu",
+      "threads": 4
+    }
+  },
+  "parameters": 1938,
+  "epochs_run": 67,
+  "best_epoch": 47,
+  "selection": "subject 8 validation loss only",
+  "checkpoint_sha256": "1dd02a4d5b61999d49238da87a492fe4b103d29d71b17622010f4890d5e34ec9",
+  "reload_exact_match": true,
+  "metrics": {
+    "validation": {
+      "n": 288,
+      "loss": 0.21188089417086708,
+      "accuracy": 0.9305555555555556,
+      "balanced_accuracy": 0.9305555555555556,
+      "confusion_matrix": [
+        [
+          136,
+          8
+        ],
+        [
+          12,
+          132
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "demonstration": {
+      "n": 288,
+      "loss": 0.6794135769208273,
+      "accuracy": 0.6215277777777778,
+      "balanced_accuracy": 0.6215277777777778,
+      "confusion_matrix": [
+        [
+          102,
+          42
+        ],
+        [
+          67,
+          77
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "test": {
+      "n": 288,
+      "loss": 0.9483464426464505,
+      "accuracy": 0.5902777777777778,
+      "balanced_accuracy": 0.5902777777777778,
+      "confusion_matrix": [
+        [
+          70,
+          74
+        ],
+        [
+          44,
+          100
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    }
+  },
+  "torch_export": {
+    "passed": true,
+    "shape": [
+      1,
+      2
+    ],
+    "strict": true,
+    "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+  },
+  "seconds": 547.5738948748913,
+  "versions": {
+    "python": "3.12.15",
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "moabb": "1.7.2",
+    "mne": "1.13.2"
+  },
+  "splits": {
+    "train": {
+      "shape": [
+        1728,
+        1,
+        22,
+        500
+      ],
+      "class_counts": [
+        864,
+        864
+      ],
+      "flagged_trials": 142,
+      "recordings": [
+        [
+          1,
+          "0train"
+        ],
+        [
+          1,
+          "1test"
+        ],
+        [
+          2,
+          "0train"
+        ],
+        [
+          2,
+          "1test"
+        ],
+        [
+          3,
+          "0train"
+        ],
+        [
+          3,
+          "1test"
+        ],
+        [
+          4,
+          "0train"
+        ],
+        [
+          4,
+          "1test"
+        ],
+        [
+          5,
+          "0train"
+        ],
+        [
+          5,
+          "1test"
+        ],
+        [
+          6,
+          "0train"
+        ],
+        [
+          7,
+          "0train"
+        ]
+      ]
+    },
+    "validation": {
+      "shape": [
+        288,
+        1,
+        22,
+        500
+      ],
+      "class_counts": [
+        144,
+        144
+      ],
+      "flagged_trials": 22,
+      "recordings": [
+        [
+          8,
+          "0train"
+        ],
+        [
+          8,
+          "1test"
+        ]
+      ]
+    },
+    "demonstration": {
+      "shape": [
+        288,
+        1,
+        22,
+        500
+      ],
+      "class_counts": [
+        144,
+        144
+      ],
+      "flagged_trials": 40,
+      "recordings": [
+        [
+          6,
+          "1test"
+        ],
+        [
+          7,
+          "1test"
+        ]
+      ]
+    },
+    "test": {
+      "shape": [
+        288,
+        1,
+        22,
+        500
+      ],
+      "class_counts": [
+        144,
+        144
+      ],
+      "flagged_trials": 42,
+      "recordings": [
+        [
+          9,
+          "0train"
+        ],
+        [
+          9,
+          "1test"
+        ]
+      ]
+    }
+  }
+}

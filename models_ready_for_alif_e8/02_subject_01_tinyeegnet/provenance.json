@@ -1,0 +1,57 @@
+{
+  "package": "02_subject_01_tinyeegnet",
+  "schema_version": 1,
+  "policy": "Byte-identical convenience copies; originals remain authoritative",
+  "files": {
+    "best_checkpoint.pt": {
+      "original_path": "artifacts/subject1-seed42-20261016/best_checkpoint.pt",
+      "sha256": "63e3479baa0b00cadce5ee7906f25eee873ba561f9040cd07505f5d32b7a51d9",
+      "bytes": 16572
+    },
+    "tinyeegnet_int8.pte": {
+      "original_path": "artifacts/subject1-ethosu85-seed42-20261016/tinyeegnet_int8.pte",
+      "sha256": "644bf8865ed515ed41c5418070a0b147008c4326b9da34d3232884459d9b3298",
+      "bytes": 13072
+    },
+    "preprocess_params.json": {
+      "original_path": "artifacts/subject1-ethosu85-seed42-20261016/preprocess_params.json",
+      "sha256": "733a8b12d51d95229139f9dd2f3b758bad979357908dac4c364a7807eea8f899",
+      "bytes": 2883
+    },
+    "normalization_params.json": {
+      "original_path": "artifacts/subject1-seed42-20261016/preprocess_params.json",
+      "sha256": "ff00b2759a84b358e7e9080a2a181ef7f8ca4c86816d35f25992820dbfacb0a4",
+      "bytes": 2514
+    },
+    "model_config.json": {
+      "original_path": "artifacts/subject1-seed42-20261016/config.json",
+      "sha256": "c7c8ec6fd114473789ae7ae6bd6d3a8745f95ac54740ded782bf8ad50999966b",
+      "bytes": 585
+    },
+    "label_mapping.json": {
+      "original_path": "artifacts/subject1-seed42-20261016/label_mapping.json",
+      "sha256": "ec56a867f83fc37140b77d9fd3b2ba67d3cee72de298fa84ee9fb63875f89b77",
+      "bytes": 40
+    },
+    "training_metrics.json": {
+      "original_path": "artifacts/subject1-seed42-20261016/metrics.json",
+      "sha256": "1f676be7762c9d97bba94ecc5e80b9f19746021ed3e827b0b68d539685ed6f31",
+      "bytes": 3821
+    },
+    "export_report.json": {
+      "original_path": "artifacts/subject1-ethosu85-seed42-20261016/export_report.json",
+      "sha256": "5954021880a675868487bb5720b3ff07ec80a7dd55c9170f5774f296548468d4",
+      "bytes": 5068
+    },
+    "test_vectors.npz": {
+      "original_path": "artifacts/subject1-ethosu85-seed42-20261016/test_vectors.npz",
+      "sha256": "3e4d50ae6122aff62ad7cf1fc86e6ae8ddb841be7029108285239cbf60f7e3e2",
+      "bytes": 221012
+    },
+    "ensemble_vela.ini": {
+      "original_path": "artifacts/subject1-ethosu85-seed42-20261016/ensemble_vela.ini",
+      "sha256": "18ade4f3797bc99d30e269315853376bb0539fa220a8f3d7dc755d8afbea61ea",
+      "bytes": 4814
+    }
+  }
+}

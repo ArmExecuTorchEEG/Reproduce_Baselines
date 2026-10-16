@@ -1,0 +1,152 @@
+{
+  "baseline_hashes_unchanged": true,
+  "paired_initial_weights_match": true,
+  "forbidden_recordings_used": [],
+  "all_checkpoint_reloads_and_exports": [
+    {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    }
+  ],
+  "versions": {
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "moabb": "1.7.2",
+    "mne": "1.13.2"
+  }
+}

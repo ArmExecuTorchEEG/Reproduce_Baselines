@@ -1,0 +1,752 @@
+[
+  {
+    "dropout": 0.5,
+    "best_epoch": 70,
+    "epochs_run": 90,
+    "training_seconds": 693.7374259168282,
+    "initial_state_sha256": "f312cf7d0ab6ad841eb714a49e0eb2e0d37960dca136ed461445efea2e26c194",
+    "training": {
+      "n": 1152,
+      "loss": 0.5047367703583505,
+      "accuracy": 0.7430555555555556,
+      "balanced_accuracy": 0.7430555555555556,
+      "confusion_matrix": [
+        [
+          503,
+          73
+        ],
+        [
+          223,
+          353
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "validation": {
+      "n": 576,
+      "loss": 0.5544317530261146,
+      "accuracy": 0.7118055555555556,
+      "balanced_accuracy": 0.7118055555555556,
+      "confusion_matrix": [
+        [
+          166,
+          122
+        ],
+        [
+          44,
+          244
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "participants": {
+      "1": {
+        "n": 288,
+        "loss": 0.47200293011135525,
+        "accuracy": 0.7777777777777778,
+        "balanced_accuracy": 0.7777777777777777,
+        "confusion_matrix": [
+          [
+            119,
+            25
+          ],
+          [
+            39,
+            105
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      },
+      "4": {
+        "n": 288,
+        "loss": 0.6368605825636122,
+        "accuracy": 0.6458333333333334,
+        "balanced_accuracy": 0.6458333333333334,
+        "confusion_matrix": [
+          [
+            47,
+            97
+          ],
+          [
+            5,
+            139
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      }
+    },
+    "macro_participant_balanced_accuracy": 0.7118055555555556,
+    "verification": {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    "fold": 1
+  },
+  {
+    "dropout": 0.25,
+    "best_epoch": 23,
+    "epochs_run": 43,
+    "training_seconds": 399.2734682909213,
+    "initial_state_sha256": "f312cf7d0ab6ad841eb714a49e0eb2e0d37960dca136ed461445efea2e26c194",
+    "training": {
+      "n": 1152,
+      "loss": 0.5310423125823339,
+      "accuracy": 0.7092013888888888,
+      "balanced_accuracy": 0.7092013888888888,
+      "confusion_matrix": [
+        [
+          502,
+          74
+        ],
+        [
+          261,
+          315
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "validation": {
+      "n": 576,
+      "loss": 0.570910116036733,
+      "accuracy": 0.6979166666666666,
+      "balanced_accuracy": 0.6979166666666666,
+      "confusion_matrix": [
+        [
+          193,
+          95
+        ],
+        [
+          79,
+          209
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "participants": {
+      "1": {
+        "n": 288,
+        "loss": 0.5203227467007108,
+        "accuracy": 0.7291666666666666,
+        "balanced_accuracy": 0.7291666666666667,
+        "confusion_matrix": [
+          [
+            125,
+            19
+          ],
+          [
+            59,
+            85
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      },
+      "4": {
+        "n": 288,
+        "loss": 0.6214974919954935,
+        "accuracy": 0.6666666666666666,
+        "balanced_accuracy": 0.6666666666666667,
+        "confusion_matrix": [
+          [
+            68,
+            76
+          ],
+          [
+            20,
+            124
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      }
+    },
+    "macro_participant_balanced_accuracy": 0.6979166666666667,
+    "verification": {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    "fold": 1
+  },
+  {
+    "dropout": 0.5,
+    "best_epoch": 9,
+    "epochs_run": 29,
+    "training_seconds": 266.50754520785995,
+    "initial_state_sha256": "f312cf7d0ab6ad841eb714a49e0eb2e0d37960dca136ed461445efea2e26c194",
+    "training": {
+      "n": 1152,
+      "loss": 0.5827023569080565,
+      "accuracy": 0.7352430555555556,
+      "balanced_accuracy": 0.7352430555555556,
+      "confusion_matrix": [
+        [
+          426,
+          150
+        ],
+        [
+          155,
+          421
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "validation": {
+      "n": 576,
+      "loss": 0.6861556238598294,
+      "accuracy": 0.5555555555555556,
+      "balanced_accuracy": 0.5555555555555556,
+      "confusion_matrix": [
+        [
+          181,
+          107
+        ],
+        [
+          149,
+          139
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "participants": {
+      "2": {
+        "n": 288,
+        "loss": 0.684178868929545,
+        "accuracy": 0.5729166666666666,
+        "balanced_accuracy": 0.5729166666666666,
+        "confusion_matrix": [
+          [
+            83,
+            61
+          ],
+          [
+            62,
+            82
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      },
+      "5": {
+        "n": 288,
+        "loss": 0.6881323721673753,
+        "accuracy": 0.5381944444444444,
+        "balanced_accuracy": 0.5381944444444444,
+        "confusion_matrix": [
+          [
+            98,
+            46
+          ],
+          [
+            87,
+            57
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      }
+    },
+    "macro_participant_balanced_accuracy": 0.5555555555555556,
+    "verification": {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    "fold": 2
+  },
+  {
+    "dropout": 0.25,
+    "best_epoch": 7,
+    "epochs_run": 27,
+    "training_seconds": 250.94656212511472,
+    "initial_state_sha256": "f312cf7d0ab6ad841eb714a49e0eb2e0d37960dca136ed461445efea2e26c194",
+    "training": {
+      "n": 1152,
+      "loss": 0.5325560404194726,
+      "accuracy": 0.7508680555555556,
+      "balanced_accuracy": 0.7508680555555556,
+      "confusion_matrix": [
+        [
+          413,
+          163
+        ],
+        [
+          124,
+          452
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "validation": {
+      "n": 576,
+      "loss": 0.6807299587461684,
+      "accuracy": 0.5642361111111112,
+      "balanced_accuracy": 0.5642361111111112,
+      "confusion_matrix": [
+        [
+          181,
+          107
+        ],
+        [
+          144,
+          144
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "participants": {
+      "2": {
+        "n": 288,
+        "loss": 0.6832831170823839,
+        "accuracy": 0.5659722222222222,
+        "balanced_accuracy": 0.5659722222222222,
+        "confusion_matrix": [
+          [
+            74,
+            70
+          ],
+          [
+            55,
+            89
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      },
+      "5": {
+        "n": 288,
+        "loss": 0.6781767805417379,
+        "accuracy": 0.5625,
+        "balanced_accuracy": 0.5625,
+        "confusion_matrix": [
+          [
+            107,
+            37
+          ],
+          [
+            89,
+            55
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      }
+    },
+    "macro_participant_balanced_accuracy": 0.5642361111111112,
+    "verification": {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    "fold": 2
+  },
+  {
+    "dropout": 0.5,
+    "best_epoch": 31,
+    "epochs_run": 51,
+    "training_seconds": 449.44647958292626,
+    "initial_state_sha256": "f312cf7d0ab6ad841eb714a49e0eb2e0d37960dca136ed461445efea2e26c194",
+    "training": {
+      "n": 1152,
+      "loss": 0.5644167049063576,
+      "accuracy": 0.6901041666666666,
+      "balanced_accuracy": 0.6901041666666666,
+      "confusion_matrix": [
+        [
+          305,
+          271
+        ],
+        [
+          86,
+          490
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "validation": {
+      "n": 576,
+      "loss": 0.5156239436732398,
+      "accuracy": 0.7378472222222222,
+      "balanced_accuracy": 0.7378472222222222,
+      "confusion_matrix": [
+        [
+          189,
+          99
+        ],
+        [
+          52,
+          236
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "participants": {
+      "3": {
+        "n": 288,
+        "loss": 0.3165723548995124,
+        "accuracy": 0.90625,
+        "balanced_accuracy": 0.90625,
+        "confusion_matrix": [
+          [
+            126,
+            18
+          ],
+          [
+            9,
+            135
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      },
+      "6": {
+        "n": 144,
+        "loss": 0.7157107459174262,
+        "accuracy": 0.6319444444444444,
+        "balanced_accuracy": 0.6319444444444444,
+        "confusion_matrix": [
+          [
+            48,
+            24
+          ],
+          [
+            29,
+            43
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      },
+      "7": {
+        "n": 144,
+        "loss": 0.7136402527491251,
+        "accuracy": 0.5069444444444444,
+        "balanced_accuracy": 0.5069444444444444,
+        "confusion_matrix": [
+          [
+            15,
+            57
+          ],
+          [
+            14,
+            58
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      }
+    },
+    "macro_participant_balanced_accuracy": 0.6817129629629629,
+    "verification": {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    "fold": 3
+  },
+  {
+    "dropout": 0.25,
+    "best_epoch": 15,
+    "epochs_run": 35,
+    "training_seconds": 338.5374869159423,
+    "initial_state_sha256": "f312cf7d0ab6ad841eb714a49e0eb2e0d37960dca136ed461445efea2e26c194",
+    "training": {
+      "n": 1152,
+      "loss": 0.5646171172459921,
+      "accuracy": 0.7083333333333334,
+      "balanced_accuracy": 0.7083333333333333,
+      "confusion_matrix": [
+        [
+          358,
+          218
+        ],
+        [
+          118,
+          458
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "validation": {
+      "n": 576,
+      "loss": 0.529623763428794,
+      "accuracy": 0.7291666666666666,
+      "balanced_accuracy": 0.7291666666666666,
+      "confusion_matrix": [
+        [
+          191,
+          97
+        ],
+        [
+          59,
+          229
+        ]
+      ],
+      "confusion_matrix_order": [
+        "left_hand",
+        "right_hand"
+      ],
+      "confusion_matrix_axes": "rows=true, columns=predicted"
+    },
+    "participants": {
+      "3": {
+        "n": 288,
+        "loss": 0.3657808237605625,
+        "accuracy": 0.8888888888888888,
+        "balanced_accuracy": 0.8888888888888888,
+        "confusion_matrix": [
+          [
+            123,
+            21
+          ],
+          [
+            11,
+            133
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      },
+      "6": {
+        "n": 144,
+        "loss": 0.6813772585656908,
+        "accuracy": 0.625,
+        "balanced_accuracy": 0.625,
+        "confusion_matrix": [
+          [
+            42,
+            30
+          ],
+          [
+            24,
+            48
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      },
+      "7": {
+        "n": 144,
+        "loss": 0.7055561145146688,
+        "accuracy": 0.5138888888888888,
+        "balanced_accuracy": 0.5138888888888888,
+        "confusion_matrix": [
+          [
+            26,
+            46
+          ],
+          [
+            24,
+            48
+          ]
+        ],
+        "confusion_matrix_order": [
+          "left_hand",
+          "right_hand"
+        ],
+        "confusion_matrix_axes": "rows=true, columns=predicted"
+      }
+    },
+    "macro_participant_balanced_accuracy": 0.6759259259259259,
+    "verification": {
+      "reload_exact_match": true,
+      "batch_shapes": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "parameters": 1938,
+      "torch_export": {
+        "passed": true,
+        "shape": [
+          1,
+          2
+        ],
+        "strict": true,
+        "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+      }
+    },
+    "fold": 3
+  }
+]

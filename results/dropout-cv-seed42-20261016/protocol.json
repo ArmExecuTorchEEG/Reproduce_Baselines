@@ -1,0 +1,127 @@
+{
+  "folds": [
+    [
+      1,
+      4
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      3,
+      6,
+      7
+    ]
+  ],
+  "dropouts": [
+    0.5,
+    0.25
+  ],
+  "rule": {
+    "minimum_mean_gain": 0.02,
+    "minimum_participants_improved": 4,
+    "minimum_folds_improved": 2,
+    "maximum_participant_decline": 0.05
+  },
+  "base_config": {
+    "seed": 42,
+    "fs": 250,
+    "window": [
+      1.0,
+      3.0
+    ],
+    "protocol": "combined-participant-v1",
+    "filter_hz": [
+      7,
+      30
+    ],
+    "filter_prototype_order": 4,
+    "artifact_policy": "retain_all",
+    "normalization": "training_only_channel_mean_std",
+    "model": {
+      "dropout": 0.5,
+      "activation": "relu"
+    },
+    "training": {
+      "epochs": 200,
+      "early_stop": 20,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "optimizer": "Adam",
+      "loss": "CrossEntropyLoss",
+      "checkpoint_metric": "validation_loss",
+      "device": "cpu",
+      "threads": 4
+    }
+  },
+  "early_stopping": "pooled held-out-fold cross-entropy, patience 20; same as baseline",
+  "comparison": "unweighted mean balanced accuracy over seven participants",
+  "interpretation": "development CV; each validation fold also selects its checkpoint",
+  "allowed_recordings": [
+    [
+      1,
+      "0train"
+    ],
+    [
+      1,
+      "1test"
+    ],
+    [
+      2,
+      "0train"
+    ],
+    [
+      2,
+      "1test"
+    ],
+    [
+      3,
+      "0train"
+    ],
+    [
+      3,
+      "1test"
+    ],
+    [
+      4,
+      "0train"
+    ],
+    [
+      4,
+      "1test"
+    ],
+    [
+      5,
+      "0train"
+    ],
+    [
+      5,
+      "1test"
+    ],
+    [
+      6,
+      "0train"
+    ],
+    [
+      7,
+      "0train"
+    ]
+  ],
+  "excluded": "S6/7 session 2, S9 entirely; S8 used only if final refit is authorized by rule",
+  "baseline_hashes_before": {
+    "artifacts/combined-seed42-20261016/metrics.json": "d831cb7a19bee19bea491a2f6ab81d99527b919186e8924a30b1156c67dcc605",
+    "artifacts/combined-seed42-20261016/label_mapping.json": "ec56a867f83fc37140b77d9fd3b2ba67d3cee72de298fa84ee9fb63875f89b77",
+    "artifacts/combined-seed42-20261016/preprocess_params.json": "68c192003d2fbfa21b5abca677f76859112b66a14a56e9566f5515da8f27dbba",
+    "artifacts/combined-seed42-20261016/config.json": "c4cc665f8153294b4bfe5adb9bca191784465302dce3291c5f4a51bbf7a28a14",
+    "artifacts/combined-seed42-20261016/source_recordings.json": "2abf95773621dd6ec045b0a57dc022a209befbec724c6ddfa2fa5804af631b6d",
+    "artifacts/combined-seed42-20261016/history.json": "aaca618f5296baa6c605544abb593041d7e43b67eabf206cc1acb3fe780f0297",
+    "artifacts/combined-seed42-20261016/tinyeegnet_float.pt2": "4105c99f48e37abfd01782f7d2d8e6d72fe775490c04e0fde2d04d645a5966dd",
+    "artifacts/combined-seed42-20261016/split_manifest.json": "3dc5f47f8e9beb4f12748d43222ae71d52dfae6ff465a18bfafbe5c1b6bc0119",
+    "artifacts/combined-seed42-20261016/prepared_tensors.pt": "afc52063c5a2857bb7b41d3771543aa95c7a578b4d55303416f00c332069b303",
+    "artifacts/combined-seed42-20261016/tinyeegnet_float.pt": "04f6e886d3f5e04459947f2d375646229d240b99d7835e0c12e80aa87b998b18",
+    "artifacts/combined-seed42-20261016/best_checkpoint.pt": "1dd02a4d5b61999d49238da87a492fe4b103d29d71b17622010f4890d5e34ec9",
+    "results/combined-seed42-20261016/metrics.json": "d831cb7a19bee19bea491a2f6ab81d99527b919186e8924a30b1156c67dcc605",
+    "results/combined-seed42-20261016/summary.md": "c7cbeebb489592fdc5f0138381cad16b1a5f27866e295e7a5ca7c605d5e1e813"
+  }
+}

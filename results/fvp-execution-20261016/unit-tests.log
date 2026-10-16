@@ -1,0 +1,28 @@
+test_forward_export_reload (test_combined.CombinedTests.test_forward_export_reload) ... ok
+test_leakage_and_duplicates_rejected (test_combined.CombinedTests.test_leakage_and_duplicates_rejected) ... ok
+test_recording_allocations (test_combined.CombinedTests.test_recording_allocations) ... ok
+test_seed_reproduces_training_step (test_combined.CombinedTests.test_seed_reproduces_training_step) ... ok
+test_training_only_stats (test_combined.CombinedTests.test_training_only_stats) ... ok
+test_fold_normalization_and_participant_separation (test_dropout_cv.DropoutCVTests.test_fold_normalization_and_participant_separation) ... ok
+test_fold_partition_and_excluded_recordings (test_dropout_cv.DropoutCVTests.test_fold_partition_and_excluded_recordings) ... ok
+test_matched_initial_weights (test_dropout_cv.DropoutCVTests.test_matched_initial_weights) ... ok
+test_selection_is_participant_weighted_and_conservative (test_dropout_cv.DropoutCVTests.test_selection_is_participant_weighted_and_conservative) ... ok
+test_balanced_accuracy_with_unequal_class_counts (test_export.ExportMetricsTests.test_balanced_accuracy_with_unequal_class_counts) ... ok
+test_flags_changed_prediction (test_fvp_compare.FVPComparisonTests.test_flags_changed_prediction) ... ok
+test_rejects_missing_or_duplicate_outputs (test_fvp_compare.FVPComparisonTests.test_rejects_missing_or_duplicate_outputs) ... ok
+test_rejects_nonfinite_or_inconsistent_prediction (test_fvp_compare.FVPComparisonTests.test_rejects_nonfinite_or_inconsistent_prediction) ... ok
+test_reports_agreement_and_numerical_error (test_fvp_compare.FVPComparisonTests.test_reports_agreement_and_numerical_error) ... ok
+test_cue_offset_crop_and_mapping (test_preprocess.PreprocessingTests.test_cue_offset_crop_and_mapping) ... ok
+test_deterministic_splits (test_preprocess.PreprocessingTests.test_deterministic_splits) ... ok
+test_filter_response_and_scipy_reference (test_preprocess.PreprocessingTests.test_filter_response_and_scipy_reference) ... ok
+test_held_out_signals_cannot_change_training_statistics (test_preprocess.PreprocessingTests.test_held_out_signals_cannot_change_training_statistics) ... ok
+test_shapes_labels_balance_and_artifacts (test_preprocess.PreprocessingTests.test_shapes_labels_balance_and_artifacts) ... ok
+test_split_identities_and_source_bounds (test_preprocess.PreprocessingTests.test_split_identities_and_source_bounds) ... ok
+test_training_normalization (test_preprocess.PreprocessingTests.test_training_normalization) ... ok
+test_wrong_sampling_frequency_is_rejected (test_preprocess.PreprocessingTests.test_wrong_sampling_frequency_is_rejected) ... ok
+test_partition_and_training_only_statistics (test_subject_training.SubjectTrainingTests.test_partition_and_training_only_statistics) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 3.627s
+
+OK

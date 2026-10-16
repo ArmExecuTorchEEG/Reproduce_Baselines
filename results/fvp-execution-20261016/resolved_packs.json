@@ -1,0 +1,22 @@
+[
+  {
+    "pack": "ARM::CMSIS-Compiler@2.3.0",
+    "path": "${CMSIS_PACK_ROOT}/ARM/CMSIS-Compiler/2.3.0"
+  },
+  {
+    "pack": "ARM::CMSIS@6.4.0",
+    "path": "${CMSIS_PACK_ROOT}/ARM/CMSIS/6.4.0"
+  },
+  {
+    "pack": "ARM::SSE_320_BSP@1.0.0",
+    "path": "${CMSIS_PACK_ROOT}/ARM/SSE_320_BSP/1.0.0"
+  },
+  {
+    "pack": "ARM::ethos-u-core-driver@1.26.5",
+    "path": "${CMSIS_PACK_ROOT}/ARM/ethos-u-core-driver/1.26.5"
+  },
+  {
+    "pack": "PyTorch::ExecuTorch@1.5.1",
+    "path": "${CMSIS_PACK_ROOT}/PyTorch/ExecuTorch/1.5.1"
+  }
+]

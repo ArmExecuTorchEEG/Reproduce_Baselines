@@ -1,0 +1,187 @@
+{
+  "seed": 42,
+  "parameters": 1938,
+  "best_epoch": 110,
+  "epochs_run": 130,
+  "training_seconds": 81.48909579194151,
+  "total_seconds": 85.7190685828682,
+  "selection": "Participant 1 Session 1 validation loss only; Session 2 accessed after selection",
+  "metrics": {
+    "train": {
+      "accuracy": 0.9478260869565217,
+      "balanced_accuracy": 0.9473684210526316,
+      "confusion_matrix": [
+        [
+          51,
+          6
+        ],
+        [
+          0,
+          58
+        ]
+      ],
+      "n": 115,
+      "loss": 0.20289592444896698,
+      "artifact_groups": {
+        "clean": {
+          "accuracy": 0.9459459459459459,
+          "balanced_accuracy": 0.9454545454545454,
+          "confusion_matrix": [
+            [
+              49,
+              6
+            ],
+            [
+              0,
+              56
+            ]
+          ],
+          "n": 111
+        },
+        "flagged": {
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0,
+          "confusion_matrix": [
+            [
+              2,
+              0
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "n": 4
+        }
+      }
+    },
+    "validation": {
+      "accuracy": 0.7586206896551724,
+      "balanced_accuracy": 0.7619047619047619,
+      "confusion_matrix": [
+        [
+          10,
+          5
+        ],
+        [
+          2,
+          12
+        ]
+      ],
+      "n": 29,
+      "loss": 0.5158792734146118,
+      "artifact_groups": {
+        "clean": {
+          "accuracy": 0.7777777777777778,
+          "balanced_accuracy": 0.7829670329670331,
+          "confusion_matrix": [
+            [
+              9,
+              5
+            ],
+            [
+              1,
+              12
+            ]
+          ],
+          "n": 27
+        },
+        "flagged": {
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.5,
+          "confusion_matrix": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "n": 2
+        }
+      }
+    },
+    "test": {
+      "accuracy": 0.7986111111111112,
+      "balanced_accuracy": 0.7986111111111112,
+      "confusion_matrix": [
+        [
+          48,
+          24
+        ],
+        [
+          5,
+          67
+        ]
+      ],
+      "n": 144,
+      "loss": 0.44037073850631714,
+      "artifact_groups": {
+        "clean": {
+          "accuracy": 0.8014184397163121,
+          "balanced_accuracy": 0.8024144869215292,
+          "confusion_matrix": [
+            [
+              47,
+              24
+            ],
+            [
+              4,
+              66
+            ]
+          ],
+          "n": 141
+        },
+        "flagged": {
+          "accuracy": 0.6666666666666666,
+          "balanced_accuracy": 0.75,
+          "confusion_matrix": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "n": 3
+        }
+      }
+    }
+  },
+  "torch_export": {
+    "passed": true,
+    "shape": [
+      1,
+      2
+    ],
+    "strict": true,
+    "note": "Float torch.export only; no ExecuTorch/Arm lowering or quantization verified."
+  },
+  "reload_exact_match": true,
+  "artifact_audit": {
+    "1/0train": {
+      "all_class_flags": 15,
+      "right_hand_trials": 72,
+      "right_hand_flags": 3,
+      "left_hand_trials": 72,
+      "left_hand_flags": 3
+    },
+    "1/1test": {
+      "all_class_flags": 7,
+      "left_hand_trials": 72,
+      "left_hand_flags": 1,
+      "right_hand_trials": 72,
+      "right_hand_flags": 2
+    }
+  },
+  "checkpoint_sha256": "63e3479baa0b00cadce5ee7906f25eee873ba561f9040cd07505f5d32b7a51d9",
+  "versions": {
+    "torch": "2.14.1",
+    "numpy": "2.5.4"
+  },
+  "existing_files_unchanged": true
+}

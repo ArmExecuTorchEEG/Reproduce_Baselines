@@ -1,129 +1,122 @@
-# Reproduce_Baselines
+# Reproduce_Baselines — EdgeBCI
 
-Train TinyEEGNet on BCI Competition IV 2a, reproduce published accuracy, quantize to int8, export an ExecuTorch `.pte` for the Ethos-U85.
-Everything downstream (emulator, board) consumes this repo's release artifact.
+Train TinyEEGNet to classify left/right motor imagery from BCI Competition IV
+Dataset 2a, then compile INT8 inference for the Alif Ensemble E8's Ethos-U85.
+Two independently trained models are available locally. Both have executed in
+Arm's Corstone-320 FVP; physical E8 execution is still pending.
 
-## Pipeline
+## Find what you need
 
-```
-MOABB download → bandpass 7–30 Hz → 2 s windows → per-subject split
-      → TinyEEGNet (float) → eval → int8 quantize → eval → export .pte → eval on x86 runtime
-```
-
-## Input
-
-| | |
+| Location | Purpose |
 |---|---|
-| Dataset | BCI Competition IV 2a via `moabb.datasets.BNCI2014_001` (auto-downloads, ~700 MB, no login) |
-| Subjects | 9 (A01–A09) |
-| Channels | 22 EEG at 250 Hz; 3 EOG channels dropped |
-| Classes | left hand, right hand (feet and tongue dropped unless `--classes 4`) |
-| Trial | 4 s motor-imagery window per trial, 288 trials per session, 2 sessions per subject |
-| Split | Session 1 = train/val (80/20), session 2 = test. Never mix sessions. |
+| [EEG recordings](datasets/bci_competition_iv_2a/README.md) | Clear dataset entry point; relative link into the existing ignored `mne_data/` cache |
+| [Model 1: multi-subject](models_ready_for_alif_e8/01_multi_subject_tinyeegnet/README.md) | Selected checkpoint, Alif `.pte`, matching parameters and provenance |
+| [Model 2: Participant 1](models_ready_for_alif_e8/02_subject_01_tinyeegnet/README.md) | Separate checkpoint, Alif `.pte`, matching parameters and provenance |
+| [Training results](results/model_training/README.md) | Both models' metrics, protocols and loss curves |
+| [Accuracy experiments](results/accuracy_experiments/README.md) | Participant-held-out dropout comparison; retained dropout 0.5 |
+| [Hardware validation](results/hardware_validation/README.md) | Compilation, actual FVP outputs, numerical comparisons and setup history |
+| [Reproduction guide](docs/reproduce_workflows.md) | Training, isolated Arm export and FVP commands, including fresh-clone requirements |
 
-## Output
+```text
+Reproduce_Baselines/
+├── models_ready_for_alif_e8/          # finished trained model packages
+│   ├── 01_multi_subject_tinyeegnet/
+│   └── 02_subject_01_tinyeegnet/
+├── datasets/bci_competition_iv_2a/
+│   ├── README.md
+│   └── recordings -> ../../mne_data/MNE-bnci-data/~bci/database/001-2014
+├── src/
+│   ├── data/                        # download, inspect, preprocess, split/calibrate
+│   ├── models/tinyeegnet.py          # Python architecture, not trained assets
+│   ├── experiments/dropout_cv.py     # completed regularization comparison
+│   ├── fvp/                         # reusable preparation, run and comparison harness
+│   ├── train.py                     # combined-participant training
+│   ├── train_subject.py             # Participant 1 training
+│   ├── eval.py  export.py
+│   └── package_models.py             # copy/verify selected assets without overwriting
+├── configs/                         # original defaults and subject1/baseline.yaml
+├── tests/                           # offline automated suite
+├── results/
+│   ├── model_training/              # descriptive index
+│   ├── accuracy_experiments/        # descriptive index
+│   ├── hardware_validation/         # descriptive index
+│   └── <original-run-directories>/  # preserved reports, metrics and logs
+├── artifacts/<original-runs>/       # ignored originals and generated FVP workspaces
+├── mne_data/                        # ignored actual EEG files; loader paths unchanged
+└── docs/reproduce_workflows.md
+```
 
-| Artifact | Shape / format | Used by |
+Original timestamped run directories remain in place because code and provenance
+reference them. The descriptive results folders are indexes; no historical results
+were moved. Finished-model files are hash-verified copies, not renamed originals.
+
+## Model status
+
+| | Model 1: multi-subject | Model 2: Participant 1 |
 |---|---|---|
-| `artifacts/tinyeegnet_float.pt` | PyTorch state dict | – |
-| `artifacts/tinyeegnet_int8.pte` | ExecuTorch, Ethos-U85 delegated | `Emulator_Deploy`, `Edge_Deploy` |
-| `artifacts/test_vectors.npz` | 20 input windows `(20, 1, 22, 500)` int8 + expected logits | On-target correctness check |
-| `artifacts/preprocess_params.json` | Filter coefficients, per-channel mean/std, quantization scale and zero point | `Edge_Deploy` on-board preprocessing (must be bit-identical) |
-| `results/results.md` | Accuracy table, float vs int8, per subject | Org README, submission |
+| Training | S1–5 both sessions; S6–7 Session 1 (1,728 trials) | S1 Session 1, stratified 115 train / 29 validation |
+| Validation accuracy | S8: 93.06% | S1 Session 1: 75.86% |
+| Held-out accuracy | S6–7 Session 2: 62.15%; S9: 59.03% | S1 Session 2: 79.86% |
+| Compiled E8 PTE | 13,056 bytes | 13,072 bytes |
+| Actual FVP vs host Q/DQ, four validation inputs | 100% prediction agreement; max logit error 0.026093 **exceeds 0.01** | 100% agreement; max error 2.28e-9 **passes 0.01** |
+| Physical E8 | Pending | Pending; promising Participant 1 demo candidate |
 
-Model input is fixed: `(1, 1, 22, 500)` = one window, 22 channels, 2 s at 250 Hz. Output `(1, 2)` logits. No dynamic shapes.
+The evaluations use different people/session allocations, so these numbers do not
+establish which model is superior. FVP results are small execution smoke tests,
+not full-dataset accuracy. Float-versus-Q/DQ discrepancies remain documented;
+no verified release or `v0.1-baseline` tag has been published.
 
-## Expectations
+Both use the same 1,938-parameter TinyEEGNet: temporal convolution, depthwise
+spatial convolution, separable convolution, ReLU, average pooling, dropout 0.5
+and two logits. BatchNorm folds at export. All model compute delegates to U85;
+output dequantization runs on CPU. Experiments 1 (structural ablation) and 2
+(sensor dropout) remain unimplemented.
 
-| Metric | Target | Source |
-|---|---|---|
-| Float accuracy, 2-class, subject 1, session 2 | ≥ 75 % | EEGNet paper reports ~70–80 % cross-session for strong subjects |
-| Float accuracy, 2-class, mean over 9 subjects | ≥ 70 % | |
-| Int8 accuracy drop | ≤ 2 points | |
-| `.pte` size | < 100 KB | |
-| `.pte` runs under ExecuTorch x86 runtime, logits match PyTorch within 1 e-2 after dequant | required | |
+EEG preprocessing: ordered 22 channels, 250 Hz, causal 7–30 Hz Butterworth,
+cue-relative [1,3) seconds, training-only channel mean/std, retain artifact flags.
+PyTorch input is float32 `(N,1,22,500)`; deployment input is signed int8
+`(1,1,22,500)`, output float32 `(1,2)`, left=0/right=1. **Use each model's own
+`preprocess_params.json`; never interchange normalization or quantization.**
 
-Below these, do not tag a release. Fix it or document why.
+## Start from a fresh clone
 
-## Steps
-
-```bash
-# 0. Environment (Python 3.10–3.12)
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt            # torch, executorch, moabb, mne, numpy, scikit-learn
-pip install -r requirements-arm.txt        # executorch Arm backend + TOSA deps (see starter repo)
-
-# 1. Data (downloads once, caches under ~/mne_data)
+```sh
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
 python -m src.data.download --subjects all
-
-# 2. Train float model
-python -m src.train --subject 1 --classes 2 --epochs 200 --early-stop 20
-
-# 3. Evaluate float
-python -m src.eval --checkpoint artifacts/tinyeegnet_float.pt --subject 1
-
-# 4. Quantize (post-training, int8, Ethos-U quantizer) and evaluate
-python -m src.quantize --checkpoint artifacts/tinyeegnet_float.pt --calib-windows 200
-python -m src.eval --checkpoint artifacts/tinyeegnet_int8.pt --subject 1
-
-# 5. Export .pte for Ethos-U85 (256 MACs/cycle, matches the starter repo)
-python -m src.export --target ethos-u85-256 --out artifacts/tinyeegnet_int8.pte
-
-# 6. Verify .pte on host and dump test vectors
-python -m src.verify_pte artifacts/tinyeegnet_int8.pte --dump artifacts/test_vectors.npz
-
-# 7. All subjects, full table
-python -m src.run_all --classes 2 > results/results.md
+python -m src.data.inspect_dataset
 ```
 
-## Layout
+The dataset link becomes usable after download. Git includes code, guides,
+provenance, small JSON metadata and the two explicitly selected checkpoint/PTE
+pairs under `models_ready_for_alif_e8/`. Cindy and Moamen can clone this branch
+or download either package directly from GitHub. Other checkpoints/PTEs, NPZ
+vectors, raw EEG and FVP build workspaces stay local. Run
+`python -m src.package_models --verify-only` after cloning. Optional training
+test vectors remain local; no release tag is required to download the tracked models. If the original local run folders are available,
+`python -m src.package_models` creates missing convenience copies and refuses to
+overwrite changed files. Every copy's original path and SHA-256 are recorded in
+its package's `provenance.json`.
 
+For new training runs, use unused names:
+
+```sh
+python -m src.train --config configs/default.yaml --run-name my-new-combined-run
+python -m src.train_subject --config configs/subject1/baseline.yaml --run-name my-new-subject1-run
 ```
-src/
-  data/        download.py, preprocess.py (filter, epoch, normalize), splits.py
-  models/      tinyeegnet.py, eegnet.py (reference), shallowconvnet.py (reference)
-  train.py  eval.py  quantize.py  export.py  verify_pte.py  run_all.py
-configs/       default.yaml (window, filter, lr, seed)
-artifacts/     git-ignored except *.json; .pte and .pt attached to GitHub releases
-results/       results.md, confusion matrices, 2 success + 2 failure example plots
-tests/         test_preprocess.py (filter output matches scipy reference), test_shapes.py
-```
 
-## Model
+See [the reproduction guide](docs/reproduce_workflows.md) first: retained helpers
+reference the original combined run's metadata, so a blank clone must restore or
+reproduce that named baseline before the subject-specific workflow. The Arm
+exporter uses a **separate** official environment (ExecuTorch/runtime 1.5.1,
+torch 2.14.0, torchao 0.18.0, Vela 5.1.0). Do not mix it into the pinned training
+environment. FVP additionally requires activated Arm tools/licenses and Docker
+on macOS; exact commands and memory configuration are in the linked FVP report.
 
-TinyEEGNet, per the proposal:
-
-| Layer | Purpose | Shape out |
-|---|---|---|
-| Conv2d temporal (1×64 kernel, 8 filters) | Band-pass-like filters in 7–30 Hz | (8, 22, 500) |
-| Depthwise Conv2d spatial (22×1, depth 2) | Mixes electrodes over motor cortex | (16, 1, 500) |
-| BatchNorm, ELU, AvgPool 1×4, Dropout | | (16, 1, 125) |
-| Separable Conv2d (1×16), BatchNorm, ELU, AvgPool 1×8 | | (16, 1, 15) |
-| Flatten, Linear | | (2,) |
-
-Constraints for the NPU: no ELU in int8 on Ethos-U85 (replace with ReLU or verify operator support), no dynamic control flow, BatchNorm folded at export. ~2 k parameters.
-
-## Experiments (from proposal)
-
-| Exp | Change | Report |
-|---|---|---|
-| 1 Structural ablation | Replace spatial conv with Linear | accuracy vs `.pte` size |
-| 2 Sensor dropout | Zero k channels at test time, k = 0…22 | accuracy vs k, chance line at 50 % |
-
-Run with `python -m src.experiments.ablation` and `python -m src.experiments.dropout`.
-
-## Reproducibility
-
-- Seed fixed in `configs/default.yaml`; `run_all.py` prints torch, executorch, moabb versions into `results.md`.
-- Release tag `v0.1-baseline` carries the `.pte`, test vectors and params as release assets.
-
-## Status
-
-| Step | Done |
-|---|---|
-| Data loads, shapes verified | |
-| Float ≥ 75 % subject 1 | |
-| Int8 within 2 pts | |
-| `.pte` exported and verified on host | |
-| Release `v0.1-baseline` | |
-| Experiments 1–2 | |
+The downstream release contract remains `artifacts/tinyeegnet_int8.pte`,
+`artifacts/test_vectors.npz`, `artifacts/preprocess_params.json`, input/output
+shapes above, tag `v0.1-baseline`. Those canonical release paths were not replaced
+by these convenience packages. Physical E8 bring-up, on-board numerical checks,
+memory/latency verification and streaming EEG integration are the next steps.

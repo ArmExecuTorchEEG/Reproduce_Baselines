@@ -1,0 +1,14 @@
+{
+  "original_files_hash_verified": 1000,
+  "checkpoints_before_and_after": "both loaded; forward (1,1,22,500) -> (1,2)",
+  "package_files_verified": 20,
+  "dataset_files": 18,
+  "dataset_moved_or_copied": false,
+  "before_tests": "23 passed",
+  "after_tests": "23 passed",
+  "historical_paths_moved": false,
+  "FVP_reproduction_paths": "valid for both existing workspaces",
+  "new_navigation_links": "all resolve locally",
+  "branch": "feature/tinyeegnet-training",
+  "committed_or_pushed": false
+}

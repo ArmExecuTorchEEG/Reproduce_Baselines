@@ -1,0 +1,18 @@
+{
+  "repair": "approved reset and replacement of two privileged Docker helpers",
+  "signed_team": "Docker Inc (9BNSXJN65R)",
+  "system_helpers_verified": true,
+  "system_helpers_identical_to_verified_bundled_copies": true,
+  "docker_desktop": "4.95.0 (242831)",
+  "docker_engine": "29.8.2",
+  "docker_server_arch": "linux/arm64",
+  "docker_engine_running": true,
+  "docker_data_removed": false,
+  "macos_security_bypassed": false,
+  "model2_fvp": "not executed",
+  "model2_build_blocker": "Arm Compiler 6.24.0 failed to check out a license; license activation not available to build process",
+  "fvp_eula": "awaiting separate explicit user acceptance",
+  "prior_artifact_result_files_hash_verified": 178,
+  "branch": "feature/tinyeegnet-training",
+  "committed_or_pushed": false
+}

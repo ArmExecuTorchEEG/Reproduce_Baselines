@@ -1,0 +1,33 @@
+{
+  "status": "blocked_pending_user_license_activation_and_tool_pack_setup",
+  "host": {
+    "os": "macOS 15.6.1",
+    "architecture": "arm64"
+  },
+  "official_hackathon_commit": "a6364946165f21b27c1f5cf6998a701ded8ed73e",
+  "installed": {
+    "Docker Desktop": "4.95.0",
+    "CMSIS-Toolbox": "2.15.0",
+    "Keil Studio Pack": "1.20.3",
+    "CMSIS Solution": "1.72.0",
+    "Arm Environment Manager": "1.26.0"
+  },
+  "licenses_accepted_by_agent": false,
+  "model2": {
+    "staged": true,
+    "firmware_built": false,
+    "fvp_executed": false,
+    "prediction_agreement": null,
+    "max_logit_error": null,
+    "validation_trials": 4
+  },
+  "model1": {
+    "staged": false,
+    "fvp_executed": false,
+    "reason": "waiting for Model 2 execution success"
+  },
+  "existing_artifact_result_files_hash_verified": 178,
+  "tests": "23 passed",
+  "bash_syntax": "passed",
+  "git_diff_check": "passed"
+}

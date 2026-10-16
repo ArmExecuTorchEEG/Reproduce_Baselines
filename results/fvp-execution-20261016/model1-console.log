@@ -1,0 +1,12 @@
+Ethos-U version info:
+	Arch:       v2.0.0
+	MACs/cc:    256
+	Cmd stream: v1
+ExecuTorch Ethos-U85 example: 13056 byte model
+EEG_RESULT 0 1.200279 -1.74823236 0
+EEG_RESULT 1 0.965441763 -0.861069679 0
+EEG_RESULT 2 -1.93088353 1.72213936 1
+EEG_RESULT 3 -1.51339519 1.43511617 1
+Execution_result: PASS (compare host reference separately)
+
+Info: /OSCI/SystemC: Simulation stopped by user.

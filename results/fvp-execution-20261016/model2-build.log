@@ -1,0 +1,93 @@
+warning csolution: file '/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/.cmsis/cmsis-executorch+SSE-320-U85.dbgconf' not found; use --update-rte
++-----------------------------------------------------------
+(1/1) Building context: "cmsis-executorch.Debug+SSE-320-U85"
+Using AC6 V6.24.0 compiler, from: '/Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin'
+Building CMake target 'cmsis-executorch.Debug+SSE-320-U85'
+Using compiler: AC6 V6.24.0
+[1/72] Building C object CMakeFiles/ARM_Device_Definition_2_0_0.dir/Users/philippinechauvet/.cache/arm/packs/ARM/SSE_320_BSP/1.0.0/Board/Device_Definition/device_definition.o
+[2/72] Building C object 'CMakeFiles/Group_TinyCNN.dir/Users/philippinechauvet/Library/Mobile_Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/ai_layer/model_pte.o'
+[3/72] Building C object 'CMakeFiles/Group_Board.dir/Users/philippinechauvet/Library/Mobile_Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/main.o'
+[4/72] Building C object CMakeFiles/ARM_CMSIS-Compiler_CORE_1_2_1.dir/Users/philippinechauvet/.cache/arm/packs/ARM/CMSIS-Compiler/2.3.0/source/core/armcc/retarget_io.o
+[5/72] Building C object 'CMakeFiles/Group_Board.dir/Users/philippinechauvet/Library/Mobile_Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/retarget_stdio.o'
+[6/72] Building C object CMakeFiles/ARM_Device_Native_Driver_SysCounter_1_0_1.dir/Users/philippinechauvet/.cache/arm/packs/ARM/SSE_320_BSP/1.0.0/Device/Source/syscounter_armv8-m_read_drv.o
+[7/72] Building C object CMakeFiles/ARM_Device_Native_Driver_SysCounter_1_0_1.dir/Users/philippinechauvet/.cache/arm/packs/ARM/SSE_320_BSP/1.0.0/Device/Source/syscounter_armv8-m_cntrl_drv.o
+[8/72] Building C object 'CMakeFiles/Group_Board.dir/Users/philippinechauvet/Library/Mobile_Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/ethos_setup.o'
+[9/72] Building C object CMakeFiles/ARM_Device_Native_Driver_SysTimer_1_0_0.dir/Users/philippinechauvet/.cache/arm/packs/ARM/SSE_320_BSP/1.0.0/Device/Source/systimer_armv8-m_drv.o
+[10/72] Building C object 'CMakeFiles/ARM_Device_Startup_C_Startup_2_0_0.dir/Users/philippinechauvet/Library/Mobile_Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/system_SSE320.o'
+[11/72] Building C object CMakeFiles/ARM_Device_Native_Driver_Timeout_1_0_1.dir/Users/philippinechauvet/.cache/arm/packs/ARM/SSE_320_BSP/1.0.0/Device/Source/systimer_armv8-m_timeout.o
+[12/72] Building C object 'CMakeFiles/ARM_Device_Startup_C_Startup_2_0_0.dir/Users/philippinechauvet/Library/Mobile_Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/startup_SSE320.o'
+[13/72] Building C object CMakeFiles/ARM_Machine_Learning_NPU_Support_Ethos-U_Driver_Generic_U85_1_26_5.dir/Users/philippinechauvet/.cache/arm/packs/ARM/ethos-u-core-driver/1.26.5/ethos_u_core_driver/src/ethosu_pmu.o
+[14/72] Building C object CMakeFiles/ARM_Machine_Learning_NPU_Support_Ethos-U_Driver_Generic_U85_1_26_5.dir/Users/philippinechauvet/.cache/arm/packs/ARM/ethos-u-core-driver/1.26.5/ethos_u_core_driver/src/ethosu_device_u85.o
+[15/72] Building C object CMakeFiles/ARM_Machine_Learning_NPU_Support_Ethos-U_Driver_Generic_U85_1_26_5.dir/Users/philippinechauvet/.cache/arm/packs/ARM/ethos-u-core-driver/1.26.5/ethos_u_core_driver/src/ethosu_driver.o
+[16/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Backend_EthosU_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/backends/arm/runtime/EthosUBackend_IoMemcpy.o
+[17/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Backend_EthosU_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/backends/arm/runtime/VelaBinStream.o
+[18/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Registration_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/registration/RegisterAllKernels.o
+[19/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Backend_EthosU_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/backends/arm/runtime/EthosUBackend.o
+[20/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Backend_EthosU_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/backends/arm/runtime/EthosUBackend_Cortex_M.o
+[21/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/pattern/unary_ufunc_realhbbf16_to_bool.o
+[22/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/pattern/unary_ufunc_realhbf16.o
+[23/72] Building CXX object 'CMakeFiles/Group_App.dir/Users/philippinechauvet/Library/Mobile_Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/src/app_main.o'
+[24/72] Building CXX object 'CMakeFiles/Group_App.dir/Users/philippinechauvet/Library/Mobile_Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/src/arm_embedded_module.o'
+[25/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/pattern/unary_ufunc_realhbbf16_to_floathbf16.o
+[26/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/activation_ops_util.o
+[27/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/broadcast_util.o
+[28/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/delinearize_index.o
+[29/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/arange_util.o
+[30/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/advanced_index_util.o
+[31/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/distance_util.o
+In file included from /Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/distance_util.cpp:9:
+/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/include/executorch/kernels/portable/cpu/util/distance_util.h:119:39: warning: use of infinity via a macro is undefined behavior due to the currently enabled floating-point options [-Wnan-infinity-disabled]
+  119 |   } else if (p == static_cast<double>(INFINITY)) {
+      |                                       ^
+/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/include/executorch/kernels/portable/cpu/util/distance_util.h:119:39: warning: use of infinity is undefined behavior due to the currently enabled floating-point options [-Wnan-infinity-disabled]
+  119 |   } else if (p == static_cast<double>(INFINITY)) {
+      |                                       ^~~~~~~~
+/Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/include/math.h:271:21: note: expanded from macro 'INFINITY'
+  271 | #   define INFINITY __builtin_inff()
+      |                     ^~~~~~~~~~~~~~~~
+2 warnings generated.
+[32/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/dtype_util.o
+[33/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/copy_ops_util.o
+[34/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/grid_sampler_2d_util.o
+[35/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/index_util.o
+[36/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/matmul_ops_util.o
+[37/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Operators_Quantized_dequantize_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/quantized/cpu/op_dequantize.o
+[38/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/normalization_ops_util.o
+[39/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/kernel_ops_util.o
+[40/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/padding_util.o
+[41/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/reduce_util.o
+[42/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/core/device_allocator.o
+[43/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/repeat_util.o
+[44/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/core/device_memory_buffer.o
+[45/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/select_copy_util.o
+[46/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/core/tag.o
+[47/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/core/exec_aten/util/tensor_shape_to_c_string.o
+[48/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/slice_util.o
+[49/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/upsample_util.o
+[50/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/backend/interface.o
+[51/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/core/evalue.o
+[52/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/core/portable_type/tensor_impl.o
+[53/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/core/tensor_layout.o
+[54/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/core/exec_aten/util/tensor_util_portable.o
+[55/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/quantized/cpu/embeddingxb.o
+[56/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Kernel_Utils_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/kernels/portable/cpu/util/stack_util.o
+[57/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/platform/abort.o
+[58/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/platform/default/minimal.o
+[59/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/platform/log.o
+[60/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/platform/platform.o
+[61/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/platform/profiler.o
+[62/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/platform/runtime.o
+[63/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/schema/extended_header.o
+[64/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/executor/method_meta.o
+[65/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/kernel/operator_registry.o
+[66/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/executor/program_validation.o
+[67/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/executor/pte_data_map.o
+[68/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/executor/tensor_parser_portable.o
+[69/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/executor/tensor_parser_exec_aten.o
+[70/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/executor/method.o
+[71/72] Building CXX object CMakeFiles/PyTorch_Machine_Learning_ExecuTorch_Runtime_1_5_1.dir/Users/philippinechauvet/.cache/arm/packs/PyTorch/ExecuTorch/1.5.1/src/runtime/executor/program.o
+[72/72] Linking CXX executable "/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/out/cmsis-executorch/SSE-320-U85/Debug/cmsis-executorch.axf"
+Program Size: Code=118632 RO-data=67700 RW-data=393376 ZI-data=8527156  
++------------------------------------------------------------
+Build summary: 1 succeeded, 0 failed - Time Elapsed: 00:00:28
++============================================================

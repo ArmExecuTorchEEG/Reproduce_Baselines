@@ -1,0 +1,82 @@
+warning csolution: file '/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/.cmsis/cmsis-executorch+SSE-320-U85.dbgconf' not found; use --update-rte
++-----------------------------------------------------------
+(1/1) Building context: "cmsis-executorch.Debug+SSE-320-U85"
+Using AC6 V6.24.0 compiler, from: '/Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin'
+FAILED: [code=1] cmsis-executorch.Debug+SSE-320-U85/src/cmsis-executorch.Debug+SSE-320-U85-stamp/cmsis-executorch.Debug+SSE-320-U85-configure /Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/cmsis-executorch.Debug+SSE-320-U85/src/cmsis-executorch.Debug+SSE-320-U85-stamp/cmsis-executorch.Debug+SSE-320-U85-configure 
+cd "/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/1" && /Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/tools.kitware.cmake/4.2.1/bin/cmake -P "/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/cmsis-executorch.Debug+SSE-320-U85/src/cmsis-executorch.Debug+SSE-320-U85-stamp/cmsis-executorch.Debug+SSE-320-U85-configure-.cmake" && /Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/tools.kitware.cmake/4.2.1/bin/cmake -E touch "/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/cmsis-executorch.Debug+SSE-320-U85/src/cmsis-executorch.Debug+SSE-320-U85-stamp/cmsis-executorch.Debug+SSE-320-U85-configure"
+CMake Error at /Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/cmsis-executorch.Debug+SSE-320-U85/src/cmsis-executorch.Debug+SSE-320-U85-stamp/cmsis-executorch.Debug+SSE-320-U85-configure-.cmake:37 (message):
+  Command failed: 1
+
+   '/Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/tools.kitware.cmake/4.2.1/bin/cmake' '-G' 'Ninja' '-S' '/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/cmsis-executorch.Debug+SSE-320-U85' '-B' '/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/1' '-DSOLUTION_ROOT=/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project' '-DCMSIS_PACK_ROOT=/Users/philippinechauvet/.cache/arm/packs' '-DCMSIS_COMPILER_ROOT=/Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/tools.open.cmsis.pack.cmsis.toolbox/2.15.0/etc'
+
+  See also
+
+    /Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/cmsis-executorch.Debug+SSE-320-U85/src/cmsis-executorch.Debug+SSE-320-U85-stamp/cmsis-executorch.Debug+SSE-320-U85-configure-*.log
+
+
+-- stdout output is:
+-- The CXX compiler identification is unknown
+-- The C compiler identification is unknown
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - failed
+-- Check for working CXX compiler: /Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin/armclang
+-- Check for working CXX compiler: /Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin/armclang - broken
+-- Configuring incomplete, errors occurred!
+
+-- stderr output is:
+CMake Error at /Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/tools.kitware.cmake/4.2.1/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:73 (message):
+  The C++ compiler
+
+    "/Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin/armclang"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: '/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/1/CMakeFiles/CMakeScratch/TryCompile-SuVe2C'
+    
+    Run Build Command(s): /Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/tools.ninja.build.ninja/1.13.2/ninja -v cmTC_93921
+    [1/2] /Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin/armclang   --target=arm-arm-none-eabi -mcpu=Cortex-M85 -mfloat-abi=hard -o CMakeFiles/cmTC_93921.dir/testCXXCompiler.cxx.obj -c '/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/1/CMakeFiles/CMakeScratch/TryCompile-SuVe2C/testCXXCompiler.cxx'
+    FAILED: [code=1] CMakeFiles/cmTC_93921.dir/testCXXCompiler.cxx.obj 
+    /Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin/armclang   --target=arm-arm-none-eabi -mcpu=Cortex-M85 -mfloat-abi=hard -o CMakeFiles/cmTC_93921.dir/testCXXCompiler.cxx.obj -c '/Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/1/CMakeFiles/CMakeScratch/TryCompile-SuVe2C/testCXXCompiler.cxx'
+    armclang: error: Failed to check out a license.
+    The license file could not be found. Check that ARMLMD_LICENSE_FILE is set correctly.
+    armclang: note: ARMLMD_LICENSE_FILE is not set. You must set this to the path to your license.
+    armclang: note: Information about this error is available at https://developer.arm.com/support/lic87/m1
+     General licensing information is available at https://developer.arm.com/support/licensing/
+     If you need further help, provide this complete error message to your supplier or to Arm via https://services.arm.com/support/s/contactsupport
+     - ARMLMD_LICENSE_FILE: unset
+     - LM_LICENSE_FILE: unset
+     - ARM_PRODUCT_DEF: unset
+     - ARM_PRODUCT_PATH: unset
+     - ARM_TOOL_VARIANT: unset
+     - Product location: /Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/sw/mappings
+     - Toolchain location: /Users/philippinechauvet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin
+     - Selected tool variant: product
+    armclang: note:  - Checkout feature: compiler5
+     - Feature version: 5.0202502
+     - Flex error code: -1
+    Product: Arm Compiler for Embedded 6.24 Professional
+    Component: Arm Compiler for Embedded 6.24
+    Tool: armclang [5f371900]
+    
+    ninja: build stopped: subcommand failed.
+    
+    
+
+
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:38 (project)
+
+
+
+CMake Error at /Users/philippinechauvet/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Reproduce_Baselines/artifacts/fvp-subject1-20261016-ready/project/tmp/SSE-320-U85/default/cmsis-executorch.Debug+SSE-320-U85/src/cmsis-executorch.Debug+SSE-320-U85-stamp/cmsis-executorch.Debug+SSE-320-U85-configure-.cmake:47 (message):
+  Stopping after outputting logs.
+
+
+ninja: build stopped: subcommand failed.
++------------------------------------------------------------
+Build summary: 0 succeeded, 1 failed - Time Elapsed: 00:00:13
++============================================================

@@ -12,3 +12,20 @@ artifacts/*
 mne_data/
 .claude/worktrees/
 .DS_Store
+
+# Dataset entry point: track its guide and relative link, never recording contents.
+/datasets/**
+!/datasets/bci_competition_iv_2a/
+!/datasets/bci_competition_iv_2a/README.md
+!/datasets/bci_competition_iv_2a/recordings
+/datasets/bci_competition_iv_2a/recordings/**
+
+# Finished-model copies: binaries and local inference vectors are release assets.
+/models_ready_for_alif_e8/**/*.pt2
+/models_ready_for_alif_e8/**/*.npz
+
+# Explicitly approved final model binaries; all other checkpoints/PTEs stay ignored.
+!/models_ready_for_alif_e8/01_multi_subject_tinyeegnet/best_checkpoint.pt
+!/models_ready_for_alif_e8/01_multi_subject_tinyeegnet/tinyeegnet_int8.pte
+!/models_ready_for_alif_e8/02_subject_01_tinyeegnet/best_checkpoint.pt
+!/models_ready_for_alif_e8/02_subject_01_tinyeegnet/tinyeegnet_int8.pte

@@ -1,0 +1,11 @@
+{
+  "baseline_sha256_unchanged": true,
+  "all_six_reloads_exports_passed": true,
+  "all_six_initial_states_identical": true,
+  "only_dropout_differs_between_configs": true,
+  "fold_shapes_dtypes_balance_and_training_standardization_passed": true,
+  "source_files_used": 12,
+  "subject8_loaded": false,
+  "demonstration_or_s9_used": false,
+  "retained_baseline_batch1_batch4_and_saved_export_match": true
+}
