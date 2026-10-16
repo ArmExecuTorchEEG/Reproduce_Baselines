@@ -1,0 +1,7 @@
+{
+ "subject": 3,
+ "seed": 2,
+ "run": "runs/loso_s3_seed2",
+ "selection": "subject: manager decision / highest mean row-B float accuracy; seed: lowest best validation loss",
+ "mean_float_accuracy": 0.9222222222222222
+}
