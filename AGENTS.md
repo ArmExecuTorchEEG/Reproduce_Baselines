@@ -11,6 +11,10 @@ Project overview and repo map: https://github.com/ArmExecuTorchEEG
 | `src/quantize.py`, `src/export.py`, `artifacts/*.json` | TBD | PR |
 | `src/experiments/` | TBD | PR |
 | `configs/default.yaml` | TBD | PR; never change `seed`, `window`, `fs` silently |
+| `src/data/external.py`, `src/data/cache125.py`, `src/data/splits125.py` (v2 data) | TBD | PR |
+| `src/models/convnets.py`, `src/train_teacher.py`, `src/distill.py`, `src/run_v2.py` (v2 training) | TBD | PR |
+| `configs/v2.yaml` | TBD | PR; never change `fs_model`, `window`, `window_start`, `crop_offset`, `filter`, `ea_eps`, `seeds` silently (mirrored in `src/data/cache125.py`) |
+| `docs/v2_handoff.md` | TBD | PR |
 | `results/` | author of the run | add only; never overwrite another run's file |
 
 ## Contracts
@@ -21,7 +25,15 @@ Model input `(1,1,22,500)` int8, output `(1,2)` logits. Release tag `v0.1-baseli
 - `artifacts/tinyeegnet_float.pt`, `artifacts/calibration.npz` (200 training windows): inputs for the starter's `create_ai_layer.py`.
 - Filter is causal (`sosfilt` on the continuous signal); window cue+0.5 s to cue+2.5 s; `src/models/tinyeegnet.py` must stay identical to `Emulator_Deploy/model/model.py`.
 - Test data (target subject session 2 trials 25–144) is never used for early stopping, model selection, normalisation or calibration.
-- The delegated `.pte` does not run on the x86 runtime. Host int8 check = fake-quant model (`src/quantize.py`); target check = FVP in Emulator_Deploy (pending, not run yet).
+- The delegated `.pte` does not run on the x86 runtime. Host int8 check = fake-quant model (`src/quantize.py`); target check = FVP in Emulator_Deploy (v0.1: 20/20, release `v0.2-fvp`; v2: 20/20 on branch `v2/fvp-256`).
+
+v2 bundle (release tag `v0.3-distill`, planned; `v0.1-baseline` stays). Model input `(1,1,22,256)` int8 at 125 Hz, output `(1,2)` logits. Hand-off: `docs/v2_handoff.md`.
+- `artifacts/v2/` holds the bundle (shipped: wide32 seed 0, export subject A03). `.gitignore` keeps everything in `artifacts/` except top-level `*.json` out of git, so all of `artifacts/v2/` (including its `preprocess_params.json`) ships via the release and the Drive folder, not git.
+- Same file names as v0.1 plus `student.json` (`F1`, `D`, `F2`, `kern_t`, `kern_s`; shipped wide32 = 16, 2, 32, 32, 16). `src/models/tinyeegnet.get_model` reads it; without it the v0.1 defaults apply. `src/models/tinyeegnet.py` must still stay identical to `Emulator_Deploy/model/model.py`.
+- `test_vectors.npz`: `x` int8 (20,1,22,256) = export subject session 2 trials 25–44, `logits` float32 (20,2), `y` int64 (20,). `calibration.npz`: `x` (200,1,22,256).
+- `preprocess_params.json` (`version` `"v2"`): `fs` 250 (UART), `fs_model` 125, `n_samples` 256, `input_shape`, `channel_order`, `reference` `common_average_22` (per-sample mean of the 22 subtracted at 250 Hz, before the filter), `sos` (v0.1 SOS at 250 Hz), `filter`, `decimation` `{factor 2, phase 0, applied_after sos_filter_250hz}`, `window` (start 62 samples after the cue at 125 Hz, length 256), `cue_offset_s`, `ea_matrix` (export subject), `ea_matrices` (all 9 2a subjects, keys `"1"`..`"9"`), `ea_calibration` (session 2 trials 1–24, no labels, `eps` 0.001), `input_scale`, `input_quant_scale`, `input_zero_point`, `input_formula`, `class_map`, `output`, `student`. No `tmin` / `tmax` (v0.1 keys); use `window`.
+- BCI IV 2a is test only in v2: no labeled 2a trial is trained on; session 2 trials 1–24 enter distillation as unlabeled calibration (EA + teacher soft labels), trials 25–144 are the test block.
+- `src/data/external.py` never downloads; Cho2017 and Lee2019_MI must already be in `~/mne_data` (MOABB `data_path`, provider `upstream`).
 
 ## Commands
 ```
@@ -32,6 +44,12 @@ python -m src.train --mode loso --subject 1 --seed 0 --out runs/loso_s1_seed0
 python -m src.quantize --run runs/loso_s1_seed0          # int8 (fake-quant) predictions for the run
 python -m src.run_all --jobs 6                           # all runs + results/results.md
 python -m src.export --checkpoint runs/loso_sN_seed0/model.pt --subject N --out artifacts/tinyeegnet_int8.pte
+# v2 (configs/v2.yaml; Cho2017 + Lee2019_MI must be downloaded first)
+python -m src.train_teacher --seed 0 --out runs/v2/teacher_seed0 --device mps
+python -m src.distill --seed 0 --student wide32 --teacher runs/v2/teacher_seed0 --out runs/v2/student_wide32_seed0 --device mps
+python -m src.quantize --run runs/v2/student_wide32_seed0             # int8 (fake-quant) predictions
+python -m src.run_v2 --jobs 1 --seeds 0 1 2 --students wide32 control  # all v2 runs + results/results_v2.md
+python -m src.export --checkpoint runs/v2/student_wide32_seedK/model.pt --run-dir runs/v2/student_wide32_seedK --subject 3 --out artifacts/v2/tinyeegnet_int8.pte
 ```
 Large files (`.pt`, `.pte`, `.npz`, `~/mne_data`) are git-ignored; attach them to the GitHub release.
 

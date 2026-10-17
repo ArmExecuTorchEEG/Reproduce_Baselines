@@ -8,7 +8,9 @@ BatchNorm folded at export, no Softmax (logits out). Input ``(B, 1, 22, 500)`` f
 Exposes the CMSIS-Executorch starter interface ``get_model`` / ``get_calibration_inputs``
 so ``create_ai_layer.py`` can quantize and delegate it unchanged: copy this file,
 ``tinyeegnet_float.pt`` and ``calibration.npz`` next to each other into the starter's
-``model/`` directory.
+``model/`` directory. An optional ``student.json`` beside this file (keys ``F1``, ``D``,
+``F2``, ``kern_t``, ``kern_s``) sets the layer widths ``get_model`` builds; without it the
+defaults below are used.
 """
 
 from __future__ import annotations
@@ -23,6 +25,8 @@ N_CLASSES = 2
 _HERE = Path(__file__).resolve().parent
 FLOAT_CHECKPOINT = _HERE / "tinyeegnet_float.pt"
 CALIBRATION_FILE = _HERE / "calibration.npz"
+STUDENT_CONFIG = _HERE / "student.json"
+STUDENT_KEYS = ("F1", "D", "F2", "kern_t", "kern_s")
 
 
 def _feature_length(n_samples: int, kern_t: int, kern_s: int, pool1: int, pool2: int) -> int:
@@ -73,13 +77,24 @@ class TinyEEGNet(nn.Module):
         return self.fc(torch.flatten(x, 1))
 
 
+def student_widths() -> dict[str, int]:
+    """Layer widths from ``student.json`` beside this file (only ``STUDENT_KEYS``), or ``{}``."""
+    if not STUDENT_CONFIG.is_file():
+        return {}
+    import json
+
+    cfg = json.loads(STUDENT_CONFIG.read_text())
+    return {k: int(cfg[k]) for k in STUDENT_KEYS if k in cfg}
+
+
 def get_model(input_shape: tuple[int, ...] = INPUT_SHAPE) -> nn.Module:
     """Starter entry point: TinyEEGNet in eval mode, with the trained weights from
     ``tinyeegnet_float.pt`` beside this file when present (random init with a fixed
-    seed otherwise, so an export without weights is still deterministic)."""
+    seed otherwise, so an export without weights is still deterministic). Layer widths
+    come from ``student.json`` beside this file when present, else the defaults."""
     _, _, n_channels, n_samples = input_shape
     torch.manual_seed(0)
-    model = TinyEEGNet(n_channels=n_channels, n_samples=n_samples)
+    model = TinyEEGNet(n_channels=n_channels, n_samples=n_samples, **student_widths())
     if FLOAT_CHECKPOINT.is_file():
         state = torch.load(FLOAT_CHECKPOINT, map_location="cpu", weights_only=True)
         model.load_state_dict(state)
