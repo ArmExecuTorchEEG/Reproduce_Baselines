@@ -15,6 +15,9 @@ Project overview and repo map: https://github.com/ArmExecuTorchEEG
 | `src/models/convnets.py`, `src/train_teacher.py`, `src/distill.py`, `src/run_v2.py` (v2 training) | TBD | PR |
 | `configs/v2.yaml` | TBD | PR; never change `fs_model`, `window`, `window_start`, `crop_offset`, `filter`, `ea_eps`, `seeds` silently (mirrored in `src/data/cache125.py`) |
 | `docs/v2_handoff.md` | TBD | PR |
+| `src/models/riemann.py`, `src/train_soft.py`, `src/finetune_student.py` (v4 training) | TBD | PR |
+| `configs/v4.yaml`, `configs/v4soft.yaml` | TBD | PR; pipeline keys must equal `configs/v2.yaml` (`tests/test_v4.py`) |
+| `docs/v4_handoff.md` | TBD | PR |
 | `results/` | author of the run | add only; never overwrite another run's file |
 
 ## Contracts
@@ -35,6 +38,10 @@ v2 bundle (release tag `v0.3-distill`, planned; `v0.1-baseline` stays). Model in
 - BCI IV 2a is test only in v2: no labeled 2a trial is trained on; session 2 trials 1–24 enter distillation as unlabeled calibration (EA + teacher soft labels), trials 25–144 are the test block.
 - `src/data/external.py` never downloads; Cho2017 and Lee2019_MI must already be in `~/mne_data` (MOABB `data_path`, provider `upstream`).
 
+v4 bundle (release tag `v0.5-distill` (planned); `v0.3-distill` stays until then). Same contract as v2 (input, output, file names, `preprocess_params.json` schema `"v2"`); new numbers only. `artifacts/v4/` = v2 wide32 student fine-tuned with KD only (`runs/v4soft/student_wide32_ft_seed0`, export subject A03). Hand-off: `docs/v4_handoff.md`.
+- BCI IV 2a session 1 enters v4 training **unlabeled** (`splits125.target_unlabeled` reads X only); its labels are read only by `splits125.session_labels_for_reporting_only` for the pseudo-label agreement report. Session 2 trials 25–144 remain the untouched test block.
+- The v4 variant was chosen on the test block among 5 candidates (exploratory, optimistic by selection); see the selection note in `results/results_v4*.md`.
+
 ## Commands
 ```
 python3.12 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
@@ -50,6 +57,12 @@ python -m src.distill --seed 0 --student wide32 --teacher runs/v2/teacher_seed0 
 python -m src.quantize --run runs/v2/student_wide32_seed0             # int8 (fake-quant) predictions
 python -m src.run_v2 --jobs 1 --seeds 0 1 2 --students wide32 control  # all v2 runs + results/results_v2.md
 python -m src.export --checkpoint runs/v2/student_wide32_seedK/model.pt --run-dir runs/v2/student_wide32_seedK --subject 3 --out artifacts/v2/tinyeegnet_int8.pte
+# v4 (Riemannian member + self-training on unlabeled 2a session 1; configs/v4.yaml, configs/v4soft.yaml)
+python -m src.run_v2 --config configs/v4.yaml --seeds 0 --students wide32 control --out runs/v4 --results results/results_v4.md --device mps --jobs 1 --teacher-parallel
+python -m src.train_teacher --config configs/v4.yaml --seed 0 --out runs/v4/teacher_seed0 --device mps   # [--round 0|1] [--members ...]
+python -m src.distill --config configs/v4.yaml --seed 0 --student wide32 --teacher runs/v4/teacher_seed0 --teacher-round 0 --out runs/v4/student_wide32_r0_seed0 --device mps
+python -m src.finetune_student --config configs/v4soft.yaml --init runs/v2/student_wide32_seedK --teacher runs/v4soft/teacher_seed0 --out runs/v4soft/student_wide32_ft_seedK --seed K --device mps
+python -m src.export --checkpoint runs/v4soft/student_wide32_ft_seed0/model.pt --run-dir runs/v4soft/student_wide32_ft_seed0 --subject 3 --out artifacts/v4/tinyeegnet_int8.pte
 ```
 Large files (`.pt`, `.pte`, `.npz`, `~/mne_data`) are git-ignored; attach them to the GitHub release.
 

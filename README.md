@@ -4,7 +4,7 @@ TinyEEGNet (1,938 parameters) decodes left vs right hand motor imagery at **71.5
 
 Everything downstream (emulator, board) consumes this repo's release [`v0.1-baseline`](https://github.com/ArmExecuTorchEEG/Reproduce_Baselines/releases/tag/v0.1-baseline).
 
-v2 is done: a 125 Hz TinyEEGNet student (3,426 parameters) distilled from a teacher ensemble trained only on Cho2017 + Lee2019_MI reaches **73.5 % (int8)** on all 9 BCI IV 2a subjects without seeing any 2a training data, see [v2](#v2-cross-dataset-teacher-student-model-125-hz) (planned release `v0.3-distill`).
+v4 (current): the same v2 student (3,426 parameters), fine-tuned with teacher soft labels only on the unlabeled BCI IV 2a session-1 and calibration windows, reaches **74.6 % (int8, mean of 3 seeds)** on all 9 BCI IV 2a subjects, see [v4](#v4-riemannian-teacher-self-training-and-student-fine-tune-125-hz) (planned release `v0.5-distill`; read the selection note). v2 is done: a 125 Hz TinyEEGNet student (3,426 parameters) distilled from a teacher ensemble trained only on Cho2017 + Lee2019_MI reaches **73.5 % (int8)** on all 9 BCI IV 2a subjects without seeing any 2a training data, see [v2](#v2-cross-dataset-teacher-student-model-125-hz) (planned release `v0.3-distill`).
 
 ## Results
 
@@ -210,6 +210,45 @@ runs/          git-ignored training runs, exports and data cache
 ## Out of scope for v0.1
 
 Fine-tuning on the target subject, TinyEEGNet without alignment, sensor-dropout and structural ablations, 4 s windows, cross-dataset (Cho2017).
+
+## v4: Riemannian teacher, self-training and student fine-tune (125 Hz)
+
+**Headline:** the wide32 student of v2, fine-tuned with KD only on unlabeled 2a windows, reaches **74.6 ± 0.7 % int8** (mean over 3 seeds ± std over seeds; each seed = mean over the 9 subjects), vs 73.5 % for the v2 students it starts from: per seed 74.4 / 75.5 / 73.8 vs 73.3 / 73.9 / 73.1. No labeled 2a data is used; the 2a test block (session 2 trials 25–144) is untouched. Same model, input, `preprocess_params.json` schema and firmware pipeline as v2; only the numbers change. Hand-off: [`docs/v4_handoff.md`](docs/v4_handoff.md). Full tables: [`results/results_v4.md`](results/results_v4.md), [`results/results_v4soft.md`](results/results_v4soft.md).
+
+What is new (offline only): a 4th teacher member (OAS covariance → Riemannian tangent space → logistic regression, `src/models/riemann.py`); one self-training round on BCI IV 2a **session 1, unlabeled** (its labels are never read for training; a separate reporting function compares the pseudo-labels with them afterwards), hard (≥ 0.8 confidence, `configs/v4.yaml`) or soft (all windows, KL to the round-0 probabilities weighted by 2·|p − 0.5|, `configs/v4soft.yaml`); session 1 also enters distillation as KD-only windows; and the KD-only fine-tune of a trained student (`src/finetune_student.py`).
+
+| Model | Run | Seeds | Ensemble acc (%) | wide32 float (%) | wide32 int8 (%) |
+|---|---|---|---|---|---|
+| v2 (release `v0.3-distill`) | `runs/v2` | 3 | 74.4 | 73.8 | 73.5 |
+| v4 round-0 ensemble (4 members, no self-training) → student wide32_r0 | `runs/v4` | 1 | 75.3 | 73.6 | 73.6 |
+| v4 joint, hard pseudo-labels (480 of 1,296 windows) | `runs/v4` | 1 | 74.7 | 73.9 | 73.8 |
+| v4soft joint, soft targets (all 1,296 windows) | `runs/v4soft` | 1 | 74.9 | 73.8 | 73.6 |
+| **v4soft student-ft (v2 wide32 + KD-only fine-tune, shipped)** | `runs/v4soft` | 3 | 74.9 (teacher, seed 0) | 74.7 | **74.6** |
+
+Riemannian member alone: 73.0 % (EEGNet-ELU 73.1, ShallowConvNet 72.7, DeepConvNet 72.7, round 0). Control students (int8): v4 73.5, v4soft 73.2.
+
+**Selection note.** Variant comparison on the test block (exploratory; the shipped variant was chosen by the team from this table, which makes its test estimate optimistic by selection among 5 candidates); the seed within the variant is chosen by validation KL. The 5 candidates are the rows of the table above. The fine-tune's improvement is paired and holds on 3/3 seeds (+1.1 points mean).
+
+```bash
+# Teachers: round 0 (4 members in parallel), pseudo-labels, round 1; then students → results/results_v4*.md
+python -m src.run_v2 --config configs/v4.yaml --seeds 0 --students wide32 control --out runs/v4 \
+    --results results/results_v4.md --device mps --jobs 1 --teacher-parallel
+python -m src.run_v2 --config configs/v4soft.yaml --seeds 0 --students wide32 control --out runs/v4soft \
+    --results results/results_v4soft.md --device mps --jobs 1 --teacher-parallel   # reuses runs/v4 round 0
+# One teacher round by hand (members_round0/ then members/)
+python -m src.train_teacher --config configs/v4.yaml --seed 0 --out runs/v4/teacher_seed0 --device mps
+# Student from the round-0 ensemble
+python -m src.distill --config configs/v4.yaml --seed 0 --student wide32 --teacher runs/v4/teacher_seed0 \
+    --teacher-round 0 --out runs/v4/student_wide32_r0_seed0 --device mps
+# Shipped variant: KD-only fine-tune of the v2 student (seed K), then int8 and export
+python -m src.finetune_student --config configs/v4soft.yaml --init runs/v2/student_wide32_seedK \
+    --teacher runs/v4soft/teacher_seed0 --out runs/v4soft/student_wide32_ft_seedK --seed K --device mps
+python -m src.quantize --run runs/v4soft/student_wide32_ft_seedK
+python -m src.export --checkpoint runs/v4soft/student_wide32_ft_seed0/model.pt \
+    --run-dir runs/v4soft/student_wide32_ft_seed0 --subject 3 --out artifacts/v4/tinyeegnet_int8.pte
+```
+
+Release: tag **`v0.5-distill` (planned)** with the `artifacts/v4/` bundle (sha256 in `docs/v4_handoff.md`). `v0.3-distill` stays until then.
 
 ## v2: cross-dataset teacher-student model (125 Hz)
 

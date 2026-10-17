@@ -30,6 +30,19 @@ Writes to ``--out``: ``model.pt``, ``student.json`` (the five width keys for
 ``y_true_{s}`` / ``logits_{s}`` on session 2 trials 25-144), ``calibration.npz`` (``x``
 (200, 1, 22, 256) float32 scaled canonical training windows for PTQ), ``params.json`` (as the
 teacher's plus ``student``), ``metrics.json``, ``history.json``, ``train.log``.
+
+v3 (``training.loop: v3``): ``src.train_v3.distill_fit_v3`` replaces the loop above: the shared
+``src.augment`` pipeline (``augment`` section: crop, EA-matrix mixing, amplitude jitter, noise,
+channel dropout) plus mixup under KD (``distill.mixup_alpha``, ``distill.mixup_p``), AdamW
+(``distill.weight_decay``), cosine learning rate with ``distill.warmup`` epochs of warm-up and
+an EMA of the weights (``distill.ema``). The validation set is whatever ``v2_data`` returns
+(cross-subject in v3). Without the key the v2 loop runs unchanged.
+
+v4 (``distill.target_unlabeled: true``): the unlabelled target session of every test subject
+(``splits125.target_unlabeled``, BCI IV 2a session 1, 144 x 9 = 1,296 windows of 256 samples, EA
+from that session's own trials, X only) is concatenated with the calibration trials: KD term only
+(label -1), no random crop. The teacher is whatever ``members`` the config lists (``riemann``
+included, loaded from ``members/riemann.pkl``).
 """
 
 from __future__ import annotations
@@ -49,8 +62,8 @@ from torch import nn
 from src.eval import KPI_KEYS, compute_kpis, confusion
 from src.models.tinyeegnet import STUDENT_KEYS, TinyEEGNet
 from src.train import predict, set_seed, to_model_input
-from src.train_teacher import (CONFIG_V2, MEMBERS, canonical, jsonable, load_members, load_v2_config, load_v2_data,
-                               subset_cho, write_params)
+from src.train_teacher import (CONFIG_V2, MEMBERS, canonical, jsonable, load_members, load_target_unlabeled,
+                               load_v2_config, load_v2_data, member_names, subset_cho, write_params)
 
 N_CALIB = 200
 
@@ -224,22 +237,52 @@ def run(args: argparse.Namespace) -> dict:
     X_train = to_model_input(data["train"][0], scale)
     X_val = to_model_input(canonical(data["val"][0], cfg), scale)
     X_calib = torch.cat([to_model_input(data["calib"][s], scale) for s in subjects])
+    n_target = 0
+    if kd.get("target_unlabeled"):
+        # v4: the unlabelled target session (2a session 1, X only) joins the calibration trials as
+        # extra KD-only windows (canonical 256 samples, no random crop, label -1).
+        target = load_target_unlabeled(cfg, scale)
+        X_tgt = torch.cat([torch.from_numpy(np.ascontiguousarray(target["X"][s][:, None], dtype=np.float32))
+                           for s in subjects])
+        n_target = len(X_tgt)
+        X_calib = torch.cat([X_calib, X_tgt])
     X_test = {s: to_model_input(data["test"][s][0], scale) for s in subjects}
-    members = load_members(args.teacher, cfg, args.device)
+    teacher_round = getattr(args, "teacher_round", None)
+    members = load_members(args.teacher, cfg, args.device,
+                           subdir="members_round0" if teacher_round == 0 else "members")
+    if teacher_round == 0:
+        log(f"teacher = round-0 members ({Path(args.teacher) / 'members_round0'}), before self-training")
     set_seed(args.seed)
     student = build_student(args.student, cfg)
     n_params = sum(p.numel() for p in student.parameters())
     log(f"distill {args.student} seed {args.seed} ({n_params} params) from {args.teacher}: train "
-        f"{tuple(X_train.shape)} calib {tuple(X_calib.shape)} val {tuple(X_val.shape)} test subjects {subjects} "
-        f"input_scale {scale:.4f} alpha {kd['alpha']} T {kd['temperature']} noise {kd['noise_std']} "
-        f"channel dropout {kd['channel_dropout']} threads {args.threads} device {args.device}")
+        f"{tuple(X_train.shape)} calib {tuple(X_calib.shape)} (of which {n_target} unlabelled target) val {tuple(X_val.shape)} test subjects {subjects} "
+        f"input_scale {scale:.4f} alpha {kd['alpha']} T {kd['temperature']} noise {kd.get('noise_std')} "
+        f"channel dropout {kd.get('channel_dropout')} threads {args.threads} device {args.device}")
 
-    info = distill_fit(student, members.values(), X_train, data["train"][1], X_calib, X_val, data["val"][1],
-                       window=window, crop_offset=offset, alpha=float(kd["alpha"]), T=float(kd["temperature"]),
-                       noise_std=float(kd["noise_std"]), channel_dropout=float(kd["channel_dropout"]), lr=lr,
-                       batch_size=batch_size, max_epochs=max_epochs, patience=patience, seed=args.seed,
-                       crop_jitter=None if kd.get("crop_jitter") is None else int(kd["crop_jitter"]),
-                       device=args.device, log=log)
+    if tr.get("loop", "v2") == "v3":
+        from src.augment import Augmenter, mixing_matrices
+        from src.train_v3 import distill_fit_v3
+
+        augmenter = Augmenter(cfg.get("augment"), window=window, crop_offset=offset, train_window=X_train.shape[-1],
+                              mix=mixing_matrices(data["ea_train"]))
+        log(f"v3 loop: weight decay {kd.get('weight_decay', 0.0)} ema {kd.get('ema', 0.0)} warmup "
+            f"{kd.get('warmup', 0)} mixup alpha {kd.get('mixup_alpha', 0.0)} p {kd.get('mixup_p', 0.0)} augment "
+            f"{augmenter.cfg} (ea_mix_p used {augmenter.ea_mix_p})")
+        info = distill_fit_v3(student, members.values(), X_train, data["train"][1], data["train_group"], X_calib,
+                              X_val, data["val"][1], augmenter=augmenter, alpha=float(kd["alpha"]),
+                              T=float(kd["temperature"]), lr=lr, weight_decay=float(kd.get("weight_decay", 0.0)),
+                              ema_decay=float(kd.get("ema", 0.0)), warmup_epochs=int(kd.get("warmup", 0)),
+                              mixup_alpha=float(kd.get("mixup_alpha", 0.0)), mixup_p=float(kd.get("mixup_p", 0.0)),
+                              batch_size=batch_size, max_epochs=max_epochs, patience=patience, seed=args.seed,
+                              device=args.device, log=log)
+    else:
+        info = distill_fit(student, members.values(), X_train, data["train"][1], X_calib, X_val, data["val"][1],
+                           window=window, crop_offset=offset, alpha=float(kd["alpha"]), T=float(kd["temperature"]),
+                           noise_std=float(kd["noise_std"]), channel_dropout=float(kd["channel_dropout"]), lr=lr,
+                           batch_size=batch_size, max_epochs=max_epochs, patience=patience, seed=args.seed,
+                           crop_jitter=None if kd.get("crop_jitter") is None else int(kd["crop_jitter"]),
+                           device=args.device, log=log)
 
     logits = {s: predict(student, X_test[s]) for s in subjects}
     arrays = {"subjects": np.array(subjects)}
@@ -257,13 +300,15 @@ def run(args: argparse.Namespace) -> dict:
     calib_idx = np.sort(rng.choice(len(X_train_c), size=min(N_CALIB, len(X_train_c)), replace=False))
     np.savez(out / "calibration.npz", x=np.ascontiguousarray(X_train_c[calib_idx], dtype=np.float32))
     write_params(out, data, cfg, {"seed": args.seed, "student": {"name": args.student, **widths},
-                                  "teacher": str(args.teacher), "teacher_members": list(MEMBERS)})
+                                  "teacher": str(args.teacher), "teacher_members": list(member_names(cfg)),
+                                  **({"teacher_round": 0} if teacher_round == 0 else {})})
 
     per = {s: compute_kpis(data["test"][s][1], logits[s]) for s in subjects}
     metrics = {
         "model": "tinyeegnet", "student": args.student, "widths": widths, "seed": args.seed,
         "teacher": str(args.teacher), "params": n_params, "input_scale": scale,
         "n_train": int(len(X_train)), "n_calib_kd": int(len(X_calib)), "n_val": int(len(X_val)),
+        **({"n_target_kd": n_target} if kd.get("target_unlabeled") else {}),
         "n_test": int(sum(len(X_test[s]) for s in subjects)),
         "lr": lr, "batch_size": batch_size, "max_epochs": max_epochs, "patience": patience,
         "distill": kd, "threads": args.threads, "device": args.device,
@@ -299,6 +344,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--patience", type=int, default=None)
     p.add_argument("--batch-size", type=int, default=None)
     p.add_argument("--lr", type=float, default=None)
+    p.add_argument("--teacher-round", type=int, choices=(0,), default=None,
+                   help="v4: distil from the teacher's round-0 members (members_round0/, before self-training)")
     return p.parse_args(argv)
 
 
