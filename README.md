@@ -2,7 +2,7 @@
 
 TinyEEGNet (1,938 parameters) decodes left vs right hand motor imagery at **71.5 % (int8)** on BCI Competition IV 2a subjects it never saw in training. The int8 ExecuTorch program is **10.4 KiB**, and all of its compute runs on the Ethos-U85 NPU.
 
-Everything downstream (emulator, board) consumes this repo's release `v0.1-baseline`.
+Everything downstream (emulator, board) consumes this repo's release [`v0.1-baseline`](https://github.com/ArmExecuTorchEEG/Reproduce_Baselines/releases/tag/v0.1-baseline).
 
 ## Results
 
@@ -52,7 +52,7 @@ The delegated `.pte` does **not** run on the ExecuTorch x86 runtime: its body is
 
 ## Artifacts and trained models
 
-**Google Drive folder (all trained models):** https://drive.google.com/drive/folders/1Q9bduq4tFBu0q5QRQ6d16NgSJGH6ea-w
+**Google Drive folder (all trained models):** https://drive.google.com/drive/folders/1Q9bduq4tFBu0q5QRQ6d16NgSJGH6ea-w (anyone with the link can view)
 
 | Drive path | Content |
 |---|---|
@@ -74,7 +74,7 @@ Release files (A03 cross-subject, checkpoint `runs/loso_s3_seed2/model.pt`):
 | `test_vectors.npz` | 221,054 | `4bc90c56dd67d0748801fde8ef215c7f93f601aa81634e91798e3ad26cec72d3` |
 | `calibration.npz` | 8,800,256 | `19e69787dbb3afebe504623f7edb2862d2ef3c273f5c301c34c69c36e977703a` |
 
-The same files are attached to the GitHub release `v0.1-baseline`. The export is deterministic; this command rebuilds all five byte-identically:
+The same files are attached to the GitHub release [`v0.1-baseline`](https://github.com/ArmExecuTorchEEG/Reproduce_Baselines/releases/tag/v0.1-baseline). The export is deterministic; this command rebuilds all five byte-identically:
 
 ```bash
 python -m src.export --checkpoint runs/loso_s3_seed2/model.pt --subject 3 --out artifacts/tinyeegnet_int8.pte
