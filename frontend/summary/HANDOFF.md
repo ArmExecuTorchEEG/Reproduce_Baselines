@@ -24,8 +24,8 @@ Streaming (hardware) page: **http://127.0.0.1:8000/?stream=1** in desktop Chrome
 (Web Serial is required). Hard-refresh once after pulling (Cmd+Shift+R) so cached CSS is dropped.
 
 Legacy four-trial replay page, unchanged: http://127.0.0.1:8000/?v=eeg-1.
-Synthetic layout preview, no board: http://127.0.0.1:8000/summary/preview.html (clearly labelled
-synthetic data; it is never loaded by the hardware page).
+Hardware-free preview, no board: http://127.0.0.1:8000/summary/preview.html runs the same GUI with a
+simulated board (`?stream=1&sim=1`), labelled in a banner; the hardware page never loads that simulation.
 
 ## 3. Required local EEG assets
 

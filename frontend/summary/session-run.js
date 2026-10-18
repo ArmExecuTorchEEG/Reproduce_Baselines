@@ -113,12 +113,13 @@ const api={current:null,view:null,createRunManager,defaultEEGProvider,explainRes
  attach(host){api.current?.detach();api.view?.clear?.();api.current=createRunManager({resume:api.clickPlay,...host,view:api.view,onPhase:p=>api.syncButtons(p),onView:k=>api.relabelPlay(k)});api.syncButtons('idle');return api.current;},
  get history(){return api.current?api.current.history:[];},
  syncButtons(phase){if(typeof document==='undefined')return;const end=document.getElementById('endRunBtn'),fresh=document.getElementById('newRunBtn');if(!end||!fresh)return;const attached=!!api.current;
-  end.disabled=!attached||phase!=='idle';end.textContent=phase==='ending'?'… Ending run':'■ End Run';end.title=!attached?'Connect streaming firmware first':phase==='finalized'?'Run ended · use New Run to start another session':phase==='ending'?'Finishing the outstanding request':'Stop scheduling trials, finish the outstanding request and show the final summary';
+  end.disabled=!attached||phase!=='idle';end.innerHTML=phase==='ending'?'Ending run…':'<span class="run-icon-stop" aria-hidden="true"></span>End Run';end.title=!attached?'Connect streaming firmware first':phase==='finalized'?'Run ended · use New Run to start another session':phase==='ending'?'Finishing the outstanding request':'Stop scheduling trials, finish the outstanding request and show the final summary';
   fresh.disabled=!attached||phase==='ending'||phase==='resetting';fresh.title=attached?'Archive this run, clear the summary and start a new seeded session (does not start inference)':'Connect streaming firmware first';},
  install(){
   if(typeof document==='undefined')return null;const $=id=>document.getElementById(id);const end=$('endRunBtn'),fresh=$('newRunBtn'),container=$('sessionSummary');
   if(!end||!fresh||!container||!root.EdgeSummaryView)return null;
   if(!(root.window||root).EdgeStreamingMode)return null; // Legacy four-trial replay keeps its original controls.
+  document.body.classList.add('edge-streaming'); // scopes streaming-only layout rules in summary.css
   api.view=root.EdgeSummaryView.create(container,{onNewRun:()=>api.current?.newRun(),onResume:()=>api.current?.resume()});
   end.hidden=false;fresh.hidden=false;api.syncButtons('idle');
   end.addEventListener('click',()=>{if(!api.current){api.view.message('No streaming session','Connect UART and verify the streaming firmware before ending a run.');return;}api.current.endRun();});

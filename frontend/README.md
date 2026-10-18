@@ -246,7 +246,8 @@ shows the final summary ("Run complete", or "Run interrupted" after an error); *
 reuses the Reset flow and waits for Play. The summary shows accuracy, trials, duration, a
 prominent confusion matrix with per-class accuracy, and Top EEG Channels (pooled channel RMS in
 µV over unique completed recordings; amplitude, not neural activation). Board-free review:
-`summary/preview.html` runs the real GUI in a frame with synthetic, labeled data.
+`summary/preview.html` runs the real GUI as `?stream=1&sim=1` with a simulated board and synthetic
+data behind the unchanged bridge/controller, labelled in a banner; `?stream=1` never loads it.
 Details, metric definitions and the multi-subject integration guide: [summary/README.md](summary/README.md).
 
 ```sh

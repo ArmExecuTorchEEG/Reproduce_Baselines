@@ -39,7 +39,8 @@ under the Top EEG Channels ranking and wrap within that column.
 | `summary-view.js` | HTML rendering (`EdgeSummaryView.renderHTML`) and the `#sessionSummary` overlay binding. |
 | `session-run.js` | End Run / New Run manager (`EdgeSessionRun`): wraps one existing controller, no second loop. |
 | `summary.css` | Styles scoped to `#sessionSummary` and the two run buttons only. |
-| `preview.html`, `preview-data.js` | Board-free review: the real GUI (mock mode) in a frame with its right panel switched between the prediction view and **synthetic** paused/complete summaries. Never loaded by `index.html`. |
+| `preview-sim.js` | Hardware-free preview: a simulated board (real wire protocol) and a synthetic 144-trial dataset generated in the page. Fetched by `index.html` **only** as `?stream=1&sim=1`; the hardware page never loads it. |
+| `preview.html` | Launcher that frames the real GUI as `?stream=1&sim=1` so Connect → Play → Pause → Resume → End Run → New Run can be walked through without a board. |
 
 Shared-file integration points (the complete list):
 
@@ -55,7 +56,7 @@ Shared-file integration points (the complete list):
 
 ```sh
 python3 -m http.server 8000 --bind 127.0.0.1 --directory frontend
-# http://127.0.0.1:8000/summary/preview.html       synthetic scenarios: completed, interrupted, empty, multisubject
+# http://127.0.0.1:8000/summary/preview.html       hardware-free preview: real GUI + simulated board (same as ?stream=1&sim=1)
 # http://127.0.0.1:8000/?stream=1                   live mode; End Run / New Run appear next to Reset
 node frontend/tests/session-summary.cjs            # metrics, adapter, metadata, view HTML
 node frontend/tests/session-run.cjs                # lifecycle against the real Controller with a fake board
