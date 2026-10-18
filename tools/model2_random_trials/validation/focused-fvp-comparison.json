@@ -1,0 +1,239 @@
+{
+  "n": 12,
+  "unique_trials": 6,
+  "tosa_raw_exact": true,
+  "reordered_repeats_exact": true,
+  "predictions_match_desktop": true,
+  "sequence": [
+    0,
+    3,
+    2,
+    5,
+    32,
+    64,
+    64,
+    32,
+    5,
+    2,
+    3,
+    0
+  ],
+  "comparisons": [
+    {
+      "request": 1,
+      "index": 0,
+      "trial_id": "S1/1test/run0/cue750",
+      "raw": [
+        26,
+        -46
+      ],
+      "tosa_raw": [
+        26,
+        -46
+      ],
+      "desktop_raw": [
+        26,
+        -46
+      ],
+      "prediction": 0
+    },
+    {
+      "request": 2,
+      "index": 3,
+      "trial_id": "S1/1test/run0/cue6623",
+      "raw": [
+        54,
+        -56
+      ],
+      "tosa_raw": [
+        54,
+        -56
+      ],
+      "desktop_raw": [
+        53,
+        -55
+      ],
+      "prediction": 0
+    },
+    {
+      "request": 3,
+      "index": 2,
+      "trial_id": "S1/1test/run0/cue4671",
+      "raw": [
+        -24,
+        5
+      ],
+      "tosa_raw": [
+        -24,
+        5
+      ],
+      "desktop_raw": [
+        -24,
+        6
+      ],
+      "prediction": 1
+    },
+    {
+      "request": 4,
+      "index": 5,
+      "trial_id": "S1/1test/run0/cue10742",
+      "raw": [
+        108,
+        -97
+      ],
+      "tosa_raw": [
+        108,
+        -97
+      ],
+      "desktop_raw": [
+        107,
+        -97
+      ],
+      "prediction": 0
+    },
+    {
+      "request": 5,
+      "index": 32,
+      "trial_id": "S1/1test/run1/cue28322",
+      "raw": [
+        -19,
+        7
+      ],
+      "tosa_raw": [
+        -19,
+        7
+      ],
+      "desktop_raw": [
+        -18,
+        7
+      ],
+      "prediction": 1
+    },
+    {
+      "request": 6,
+      "index": 64,
+      "trial_id": "S1/1test/run2/cue71202",
+      "raw": [
+        -1,
+        -1
+      ],
+      "tosa_raw": [
+        -1,
+        -1
+      ],
+      "desktop_raw": [
+        -1,
+        -1
+      ],
+      "prediction": 0
+    },
+    {
+      "request": 7,
+      "index": 64,
+      "trial_id": "S1/1test/run2/cue71202",
+      "raw": [
+        -1,
+        -1
+      ],
+      "tosa_raw": [
+        -1,
+        -1
+      ],
+      "desktop_raw": [
+        -1,
+        -1
+      ],
+      "prediction": 0
+    },
+    {
+      "request": 8,
+      "index": 32,
+      "trial_id": "S1/1test/run1/cue28322",
+      "raw": [
+        -19,
+        7
+      ],
+      "tosa_raw": [
+        -19,
+        7
+      ],
+      "desktop_raw": [
+        -18,
+        7
+      ],
+      "prediction": 1
+    },
+    {
+      "request": 9,
+      "index": 5,
+      "trial_id": "S1/1test/run0/cue10742",
+      "raw": [
+        108,
+        -97
+      ],
+      "tosa_raw": [
+        108,
+        -97
+      ],
+      "desktop_raw": [
+        107,
+        -97
+      ],
+      "prediction": 0
+    },
+    {
+      "request": 10,
+      "index": 2,
+      "trial_id": "S1/1test/run0/cue4671",
+      "raw": [
+        -24,
+        5
+      ],
+      "tosa_raw": [
+        -24,
+        5
+      ],
+      "desktop_raw": [
+        -24,
+        6
+      ],
+      "prediction": 1
+    },
+    {
+      "request": 11,
+      "index": 3,
+      "trial_id": "S1/1test/run0/cue6623",
+      "raw": [
+        54,
+        -56
+      ],
+      "tosa_raw": [
+        54,
+        -56
+      ],
+      "desktop_raw": [
+        53,
+        -55
+      ],
+      "prediction": 0
+    },
+    {
+      "request": 12,
+      "index": 0,
+      "trial_id": "S1/1test/run0/cue750",
+      "raw": [
+        26,
+        -46
+      ],
+      "tosa_raw": [
+        26,
+        -46
+      ],
+      "desktop_raw": [
+        26,
+        -46
+      ],
+      "prediction": 0
+    }
+  ]
+}

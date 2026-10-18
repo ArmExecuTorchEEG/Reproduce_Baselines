@@ -1,0 +1,14 @@
+{
+  "$ORIGINAL_REPO/artifacts/fvp-subject1-20261016-ready/project": {
+    "bytes": 13072,
+    "embedded_pte_sha256": "644bf8865ed515ed41c5418070a0b147008c4326b9da34d3232884459d9b3298"
+  },
+  "artifacts/streaming-firmware/project": {
+    "bytes": 13072,
+    "embedded_pte_sha256": "644bf8865ed515ed41c5418070a0b147008c4326b9da34d3232884459d9b3298"
+  },
+  "artifacts/model2-numerical-fvp/project": {
+    "bytes": 13072,
+    "embedded_pte_sha256": "644bf8865ed515ed41c5418070a0b147008c4326b9da34d3232884459d9b3298"
+  }
+}

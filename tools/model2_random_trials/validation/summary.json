@@ -1,0 +1,48 @@
+{
+  "n": 144,
+  "output_scale": 0.052609603852033615,
+  "output_zero_point": -5,
+  "trial_step_histogram": {
+    "0": 104,
+    "1": 40
+  },
+  "logit_signed_step_histogram": {
+    "0": 242,
+    "-1": 19,
+    "1": 27
+  },
+  "logit_absolute_step_histogram": {
+    "0": 242,
+    "1": 46
+  },
+  "tosa_fvp_raw_exact": true,
+  "tosa_fvp_mismatch_elements": 0,
+  "legacy_001_failed_trials": 40,
+  "max_abs_error": 0.05260968208312988,
+  "predictions_changed": 0,
+  "min_abs_desktop_margin": 0.0,
+  "min_abs_fvp_margin": 0.0,
+  "max_abs_margin_change": 0.10521984100341797,
+  "repeated_input_indices": [
+    71,
+    47,
+    12
+  ],
+  "repeated_results_exact": true,
+  "input_bytes_and_ids_verified": true,
+  "normalized_saved_test_bit_exact": true,
+  "desktop_reference_bit_exact": true,
+  "fvp_raw_values_source": "uniquely reconstructed from transmitted float32 values; dequantization is bit-exact for all288values",
+  "tosa_raw_values_source": "direct INT8 output of saved pre-Vela TOSA graph",
+  "source_files": {
+    "$ORIGINAL_REPO/artifacts/subject1-ethosu85-seed42-20261016/compiler_debug/output_tag0_TOSA-1.0+INT+int16+int4+cf.tosa": "a74ae44a2c695ab50ac1817540acf1f822bf565f61cf652433c975e045377c23",
+    "$ORIGINAL_REPO/artifacts/subject1-ethosu85-seed42-20261016/quantized_qdq.pt2": "9759ed47f1704f09be182f9d3789f478657a983a153e3c26d34fb81ddab654e4",
+    "$ORIGINAL_REPO/artifacts/subject1-ethosu85-seed42-20261016/tinyeegnet_int8.pte": "644bf8865ed515ed41c5418070a0b147008c4326b9da34d3232884459d9b3298",
+    "$ORIGINAL_REPO/artifacts/subject1-seed42-20261016/best_checkpoint.pt": "63e3479baa0b00cadce5ee7906f25eee873ba561f9040cd07505f5d32b7a51d9",
+    "$ORIGINAL_REPO/artifacts/subject1-ethosu85-seed42-20261016/preprocess_params.json": "733a8b12d51d95229139f9dd2f3b758bad979357908dac4c364a7807eea8f899",
+    "$ORIGINAL_REPO_frontend/artifacts/streaming-firmware/fvp-151-trial.log": "bdc8f4df6cfd00a3d8fa416ddee2ca49628091a5b7cac8911f4844647178574c",
+    "$ORIGINAL_REPO_frontend/artifacts/streaming-firmware/expected-151.json": "09dcd65d8d39cf1c914e0933bd901475673fc955bbfff2bd649b06d12927c59a",
+    "$ORIGINAL_REPO_frontend/artifacts/model2-session2-phase1/windows.npz": "49f99685eee3e0851a40b05359e773c246f027a7dddc72cdff1a61ea4cbab74a",
+    "$ORIGINAL_REPO_frontend/artifacts/model2-session2-phase1/qdq-reference.npz": "725f508fa8db9a9d921fd9d4be1176184ab229151c4620e794077d15ff35a119"
+  }
+}

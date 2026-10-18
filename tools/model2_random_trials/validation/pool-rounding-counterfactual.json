@@ -1,0 +1,202 @@
+{
+  "scope": "diagnostic interpreter only; saved Q/DQ/PTE/firmware unchanged",
+  "override": "integer half-up AVG_POOL outputs only, kernel4 and8, at two existing quantize nodes",
+  "n": 144,
+  "tosa_exact_trials": 144,
+  "tosa_mismatched_elements": 0,
+  "mismatches": [],
+  "actual_first_pool_examples": [
+    {
+      "position": [
+        0,
+        0,
+        0,
+        7
+      ],
+      "input_raw_sum": -510,
+      "kernel": 4,
+      "exact_raw_average": -127.5,
+      "desktop_float_pool": 0.01062646321952343,
+      "desktop_pre_round_scaled": 0.5,
+      "desktop_round": 0.0,
+      "desktop_quantized": -128,
+      "tosa_quantized": -127
+    },
+    {
+      "position": [
+        0,
+        0,
+        0,
+        11
+      ],
+      "input_raw_sum": -494,
+      "kernel": 4,
+      "exact_raw_average": -123.5,
+      "desktop_float_pool": 0.09563817083835602,
+      "desktop_pre_round_scaled": 4.5,
+      "desktop_round": 4.0,
+      "desktop_quantized": -124,
+      "tosa_quantized": -123
+    },
+    {
+      "position": [
+        0,
+        0,
+        1,
+        9
+      ],
+      "input_raw_sum": -438,
+      "kernel": 4,
+      "exact_raw_average": -109.5,
+      "desktop_float_pool": 0.39317911863327026,
+      "desktop_pre_round_scaled": 18.5,
+      "desktop_round": 18.0,
+      "desktop_quantized": -110,
+      "tosa_quantized": -109
+    },
+    {
+      "position": [
+        0,
+        0,
+        2,
+        9
+      ],
+      "input_raw_sum": -374,
+      "kernel": 4,
+      "exact_raw_average": -93.5,
+      "desktop_float_pool": 0.73322594165802,
+      "desktop_pre_round_scaled": 34.5,
+      "desktop_round": 34.0,
+      "desktop_quantized": -94,
+      "tosa_quantized": -93
+    },
+    {
+      "position": [
+        0,
+        0,
+        3,
+        15
+      ],
+      "input_raw_sum": -238,
+      "kernel": 4,
+      "exact_raw_average": -59.5,
+      "desktop_float_pool": 1.4558254480361938,
+      "desktop_pre_round_scaled": 68.5,
+      "desktop_round": 68.0,
+      "desktop_quantized": -60,
+      "tosa_quantized": -59
+    },
+    {
+      "position": [
+        0,
+        0,
+        5,
+        8
+      ],
+      "input_raw_sum": -366,
+      "kernel": 4,
+      "exact_raw_average": -91.5,
+      "desktop_float_pool": 0.7757318019866943,
+      "desktop_pre_round_scaled": 36.5,
+      "desktop_round": 36.0,
+      "desktop_quantized": -92,
+      "tosa_quantized": -91
+    },
+    {
+      "position": [
+        0,
+        0,
+        8,
+        10
+      ],
+      "input_raw_sum": -486,
+      "kernel": 4,
+      "exact_raw_average": -121.5,
+      "desktop_float_pool": 0.13814401626586914,
+      "desktop_pre_round_scaled": 6.5,
+      "desktop_round": 6.0,
+      "desktop_quantized": -122,
+      "tosa_quantized": -121
+    },
+    {
+      "position": [
+        0,
+        0,
+        9,
+        9
+      ],
+      "input_raw_sum": -494,
+      "kernel": 4,
+      "exact_raw_average": -123.5,
+      "desktop_float_pool": 0.09563817083835602,
+      "desktop_pre_round_scaled": 4.5,
+      "desktop_round": 4.0,
+      "desktop_quantized": -124,
+      "tosa_quantized": -123
+    },
+    {
+      "position": [
+        0,
+        0,
+        10,
+        2
+      ],
+      "input_raw_sum": -166,
+      "kernel": 4,
+      "exact_raw_average": -41.5,
+      "desktop_float_pool": 1.8383780717849731,
+      "desktop_pre_round_scaled": 86.5,
+      "desktop_round": 86.0,
+      "desktop_quantized": -42,
+      "tosa_quantized": -41
+    },
+    {
+      "position": [
+        0,
+        0,
+        14,
+        7
+      ],
+      "input_raw_sum": -462,
+      "kernel": 4,
+      "exact_raw_average": -115.5,
+      "desktop_float_pool": 0.2656615674495697,
+      "desktop_pre_round_scaled": 12.5,
+      "desktop_round": 12.0,
+      "desktop_quantized": -116,
+      "tosa_quantized": -115
+    },
+    {
+      "position": [
+        0,
+        0,
+        17,
+        6
+      ],
+      "input_raw_sum": -390,
+      "kernel": 4,
+      "exact_raw_average": -97.5,
+      "desktop_float_pool": 0.6482142210006714,
+      "desktop_pre_round_scaled": 30.5,
+      "desktop_round": 30.0,
+      "desktop_quantized": -98,
+      "tosa_quantized": -97
+    },
+    {
+      "position": [
+        0,
+        0,
+        21,
+        9
+      ],
+      "input_raw_sum": -486,
+      "kernel": 4,
+      "exact_raw_average": -121.5,
+      "desktop_float_pool": 0.13814401626586914,
+      "desktop_pre_round_scaled": 6.5,
+      "desktop_round": 6.0,
+      "desktop_quantized": -122,
+      "tosa_quantized": -121
+    }
+  ]
+}

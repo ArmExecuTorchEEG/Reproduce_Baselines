@@ -1,0 +1,561 @@
+{
+  "files": {
+    ".vscode/cmsis.json": {
+      "sha256": "cc9e6d2295acb8df1f7a554e071f1a184db4c6b866d132d7d1365f67a748fd36",
+      "bytes": 296
+    },
+    ".vscode/launch.json": {
+      "sha256": "34021dec14dec4046b1c959a0340ea933562f90c314a1c2942a5814b995f87e5",
+      "bytes": 4168
+    },
+    ".vscode/tasks.json": {
+      "sha256": "c5b6375e1cd8e6f50d93f146f3ce7f55befad6fca6af2bdf9add7f579cb6af3b",
+      "bytes": 10055
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/.cmsis/tools-environment.yml": {
+      "sha256": "e0892ea706e24b10593bcdb201e64be06b178283499dc01f62c7d0a623216874",
+      "bytes": 2761
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/.vscode/fvp.sh": {
+      "sha256": "4bd71bc52ddc7a1e52a3ab545f4485704c1acd235acdd2efd0ddc0587d0c89af",
+      "bytes": 6063
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/README.md": {
+      "sha256": "b5f6f1d81910ec592df4d3ac283d2f2e27d99e22ce2813371f3ee7ea4cbc96cc",
+      "bytes": 8549
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/ai_layer/ai_layer.clayer.yml": {
+      "sha256": "4435d7baa2a7a838cee9f803fc52c2c05e5cd2dd927628f8fa8e90149788f7cd",
+      "bytes": 839
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/ai_layer/model.pte": {
+      "sha256": "644bf8865ed515ed41c5418070a0b147008c4326b9da34d3232884459d9b3298",
+      "bytes": 13072
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/ai_layer/model_pte.c": {
+      "sha256": "ad27d33545ce9fdaec001aebdb95717c9bbeb6f11b5dd455f29efbf84660398b",
+      "bytes": 37427
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/ai_layer/model_pte.h": {
+      "sha256": "1804d5119a1b8ba46061c249718c227616d42d6e2f1a7b837110993e5bbca825",
+      "bytes": 214
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/AppKit-E8.h": {
+      "sha256": "43cba068741a96970ea199f620d3b398eeac990e9d5c6a69288e4622879ea275",
+      "bytes": 1418
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/Board-U85.clayer.yml": {
+      "sha256": "7ce520c3588f0b1a80469405cd8119f38f3764c5591df2d4c7037952621d0121",
+      "bytes": 3941
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/README.md": {
+      "sha256": "7ec9abaf54ad01e53bc8342671258e03877b48f2a009bdd20920609c63165724",
+      "bytes": 3263
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/BSP/AE822FA0E5597BS0_M55_HP/board_defs.h": {
+      "sha256": "0f361f6b640122dd80bfdd1c38705a47a97ebf1b59b16649dcb522936158ff67",
+      "bytes": 71575
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/BSP/AE822FA0E5597BS0_M55_HP/board_defs.h.base@2.2.0": {
+      "sha256": "0f361f6b640122dd80bfdd1c38705a47a97ebf1b59b16649dcb522936158ff67",
+      "bytes": 71575
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/BSP/AE822FA0E5597BS0_M55_HP/gpios.h": {
+      "sha256": "4f22a243627c5c679b835564b666bf749c10956a3ba1bdb5e0f0271d12d3aa7a",
+      "bytes": 10308
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/BSP/AE822FA0E5597BS0_M55_HP/gpios.h.base@2.2.0": {
+      "sha256": "4f22a243627c5c679b835564b666bf749c10956a3ba1bdb5e0f0271d12d3aa7a",
+      "bytes": 10308
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/BSP/AE822FA0E5597BS0_M55_HP/pins.h": {
+      "sha256": "f25a7a6edecc32efcb022660a6ad50a02f0b818d70b87467eeaed28bb02606c8",
+      "bytes": 47432
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/BSP/AE822FA0E5597BS0_M55_HP/pins.h.base@2.2.0": {
+      "sha256": "f25a7a6edecc32efcb022660a6ad50a02f0b818d70b87467eeaed28bb02606c8",
+      "bytes": 47432
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/RTE_Device.h": {
+      "sha256": "7a642d10da1edc5a07c98c12f7618f761fe069f387c859da182ece93acafe2a4",
+      "bytes": 321121
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/RTE_Device.h.base@2.2.0": {
+      "sha256": "9188c3e14383df653a8cc0fab8fd00e3ba30d260c1b65c3b5b77d6976adf2e4a",
+      "bytes": 323619
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/RTE_Device.h.update@2.5.0": {
+      "sha256": "8fa8a0ced8ead7e2fff9c7a713b61cb930e8d0fadc3108c62bb1924513b64e09",
+      "bytes": 327554
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/app_mem_regions.h": {
+      "sha256": "864dc0a25bc2ccc9219533ede5fd6853421beff8c2c42827a251c447f550f8fb",
+      "bytes": 7287
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/app_mem_regions.h.base@3.0.0": {
+      "sha256": "391270d74b3983ac66011d8cd7f7122222a6d06642f1513022b534465683fa38",
+      "bytes": 7287
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/app_tz.h": {
+      "sha256": "2586efe39d234b67ad08fcfd54c0dd217caeefc66844e92a6f2d88a20d503145",
+      "bytes": 50586
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/app_tz.h.base@2.1.0": {
+      "sha256": "2586efe39d234b67ad08fcfd54c0dd217caeefc66844e92a6f2d88a20d503145",
+      "bytes": 50586
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/core_config.h": {
+      "sha256": "68b0a8e74ac5c2f5b88429df3582ba490c3eef3470c7ce5d2b9cc5e1a9298147",
+      "bytes": 1386
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/core_config.h.base@2.1.0": {
+      "sha256": "68b0a8e74ac5c2f5b88429df3582ba490c3eef3470c7ce5d2b9cc5e1a9298147",
+      "bytes": 1386
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/dma_config.h": {
+      "sha256": "734ff2c1303fe3f2fcd35838f5051c47e3a7552e5f3206772f3208b301ac4c89",
+      "bytes": 2567
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/dma_config.h.base@2.1.0": {
+      "sha256": "734ff2c1303fe3f2fcd35838f5051c47e3a7552e5f3206772f3208b301ac4c89",
+      "bytes": 2567
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_ac6_mram.sct": {
+      "sha256": "80e86b70e1251885834b982d55190957f1ea09ffef7d99137bf0fb21d5f08b8e",
+      "bytes": 4160
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_ac6_mram.sct.base@2.2.0": {
+      "sha256": "9e071283bc429472c82fc352d4ca45a27ce2df5f317274c18f5fb3238629fa0c",
+      "bytes": 3998
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_ac6_mram.sct.update@2.2.1": {
+      "sha256": "53586dcba28632172427a56a3a4a264a76d9b43aba7645f56033e927f392d6b1",
+      "bytes": 4060
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_ac6_ospi_boot.sct": {
+      "sha256": "dadbc09fe54b4e11e5f9fe1e57166da44b8f79ee6b93600d104debdd2276b355",
+      "bytes": 3908
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_ac6_ospi_boot.sct.base@2.1.0": {
+      "sha256": "dadbc09fe54b4e11e5f9fe1e57166da44b8f79ee6b93600d104debdd2276b355",
+      "bytes": 3908
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_ac6_ospi_boot.sct.update@2.1.1": {
+      "sha256": "aedf6197c304ca1b0a4a4d02de7a570fc2c47f97cd329801e2109c5a48c1c4d7",
+      "bytes": 3970
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_ac6_tcm.sct": {
+      "sha256": "faa2210c033a252a59bb881bdaa65af9e6ca2dcd013ffb621164a0361955e827",
+      "bytes": 4013
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_ac6_tcm.sct.base@2.1.0": {
+      "sha256": "f16419225c23d3021a09076e1f2e9a607b5b57b68cb8c77586449a720828c224",
+      "bytes": 3850
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_ac6_tcm.sct.update@2.1.1": {
+      "sha256": "2c427059b24d1fc426b2c79a86a7f40d53476990ce7e6879adb5a6e08a9ce078",
+      "bytes": 3912
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_gnu_mram.ld.src": {
+      "sha256": "7f4cb8de6c6fb36f05206e35fa5e294f9ab5d80c9ce913ca5cd3e651bcba2c40",
+      "bytes": 7902
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_gnu_mram.ld.src.base@2.2.0": {
+      "sha256": "215880f0433ac159ca1f0f7b54b0afc15e40f24489da9aabd80da97877876844",
+      "bytes": 7728
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_gnu_tcm.ld.src": {
+      "sha256": "a6b89bc49eb5dda5a55ff8916346b7f88672dedd41e47a4fdca74cc13d8faed0",
+      "bytes": 7514
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Device/AE822FA0E5597BS0_M55_HP/linker_gnu_tcm.ld.src.base@2.1.0": {
+      "sha256": "24f4d1b336092ded0e55e745a83f4a7ffd8ddf5dc020bf06fb174e5cee3631a6",
+      "bytes": 7269
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Services/AE822FA0E5597BS0_M55_HP/retarget_config.h": {
+      "sha256": "7a31a5a36fa5a11c4d6a7c3a4ba83d722c3697034e8802825c36fed6044b385e",
+      "bytes": 7352
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/AppKit-E8/RTE/Services/AE822FA0E5597BS0_M55_HP/retarget_config.h.base@2.1.0": {
+      "sha256": "7a31a5a36fa5a11c4d6a7c3a4ba83d722c3697034e8802825c36fed6044b385e",
+      "bytes": 7352
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/Board-U85.clayer.yml": {
+      "sha256": "ab9e4e74b7cdfd5ad71e0c7b2232750c43480c2c174a111fc42a5c4999a31e93",
+      "bytes": 1622
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/Corstone-320.h": {
+      "sha256": "eba098ac5b705fce5664440e2541f9720d57204670fa57f108c417163692e0e4",
+      "bytes": 962
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/ac6_linker_script.sct.src": {
+      "sha256": "a444ef44c2e6db5956de1e569096eba9978fe4db35369405a37f3d33b1c80276",
+      "bytes": 2789
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/clang_linker_script.ld.src": {
+      "sha256": "cd2951fb39153ad086dbdc6744b5cf30e3adc45bf02c5a1ed7e4608cc04dea6e",
+      "bytes": 12690
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/device_cfg.h": {
+      "sha256": "9006a7feab931dbd283562bd23033e8fa6ef1a00fd461317ce5276e46a65de54",
+      "bytes": 7169
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/device_cfg.h.base@1.1.0": {
+      "sha256": "9006a7feab931dbd283562bd23033e8fa6ef1a00fd461317ce5276e46a65de54",
+      "bytes": 7169
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/gcc_linker_script.ld.src": {
+      "sha256": "114327a6295974eaae1877e202758f8eb68ea22089bc16e945cbf695dea1f7ac",
+      "bytes": 6851
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/startup_SSE320.c": {
+      "sha256": "c766ec947cfc14fdb11dda14b3920a5776d185c0df8a714889f71afdadf8bf10",
+      "bytes": 20998
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/startup_SSE320.c.base@1.1.0": {
+      "sha256": "c766ec947cfc14fdb11dda14b3920a5776d185c0df8a714889f71afdadf8bf10",
+      "bytes": 20998
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/system_SSE320.c": {
+      "sha256": "9ac45c07cc644c6695f1cffdd6382c46929e2743e7de9a8c29ae309f9697cbb2",
+      "bytes": 3964
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/RTE/Device/SSE-320-FVP/system_SSE320.c.base@1.1.0": {
+      "sha256": "9ac45c07cc644c6695f1cffdd6382c46929e2743e7de9a8c29ae309f9697cbb2",
+      "bytes": 3964
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/ethos_setup.c": {
+      "sha256": "37e8824189ea480b32ac404a6f88972c6a146d67a6f9f7798d2ce9fb47c2c00f",
+      "bytes": 3484
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/fvp_config.txt": {
+      "sha256": "7012f153e7a8ae719b744a379e961055f75b840da62b19456d67e76e552b60ba",
+      "bytes": 4711
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/main.c": {
+      "sha256": "827b4c5b9b5b296dd4b799f680238dc331acdebcc0ce0cb68ee084d002d00d18",
+      "bytes": 1176
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/main.h": {
+      "sha256": "b43268635ecef5628f08e9e41265e9e9646130d026cefc52b73acafcda522b4b",
+      "bytes": 1077
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/regions_SSE-320.h": {
+      "sha256": "762e5af62ed36371d86a63e91ac39acfe3d7cf99fc8d2ea638eafbe1c1706a53",
+      "bytes": 3881
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/retarget_stdio.c": {
+      "sha256": "97269d9fe66878fe9322b7e27be800dbf7a65cf0780c5b6ca8a8ddf3a43d5c21",
+      "bytes": 2507
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/sse320_memmap_ns.h": {
+      "sha256": "70ef4fc9725e804d7d6b3cd9002b637267046685deed56c531b92e635bef99ed",
+      "bytes": 4830
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/Corstone-320/sse320_memmap_s.h": {
+      "sha256": "045875f2741f7385534961168e2069e61ed0ac9ac94106791a7f36c84aa103af",
+      "bytes": 4987
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/Board-U85.clayer.yml": {
+      "sha256": "e5ba1204d56d33a0f6eb0f81e9565874530f07f0aa35532b7ca0b35622da087e",
+      "bytes": 3295
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/DevKit-E8.h": {
+      "sha256": "0e67cd5834dcb3a716a70b6ec20bba8585ff1c0472427a65bc0a0900f1b32d4f",
+      "bytes": 1391
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/README.md": {
+      "sha256": "76a2114ed5201b422048e2efe15c29102a685e55d24f2053ff31b42064365e5c",
+      "bytes": 3100
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/BSP/AE822FA0E5597LS0_M55_HP/board_defs.h": {
+      "sha256": "21740928bbf5a1dfa6defcea849be2712d92c8d256ba4470d84256c2ec2bd019",
+      "bytes": 129595
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/BSP/AE822FA0E5597LS0_M55_HP/board_defs.h.base@2.2.0": {
+      "sha256": "c5a4222ef729128b115849f6b727dcaaf708fa030127283697097c205df2434b",
+      "bytes": 129592
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/BSP/AE822FA0E5597LS0_M55_HP/gpios.h": {
+      "sha256": "609e40ccf072e4debbd320f18c146dc633cba0e996557ecee98e598e1b50b5f9",
+      "bytes": 9484
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/BSP/AE822FA0E5597LS0_M55_HP/gpios.h.base@2.2.0": {
+      "sha256": "609e40ccf072e4debbd320f18c146dc633cba0e996557ecee98e598e1b50b5f9",
+      "bytes": 9484
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/BSP/AE822FA0E5597LS0_M55_HP/pins.h": {
+      "sha256": "ae27d00e10fbc90b11f8cff2e295bd3baf6fb54267a8b9c356ddec73fc969699",
+      "bytes": 46836
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/BSP/AE822FA0E5597LS0_M55_HP/pins.h.base@2.2.0": {
+      "sha256": "846e98cecd5e47ab0d01cc5203e04155c8d88fcb2c34d0d5d8c3334b2c233ead",
+      "bytes": 46827
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/RTE_Device.h": {
+      "sha256": "7a642d10da1edc5a07c98c12f7618f761fe069f387c859da182ece93acafe2a4",
+      "bytes": 321121
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/RTE_Device.h.base@2.2.0": {
+      "sha256": "9188c3e14383df653a8cc0fab8fd00e3ba30d260c1b65c3b5b77d6976adf2e4a",
+      "bytes": 323619
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/RTE_Device.h.update@2.5.0": {
+      "sha256": "8fa8a0ced8ead7e2fff9c7a713b61cb930e8d0fadc3108c62bb1924513b64e09",
+      "bytes": 327554
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/app_mem_regions.h": {
+      "sha256": "864dc0a25bc2ccc9219533ede5fd6853421beff8c2c42827a251c447f550f8fb",
+      "bytes": 7287
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/app_mem_regions.h.base@3.0.0": {
+      "sha256": "391270d74b3983ac66011d8cd7f7122222a6d06642f1513022b534465683fa38",
+      "bytes": 7287
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/app_tz.h": {
+      "sha256": "2586efe39d234b67ad08fcfd54c0dd217caeefc66844e92a6f2d88a20d503145",
+      "bytes": 50586
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/app_tz.h.base@2.1.0": {
+      "sha256": "2586efe39d234b67ad08fcfd54c0dd217caeefc66844e92a6f2d88a20d503145",
+      "bytes": 50586
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/core_config.h": {
+      "sha256": "68b0a8e74ac5c2f5b88429df3582ba490c3eef3470c7ce5d2b9cc5e1a9298147",
+      "bytes": 1386
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/core_config.h.base@2.1.0": {
+      "sha256": "68b0a8e74ac5c2f5b88429df3582ba490c3eef3470c7ce5d2b9cc5e1a9298147",
+      "bytes": 1386
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/dma_config.h": {
+      "sha256": "734ff2c1303fe3f2fcd35838f5051c47e3a7552e5f3206772f3208b301ac4c89",
+      "bytes": 2567
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/dma_config.h.base@2.1.0": {
+      "sha256": "734ff2c1303fe3f2fcd35838f5051c47e3a7552e5f3206772f3208b301ac4c89",
+      "bytes": 2567
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_ac6_mram.sct": {
+      "sha256": "80e86b70e1251885834b982d55190957f1ea09ffef7d99137bf0fb21d5f08b8e",
+      "bytes": 4160
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_ac6_mram.sct.base@2.2.0": {
+      "sha256": "9e071283bc429472c82fc352d4ca45a27ce2df5f317274c18f5fb3238629fa0c",
+      "bytes": 3998
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_ac6_mram.sct.update@2.2.1": {
+      "sha256": "53586dcba28632172427a56a3a4a264a76d9b43aba7645f56033e927f392d6b1",
+      "bytes": 4060
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_ac6_ospi_boot.sct": {
+      "sha256": "dadbc09fe54b4e11e5f9fe1e57166da44b8f79ee6b93600d104debdd2276b355",
+      "bytes": 3908
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_ac6_ospi_boot.sct.base@2.1.0": {
+      "sha256": "dadbc09fe54b4e11e5f9fe1e57166da44b8f79ee6b93600d104debdd2276b355",
+      "bytes": 3908
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_ac6_ospi_boot.sct.update@2.1.1": {
+      "sha256": "aedf6197c304ca1b0a4a4d02de7a570fc2c47f97cd329801e2109c5a48c1c4d7",
+      "bytes": 3970
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_ac6_tcm.sct": {
+      "sha256": "faa2210c033a252a59bb881bdaa65af9e6ca2dcd013ffb621164a0361955e827",
+      "bytes": 4013
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_ac6_tcm.sct.base@2.1.0": {
+      "sha256": "f16419225c23d3021a09076e1f2e9a607b5b57b68cb8c77586449a720828c224",
+      "bytes": 3850
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_ac6_tcm.sct.update@2.1.1": {
+      "sha256": "2c427059b24d1fc426b2c79a86a7f40d53476990ce7e6879adb5a6e08a9ce078",
+      "bytes": 3912
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_gnu_mram.ld.src": {
+      "sha256": "7f4cb8de6c6fb36f05206e35fa5e294f9ab5d80c9ce913ca5cd3e651bcba2c40",
+      "bytes": 7902
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_gnu_mram.ld.src.base@2.2.0": {
+      "sha256": "215880f0433ac159ca1f0f7b54b0afc15e40f24489da9aabd80da97877876844",
+      "bytes": 7728
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_gnu_tcm.ld.src": {
+      "sha256": "a6b89bc49eb5dda5a55ff8916346b7f88672dedd41e47a4fdca74cc13d8faed0",
+      "bytes": 7514
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Device/AE822FA0E5597LS0_M55_HP/linker_gnu_tcm.ld.src.base@2.1.0": {
+      "sha256": "24f4d1b336092ded0e55e745a83f4a7ffd8ddf5dc020bf06fb174e5cee3631a6",
+      "bytes": 7269
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Services/AE822FA0E5597LS0_M55_HP/retarget_config.h": {
+      "sha256": "7a31a5a36fa5a11c4d6a7c3a4ba83d722c3697034e8802825c36fed6044b385e",
+      "bytes": 7352
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/RTE/Services/AE822FA0E5597LS0_M55_HP/retarget_config.h.base@2.1.0": {
+      "sha256": "7a31a5a36fa5a11c4d6a7c3a4ba83d722c3697034e8802825c36fed6044b385e",
+      "bytes": 7352
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/ethos_setup.c": {
+      "sha256": "fd8e89c7c3236bad685dea91db4df68efa1758903e62834ade0ea1f255b836d5",
+      "bytes": 4169
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/ethosu_cb_dcache.c": {
+      "sha256": "4fb9eff28052adf3f40f6a500c4ca531097722a160b051966e1c98fb02319d1d",
+      "bytes": 3756
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/linker_ac6_mram.sct.src": {
+      "sha256": "3531ce4a1f133652b34757697abf71fdde9a3ec5c39ecebb282e71c78596d077",
+      "bytes": 4634
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/linker_gnu_mram.ld.src": {
+      "sha256": "0dd177cd6bbd50ce60c14e352a9e37cf1b1fd8bbe1a6334a25cb302183a3a6f1",
+      "bytes": 9849
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/main.c": {
+      "sha256": "527bf20a5328937c222157fb8843da76b2332a432b486ba4ed007bfe2fc97d5d",
+      "bytes": 1780
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/main.h": {
+      "sha256": "b5c0b81fae50bb26cab469ef82e3176654c58195d03947c8778f03c09f767c7e",
+      "bytes": 1134
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/board/DevKit-E8/retarget_stdio.c": {
+      "sha256": "8ba71b0bf92ff582829f13d6bd2faaef81abaa4908446b0b1cda3c6e8d5da909",
+      "bytes": 2160
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/cmsis-executorch.cbuild-idx.yml": {
+      "sha256": "5dc560472aee361b8fe3ddc8c52d81edadd3756e05bb67d7431f589d0199eb8d",
+      "bytes": 2735
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/cmsis-executorch.cbuild-mlops.yml": {
+      "sha256": "0f455342ee608c79bfc60e8ec3a6a3a8a94578545ce96804bd87b8b9d58dc156",
+      "bytes": 976
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/cmsis-executorch.cbuild-pack.yml": {
+      "sha256": "c9822b3cf5f5c7ad4a661218a6455c9442828d926c7167850c87c104a23cb3fd",
+      "bytes": 959
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/cmsis-executorch.cproject.yml": {
+      "sha256": "ed70624e983ad36e327c842af7957d57fc7a0fb85337636a2a0c322f4483311c",
+      "bytes": 1156
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/cmsis-executorch.csolution.yml": {
+      "sha256": "ad8c270ed42d51c1193f7e65dfd5ad7efc6685f66e51e77e12baf721f1504841",
+      "bytes": 6001
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/out/cmsis-executorch/DevKit-E8/Debug/cmsis-executorch.axf": {
+      "sha256": "7058d5360f04b441cfd550fe0b1bfa0733437188ce6322b54f560c0437c8bf56",
+      "bytes": 3931576
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/out/cmsis-executorch/DevKit-E8/Debug/cmsis-executorch.hex": {
+      "sha256": "fa5367b73db9c28be9b2ebffb337ec0aedd6d0b7513af2ba21bcc160bfc61b07",
+      "bytes": 529752
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/requirements-arm-tosa.txt": {
+      "sha256": "bab81eaf3c7be381f1259e511489cc770441932c4cf3be1441819ebbb80c75ec",
+      "bytes": 1105
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/requirements.txt": {
+      "sha256": "f6a44aa06fde64bcac0ca5dc6c379cddec80b0d3933e20b434bc85a9056ea878",
+      "bytes": 795
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/src/LICENSE-ExecuTorch": {
+      "sha256": "c58707ea5d5c0ee17af7e16f1377e4d31ad1533492ab0bf9b87ebd9f718f9e7b",
+      "bytes": 1774
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/src/app_main.cpp": {
+      "sha256": "2ba86940c7f121a40d5969b46926fb1a6bd55cdc6137bffa115b22991b51a7de",
+      "bytes": 4031
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/src/arm_embedded_module.cpp": {
+      "sha256": "b4c493ee77fe402110dc23f78fa5450dfc89e60292fcc6364159634f0cb5a80d",
+      "bytes": 9110
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/src/arm_embedded_module.hpp": {
+      "sha256": "e05e376e4f6fd18938faf217bc686a0e2b0945aeb8c03b21c3306856c32f0b54",
+      "bytes": 19130
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/src/eeg_vectors.h": {
+      "sha256": "2283c1a56fbacabeaba2d4fe66a1dc20e837dbbe28554820ed3da77cdb158c2a",
+      "bytes": 148082
+    },
+    "artifacts/fvp-subject1-20261016-ready/project/vcpkg-configuration.json": {
+      "sha256": "9f3e85f32681d6e33a6050c12fa0d950062e7905895af58519449909a8467cc8",
+      "bytes": 502
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/README.md": {
+      "sha256": "9710832a3d468f43bcfcb99dbb2ad579687f625f958bc4f18cfabb8afab3ea2f",
+      "bytes": 2556
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/best_checkpoint.pt": {
+      "sha256": "63e3479baa0b00cadce5ee7906f25eee873ba561f9040cd07505f5d32b7a51d9",
+      "bytes": 16572
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/ensemble_vela.ini": {
+      "sha256": "18ade4f3797bc99d30e269315853376bb0539fa220a8f3d7dc755d8afbea61ea",
+      "bytes": 4814
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/export_report.json": {
+      "sha256": "5954021880a675868487bb5720b3ff07ec80a7dd55c9170f5774f296548468d4",
+      "bytes": 5068
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/label_mapping.json": {
+      "sha256": "ec56a867f83fc37140b77d9fd3b2ba67d3cee72de298fa84ee9fb63875f89b77",
+      "bytes": 40
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/model_config.json": {
+      "sha256": "c7c8ec6fd114473789ae7ae6bd6d3a8745f95ac54740ded782bf8ad50999966b",
+      "bytes": 585
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/normalization_params.json": {
+      "sha256": "ff00b2759a84b358e7e9080a2a181ef7f8ca4c86816d35f25992820dbfacb0a4",
+      "bytes": 2514
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/preprocess_params.json": {
+      "sha256": "733a8b12d51d95229139f9dd2f3b758bad979357908dac4c364a7807eea8f899",
+      "bytes": 2883
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/provenance.json": {
+      "sha256": "f05a48bd8a1917ed944bdb120716ced928877134d256b2b59ebf6fc0bead2de5",
+      "bytes": 2405
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/test_vectors.npz": {
+      "sha256": "3e4d50ae6122aff62ad7cf1fc86e6ae8ddb841be7029108285239cbf60f7e3e2",
+      "bytes": 221012
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/tinyeegnet_int8.pte": {
+      "sha256": "644bf8865ed515ed41c5418070a0b147008c4326b9da34d3232884459d9b3298",
+      "bytes": 13072
+    },
+    "models_ready_for_alif_e8/02_subject_01_tinyeegnet/training_metrics.json": {
+      "sha256": "1f676be7762c9d97bba94ecc5e80b9f19746021ed3e827b0b68d539685ed6f31",
+      "bytes": 3821
+    },
+    "results/e8-model2-uart-validation-20261017-1404/README.md": {
+      "sha256": "cf7555fc7757b258b587ac50e4ac798607212d2e151e93e0f0f5647d6e8613d1",
+      "bytes": 2307
+    },
+    "results/e8-model2-uart-validation-20261017-1404/comparison.json": {
+      "sha256": "643c5c8c112cf1c3327ba572518380af261980fa9a32959dadedad8084f81a6a",
+      "bytes": 877
+    },
+    "results/e8-model2-uart-validation-20261017-1404/uart-capture.log": {
+      "sha256": "b7e9abea5300a63017feffeb6f0de6df78a08684871f88a7387838a7d6a05506",
+      "bytes": 340
+    }
+  },
+  "archive_sha256": "90434792bdc757e225c78136e1c5261dd56acb6e3d5a51a1b8fc192d73c36015",
+  "archive_bytes": 1867882,
+  "verified": true,
+  "original_files_verified": 136,
+  "extracted_files_verified": 136,
+  "restore_directory": "artifacts/rollback-four-trial-verified",
+  "supplemental_recipe": {
+    "path": "artifacts/fvp-subject1-20261016-ready/project/out/cmsis-executorch+DevKit-E8.cbuild-run.yml",
+    "sha256": "496e5c7ac5dfb79368233ab16a18648befcdb68725803b3fe1c43e610bdf6da6",
+    "bytes": 4691
+  },
+  "physical_restore_tested": false,
+  "demo_commit": "c85ab70f6030243283431f3a12b1a7ea87aa8b72"
+}

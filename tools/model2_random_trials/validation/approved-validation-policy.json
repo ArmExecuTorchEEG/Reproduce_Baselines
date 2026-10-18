@@ -1,0 +1,9 @@
+{
+  "status": "user-approved",
+  "primary": "Exact INT8 equality with independent saved TOSA integer reference",
+  "dequantized_absolute_tolerance": 0.01,
+  "legacy_qdq_absolute_tolerance": 0.01,
+  "legacy_qdq_failing_trials": 40,
+  "total_trials": 144,
+  "physical_deployment_authorized": false
+}

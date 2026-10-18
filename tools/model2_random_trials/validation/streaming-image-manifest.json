@@ -1,0 +1,47 @@
+{
+  "deployment_authorized": false,
+  "model_sha256": "644bf8865ed515ed41c5418070a0b147008c4326b9da34d3232884459d9b3298",
+  "files": {
+    "artifacts/streaming-firmware/project/out/cmsis-executorch/DevKit-E8/Debug/cmsis-executorch.axf": {
+      "sha256": "41f6b09e18ef63bb9913302aed2d5d3d1c1aec6af8b0c023dc61bcd727a80efb",
+      "bytes": 3919212
+    },
+    "artifacts/streaming-firmware/project/out/cmsis-executorch/DevKit-E8/Debug/cmsis-executorch.hex": {
+      "sha256": "84ca339645e211bffdeed17d60d6f2fee7e448829b3e44506e4da81394a13afa",
+      "bytes": 416012
+    },
+    "firmware/streaming/protocol.hpp": {
+      "sha256": "9e97a5dec31690cb9a5b8a082453209d0624ddedf79c81784e657d8b04ef317c",
+      "bytes": 5922
+    },
+    "firmware/streaming/uart_stream.c": {
+      "sha256": "d4b77f5372e5cf678dbf0483c8bb8f0d7307e2ae92ddf4225df6fde66cc42038",
+      "bytes": 2686
+    },
+    "firmware/streaming/fvp-capture.sh": {
+      "sha256": "fd38d0e06064be945056fa6f9b096522d7b8627383ab6edfe10c17c6179cd95a",
+      "bytes": 180
+    },
+    "firmware/streaming/README.md": {
+      "sha256": "e090351c058ed3f326d016cf81473bf7feb5a38bfc60a8d32e8434be64e955b9",
+      "bytes": 10435
+    },
+    "firmware/streaming/app_main.cpp": {
+      "sha256": "de0a67f244b4c007484e360e544b149501829f51661eb3a8acc7c86f1e701287",
+      "bytes": 3765
+    }
+  },
+  "application_load_base": "0x80200000",
+  "mram_file_bytes": 151248,
+  "physical_uart_tested": false,
+  "uart_dependency_fingerprints": {
+    "Alif_CMSIS/Source/Driver_USART.c": "c7dd17a08a13242fba9af5385a1127ffa719bceed41b27ac3ba00de8457e21b6",
+    "Alif_CMSIS/Source/Driver_USART_Private.h": "57bf19de0c8ea5da6089a19a15103d17c36e4ba996b590923b95b7f50bfb730d",
+    "drivers/source/uart.c": "677b4e42b0c58935761ee96d2614e693532158ac8eb562f7402e822f828264fd",
+    "drivers/include/uart.h": "6f258702f33b822c72851b43d4ff7a4b0053641b133594ddb84d240cf3566fc3",
+    "Device/core/common/source/vectors.c": "bc52c0703a73ff43d6f00b567be65a54f74237a95661e0b28b0f28794d17a726"
+  },
+  "historical_numerical_gate": "FAIL:40 of144 held-out trials exceed .01; all predictions agree",
+  "numerical_policy": "approved-validation-policy.json",
+  "physical_deployment_authorized": false
+}

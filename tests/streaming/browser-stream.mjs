@@ -1,0 +1,33 @@
+import {page} from '../../frontend/tests/browser-cdp.mjs';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+const sleep=ms=>new Promise(ok=>setTimeout(ok,ms));
+const tab=await page('http://127.0.0.1:8000/?stream=1');
+async function until(expr){for(let i=0;i<250;i++){const x=await tab.evaluate(expr);if(x)return x;await sleep(80);}throw Error('Timed out: '+expr);}
+await until('!!window.EdgeStream && !!ArmEEGDemo.setPlaying');
+assert.equal(await tab.evaluate('ArmEEGDemo.getState().source'),'hardware');
+assert.equal(await tab.evaluate('ArmEEGDemo.getState().playing'),false);
+await tab.evaluate(`(()=>{let outgoing;window.mockInvocations=0;const P=EdgeStreamProtocol,T=P.T;
+const send=f=>outgoing.enqueue(P.encode(f));
+const parser=new P.Parser(f=>{if(f.type===T.HELLO){const p=new Uint8Array(69),v=new DataView(p.buffer);p.set(P.model.match(/../g).map(x=>parseInt(x,16)));v.setFloat32(32,0.04422667250037193,true);v.setInt32(36,-10,true);v.setUint32(40,11000,true);[1,1,22,500].forEach((n,i)=>v.setUint16(44+i*2,n,true));p[52]=1;p.set(new TextEncoder().encode('TEST-MOCK-ONLY'),53);send({...f,type:T.READY,payload:p});}
+if(f.type===T.INFER){window.mockInvocations++;const crc=P.crc(f.payload),ack=new Uint8Array(4);new DataView(ack.buffer).setUint32(0,crc,true);send({...f,type:T.ACCEPTED,payload:ack});const p=new Uint8Array(16),v=new DataView(p.buffer),x=new Int8Array(f.payload.buffer),logits=[x[0],x[x.length-1]];v.setUint32(0,crc,true);v.setFloat32(4,logits[0],true);v.setFloat32(8,logits[1],true);p[12]=logits[1]>logits[0]?1:0;setTimeout(()=>send({...f,type:T.RESULT,payload:p}),100);}});
+const fake={readable:new ReadableStream({start(c){outgoing=c;}}),writable:new WritableStream({write(b){parser.push(b);}}),open:async options=>{window.mockSerialOptions=options;},close:async()=>{}};Object.defineProperty(navigator,'serial',{configurable:true,value:{requestPort:async()=>fake}});
+})();`);
+await tab.evaluate("document.getElementById('connectBtn').click()");await until('window.EdgeStreamingController?.ready');
+assert.equal(await tab.evaluate('mockSerialOptions.baudRate'),115200);
+await tab.evaluate('(()=>{const c=EdgeStreamingController,old=c.onRecord;c.onRecord=r=>{old(r);if(c.records.length===6)c.pause();};})()');
+await tab.evaluate("document.getElementById('playBtn').click()");
+await until('EdgeStreamingController.records.length>=1 && ArmEEGDemo.getState().playback.active_trial!==null');
+const first=await tab.evaluate('(()=>{const r=EdgeStreamingController.records[0],s=ArmEEGDemo.getState();return {r,s,cue:document.getElementById("groundTruth").textContent,eeg:document.getElementById("mapSource").textContent,channels:document.querySelectorAll(".trace").length};})()');
+assert.equal(first.cue,first.r.ground_truth===0?'LEFT':'RIGHT');assert.match(first.eeg,/Prerecorded EEG/);assert.equal(first.channels,22);
+await tab.evaluate("document.getElementById('playBtn').click()");const held=await tab.evaluate('ArmEEGDemo.getState().cursor_x');await sleep(350);assert.equal(await tab.evaluate('ArmEEGDemo.getState().cursor_x'),held);
+await tab.evaluate("document.getElementById('playBtn').click()");await until('EdgeStreamingController.records.length===6');
+assert.equal(await tab.evaluate('EdgeStreamingController.state().unique'),6);
+assert.equal(await tab.evaluate('ArmEEGDemo.getState().playback.complete'),false);
+assert.equal(await tab.evaluate('mockInvocations'),6);
+assert.match(await tab.evaluate('document.getElementById("transportStatus").textContent'),/6 predictions.*6 unique/);
+await tab.evaluate("document.getElementById('resetBtn').click()");await until('EdgeStreamingController.records.length===0');assert.equal(await tab.evaluate('EdgeStreamingController.sequence.position'),0);assert.equal(await tab.evaluate('ArmEEGDemo.getState().cursor_x'),.5);assert.equal(await tab.evaluate('EdgeStreamingController.archives[0].length'),6);
+await fs.mkdir('/private/tmp/edgebci-stream-qa',{recursive:true});await tab.screenshot('/private/tmp/edgebci-stream-qa/stream-ui.png');
+await tab.evaluate("document.getElementById('disconnectBtn').click()");await until('!EdgeStreamingController.ready');
+await tab.evaluate(`(()=>{URL.createObjectURL=blob=>{window.qaExportPromise=blob.text().then(JSON.parse);return 'blob:qa-only';};HTMLAnchorElement.prototype.click=function(){};document.getElementById('mockBtn').click();})()`);const exported=await tab.evaluate('qaExportPromise');assert.equal(exported.archives[0].length,6);assert(exported.frames.length>0,'Capture frames survive disconnect');
+assert.deepEqual(tab.events.filter(e=>e.method==="Runtime.exceptionThrown"||e.method==="Network.loadingFailed"||(e.method==="Log.entryAdded"&&e.params.entry.level==="error")),[]);await tab.close();console.log('PASS: isolated browser opt-in streaming mode, fake serial only, six trials beyond original cap, EEG/cues, pause/resume, reset/archive and disconnect; no JS errors.');

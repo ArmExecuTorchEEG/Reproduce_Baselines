@@ -1,0 +1,110 @@
+{
+  "seed": 42,
+  "algorithm": "sha256-sort-v1",
+  "selection_before_hardware_results": true,
+  "selection_independent_of_correctness": true,
+  "trial_limit_test_only": 5,
+  "trials": [
+    {
+      "trial_id": "S1/1test/run2/cue95257",
+      "cycle": 0,
+      "position_in_cycle": 0,
+      "selection_number": 1,
+      "repeat_cycle": false,
+      "dataset_index": 71,
+      "ground_truth": 0,
+      "artifact": false,
+      "input_sha256": "2d77ceb4def06b20b41aa1c395d40c161f98b2bb09689c6301bb83be37b14e0d",
+      "reference_prediction": 0,
+      "reference_logits": [
+        0.894363284111023,
+        -0.6839248538017273
+      ],
+      "reference_tosa_int8": [
+        12,
+        -18
+      ]
+    },
+    {
+      "trial_id": "S1/1test/run1/cue95257",
+      "cycle": 0,
+      "position_in_cycle": 1,
+      "selection_number": 2,
+      "repeat_cycle": false,
+      "dataset_index": 47,
+      "ground_truth": 0,
+      "artifact": false,
+      "input_sha256": "a36f610ae938992901d7bb0a24a2f40671836bb7b9742d4ffd4c4e628bd6862c",
+      "reference_prediction": 0,
+      "reference_logits": [
+        5.313570022583008,
+        -5.1031317710876465
+      ],
+      "reference_tosa_int8": [
+        96,
+        -102
+      ]
+    },
+    {
+      "trial_id": "S1/1test/run0/cue42768",
+      "cycle": 0,
+      "position_in_cycle": 2,
+      "selection_number": 3,
+      "repeat_cycle": false,
+      "dataset_index": 12,
+      "ground_truth": 1,
+      "artifact": false,
+      "input_sha256": "32745c4ca1177ac07c87d5c76111bac87bb020a6598be3f0cb149b7a717c2b19",
+      "reference_prediction": 1,
+      "reference_logits": [
+        -2.051774501800537,
+        2.104384183883667
+      ],
+      "reference_tosa_int8": [
+        -44,
+        35
+      ]
+    },
+    {
+      "trial_id": "S1/1test/run4/cue50625",
+      "cycle": 0,
+      "position_in_cycle": 3,
+      "selection_number": 4,
+      "repeat_cycle": false,
+      "dataset_index": 108,
+      "ground_truth": 1,
+      "artifact": false,
+      "input_sha256": "01bc992b8d714aaf51c63bb21060f0aaf94e514cc731143a25ec3b0bd498ecd0",
+      "reference_prediction": 1,
+      "reference_logits": [
+        -0.9995824694633484,
+        1.1048016548156738
+      ],
+      "reference_tosa_int8": [
+        -24,
+        16
+      ]
+    },
+    {
+      "trial_id": "S1/1test/run3/cue50625",
+      "cycle": 0,
+      "position_in_cycle": 4,
+      "selection_number": 5,
+      "repeat_cycle": false,
+      "dataset_index": 83,
+      "ground_truth": 1,
+      "artifact": false,
+      "input_sha256": "25890822e7ee3d1a08fd62b6f1d0c3a7a64e8f65b3cbef663ab9640fc119d8ec",
+      "reference_prediction": 1,
+      "reference_logits": [
+        -0.6313152313232422,
+        0.2630480229854584
+      ],
+      "reference_tosa_int8": [
+        -17,
+        0
+      ]
+    }
+  ],
+  "physical_test_executed": false
+}

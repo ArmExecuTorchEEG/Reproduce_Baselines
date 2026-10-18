@@ -1,0 +1,748 @@
+{
+  "weights_and_biases": [
+    {
+      "parameter": "_frozen_param0",
+      "tosa_tensor": "aten_convolution_default_weight_hwicm",
+      "shape": [
+        1,
+        64,
+        1,
+        8
+      ],
+      "raw_values_exact": true
+    },
+    {
+      "parameter": "_frozen_param2",
+      "tosa_tensor": "aten_convolution_default_1_weight_hwicm",
+      "shape": [
+        22,
+        1,
+        8,
+        2
+      ],
+      "raw_values_exact": true
+    },
+    {
+      "parameter": "_frozen_param4",
+      "tosa_tensor": "aten_convolution_default_2_weight_hwicm",
+      "shape": [
+        1,
+        16,
+        16,
+        1
+      ],
+      "raw_values_exact": true
+    },
+    {
+      "parameter": "_frozen_param5",
+      "tosa_tensor": "aten_convolution_default_3_weight_ohwi",
+      "shape": [
+        16,
+        1,
+        1,
+        16
+      ],
+      "raw_values_exact": true
+    },
+    {
+      "parameter": "_frozen_param7",
+      "tosa_tensor": "aten_convolution_default_4_weight_ohwi",
+      "shape": [
+        2,
+        1,
+        1,
+        240
+      ],
+      "raw_values_exact": true
+    },
+    {
+      "parameter": "_frozen_param1",
+      "tosa_tensor": "b__frozen_param1",
+      "raw_values_exact": true
+    },
+    {
+      "parameter": "_frozen_param3",
+      "tosa_tensor": "b__frozen_param3",
+      "raw_values_exact": true
+    },
+    {
+      "parameter": "_frozen_param6",
+      "tosa_tensor": "b__frozen_param6",
+      "raw_values_exact": true
+    },
+    {
+      "parameter": "_frozen_param8",
+      "tosa_tensor": "b__frozen_param8",
+      "raw_values_exact": true
+    }
+  ],
+  "pte_output_dequant": {
+    "scale": 0.052609603852033615,
+    "zero_point": -5,
+    "raw_shape": [
+      1,
+      2
+    ],
+    "raw_dtype": "1",
+    "output_shape": [
+      1,
+      2
+    ]
+  },
+  "trials": [
+    {
+      "index": 0,
+      "stages": [
+        {
+          "desktop_node": "quantize_per_tensor_2",
+          "tosa_tensor": "tosa_rescale_default",
+          "shape": [
+            1,
+            22,
+            500,
+            8
+          ],
+          "different_elements": 0,
+          "max_integer_delta": 0
+        },
+        {
+          "desktop_node": "quantize_per_tensor_3",
+          "tosa_tensor": "tosa_rescale_default_1",
+          "shape": [
+            1,
+            1,
+            500,
+            16
+          ],
+          "different_elements": 0,
+          "max_integer_delta": 0
+        },
+        {
+          "desktop_node": "quantize_per_tensor_4",
+          "tosa_tensor": "tosa_avg_pool2d_default",
+          "shape": [
+            1,
+            1,
+            125,
+            16
+          ],
+          "different_elements": 124,
+          "max_integer_delta": 1
+        },
+        {
+          "desktop_node": "quantize_per_tensor_7",
+          "tosa_tensor": "tosa_rescale_default_2",
+          "shape": [
+            1,
+            1,
+            125,
+            16
+          ],
+          "different_elements": 124,
+          "max_integer_delta": 1
+        },
+        {
+          "desktop_node": "quantize_per_tensor_8",
+          "tosa_tensor": "tosa_rescale_default_3",
+          "shape": [
+            1,
+            1,
+            125,
+            16
+          ],
+          "different_elements": 323,
+          "max_integer_delta": 3
+        },
+        {
+          "desktop_node": "quantize_per_tensor_9",
+          "tosa_tensor": "tosa_avg_pool2d_default_1",
+          "shape": [
+            1,
+            1,
+            15,
+            16
+          ],
+          "different_elements": 37,
+          "max_integer_delta": 1
+        },
+        {
+          "desktop_node": "quantize_per_tensor_12",
+          "tosa_tensor": "tosa_reshape_default_2",
+          "shape": [
+            1,
+            2
+          ],
+          "different_elements": 0,
+          "max_integer_delta": 0
+        }
+      ],
+      "pooling": [
+        {
+          "pool": "tosa_avg_pool2d_default",
+          "tosa_vs_even_count": 169,
+          "tosa_vs_up_count": 0,
+          "examples": [
+            {
+              "position": [
+                0,
+                0,
+                0,
+                6
+              ],
+              "sum": -510,
+              "denominator": 4,
+              "exact_average": -127.5,
+              "ties_to_even": -128,
+              "tosa": -127,
+              "nearest_positive_tie": -127
+            },
+            {
+              "position": [
+                0,
+                0,
+                2,
+                5
+              ],
+              "sum": -494,
+              "denominator": 4,
+              "exact_average": -123.5,
+              "ties_to_even": -124,
+              "tosa": -123,
+              "nearest_positive_tie": -123
+            },
+            {
+              "position": [
+                0,
+                0,
+                2,
+                14
+              ],
+              "sum": -478,
+              "denominator": 4,
+              "exact_average": -119.5,
+              "ties_to_even": -120,
+              "tosa": -119,
+              "nearest_positive_tie": -119
+            },
+            {
+              "position": [
+                0,
+                0,
+                3,
+                1
+              ],
+              "sum": -486,
+              "denominator": 4,
+              "exact_average": -121.5,
+              "ties_to_even": -122,
+              "tosa": -121,
+              "nearest_positive_tie": -121
+            },
+            {
+              "position": [
+                0,
+                0,
+                4,
+                12
+              ],
+              "sum": -446,
+              "denominator": 4,
+              "exact_average": -111.5,
+              "ties_to_even": -112,
+              "tosa": -111,
+              "nearest_positive_tie": -111
+            },
+            {
+              "position": [
+                0,
+                0,
+                5,
+                10
+              ],
+              "sum": -446,
+              "denominator": 4,
+              "exact_average": -111.5,
+              "ties_to_even": -112,
+              "tosa": -111,
+              "nearest_positive_tie": -111
+            },
+            {
+              "position": [
+                0,
+                0,
+                5,
+                15
+              ],
+              "sum": -502,
+              "denominator": 4,
+              "exact_average": -125.5,
+              "ties_to_even": -126,
+              "tosa": -125,
+              "nearest_positive_tie": -125
+            },
+            {
+              "position": [
+                0,
+                0,
+                6,
+                5
+              ],
+              "sum": -406,
+              "denominator": 4,
+              "exact_average": -101.5,
+              "ties_to_even": -102,
+              "tosa": -101,
+              "nearest_positive_tie": -101
+            }
+          ]
+        },
+        {
+          "pool": "tosa_avg_pool2d_default_1",
+          "tosa_vs_even_count": 14,
+          "tosa_vs_up_count": 0,
+          "examples": [
+            {
+              "position": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "sum": -1020,
+              "denominator": 8,
+              "exact_average": -127.5,
+              "ties_to_even": -128,
+              "tosa": -127,
+              "nearest_positive_tie": -127
+            },
+            {
+              "position": [
+                0,
+                0,
+                1,
+                10
+              ],
+              "sum": -908,
+              "denominator": 8,
+              "exact_average": -113.5,
+              "ties_to_even": -114,
+              "tosa": -113,
+              "nearest_positive_tie": -113
+            },
+            {
+              "position": [
+                0,
+                0,
+                2,
+                12
+              ],
+              "sum": -956,
+              "denominator": 8,
+              "exact_average": -119.5,
+              "ties_to_even": -120,
+              "tosa": -119,
+              "nearest_positive_tie": -119
+            },
+            {
+              "position": [
+                0,
+                0,
+                3,
+                0
+              ],
+              "sum": -876,
+              "denominator": 8,
+              "exact_average": -109.5,
+              "ties_to_even": -110,
+              "tosa": -109,
+              "nearest_positive_tie": -109
+            },
+            {
+              "position": [
+                0,
+                0,
+                3,
+                14
+              ],
+              "sum": -1004,
+              "denominator": 8,
+              "exact_average": -125.5,
+              "ties_to_even": -126,
+              "tosa": -125,
+              "nearest_positive_tie": -125
+            },
+            {
+              "position": [
+                0,
+                0,
+                4,
+                4
+              ],
+              "sum": -972,
+              "denominator": 8,
+              "exact_average": -121.5,
+              "ties_to_even": -122,
+              "tosa": -121,
+              "nearest_positive_tie": -121
+            },
+            {
+              "position": [
+                0,
+                0,
+                5,
+                6
+              ],
+              "sum": -956,
+              "denominator": 8,
+              "exact_average": -119.5,
+              "ties_to_even": -120,
+              "tosa": -119,
+              "nearest_positive_tie": -119
+            },
+            {
+              "position": [
+                0,
+                0,
+                5,
+                8
+              ],
+              "sum": -1020,
+              "denominator": 8,
+              "exact_average": -127.5,
+              "ties_to_even": -128,
+              "tosa": -127,
+              "nearest_positive_tie": -127
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "stages": [
+        {
+          "desktop_node": "quantize_per_tensor_2",
+          "tosa_tensor": "tosa_rescale_default",
+          "shape": [
+            1,
+            22,
+            500,
+            8
+          ],
+          "different_elements": 0,
+          "max_integer_delta": 0
+        },
+        {
+          "desktop_node": "quantize_per_tensor_3",
+          "tosa_tensor": "tosa_rescale_default_1",
+          "shape": [
+            1,
+            1,
+            500,
+            16
+          ],
+          "different_elements": 0,
+          "max_integer_delta": 0
+        },
+        {
+          "desktop_node": "quantize_per_tensor_4",
+          "tosa_tensor": "tosa_avg_pool2d_default",
+          "shape": [
+            1,
+            1,
+            125,
+            16
+          ],
+          "different_elements": 105,
+          "max_integer_delta": 1
+        },
+        {
+          "desktop_node": "quantize_per_tensor_7",
+          "tosa_tensor": "tosa_rescale_default_2",
+          "shape": [
+            1,
+            1,
+            125,
+            16
+          ],
+          "different_elements": 94,
+          "max_integer_delta": 1
+        },
+        {
+          "desktop_node": "quantize_per_tensor_8",
+          "tosa_tensor": "tosa_rescale_default_3",
+          "shape": [
+            1,
+            1,
+            125,
+            16
+          ],
+          "different_elements": 273,
+          "max_integer_delta": 3
+        },
+        {
+          "desktop_node": "quantize_per_tensor_9",
+          "tosa_tensor": "tosa_avg_pool2d_default_1",
+          "shape": [
+            1,
+            1,
+            15,
+            16
+          ],
+          "different_elements": 35,
+          "max_integer_delta": 1
+        },
+        {
+          "desktop_node": "quantize_per_tensor_12",
+          "tosa_tensor": "tosa_reshape_default_2",
+          "shape": [
+            1,
+            2
+          ],
+          "different_elements": 2,
+          "max_integer_delta": 1
+        }
+      ],
+      "pooling": [
+        {
+          "pool": "tosa_avg_pool2d_default",
+          "tosa_vs_even_count": 152,
+          "tosa_vs_up_count": 0,
+          "examples": [
+            {
+              "position": [
+                0,
+                0,
+                0,
+                7
+              ],
+              "sum": -510,
+              "denominator": 4,
+              "exact_average": -127.5,
+              "ties_to_even": -128,
+              "tosa": -127,
+              "nearest_positive_tie": -127
+            },
+            {
+              "position": [
+                0,
+                0,
+                0,
+                11
+              ],
+              "sum": -494,
+              "denominator": 4,
+              "exact_average": -123.5,
+              "ties_to_even": -124,
+              "tosa": -123,
+              "nearest_positive_tie": -123
+            },
+            {
+              "position": [
+                0,
+                0,
+                1,
+                9
+              ],
+              "sum": -438,
+              "denominator": 4,
+              "exact_average": -109.5,
+              "ties_to_even": -110,
+              "tosa": -109,
+              "nearest_positive_tie": -109
+            },
+            {
+              "position": [
+                0,
+                0,
+                2,
+                9
+              ],
+              "sum": -374,
+              "denominator": 4,
+              "exact_average": -93.5,
+              "ties_to_even": -94,
+              "tosa": -93,
+              "nearest_positive_tie": -93
+            },
+            {
+              "position": [
+                0,
+                0,
+                2,
+                10
+              ],
+              "sum": -470,
+              "denominator": 4,
+              "exact_average": -117.5,
+              "ties_to_even": -118,
+              "tosa": -117,
+              "nearest_positive_tie": -117
+            },
+            {
+              "position": [
+                0,
+                0,
+                3,
+                15
+              ],
+              "sum": -238,
+              "denominator": 4,
+              "exact_average": -59.5,
+              "ties_to_even": -60,
+              "tosa": -59,
+              "nearest_positive_tie": -59
+            },
+            {
+              "position": [
+                0,
+                0,
+                5,
+                8
+              ],
+              "sum": -366,
+              "denominator": 4,
+              "exact_average": -91.5,
+              "ties_to_even": -92,
+              "tosa": -91,
+              "nearest_positive_tie": -91
+            },
+            {
+              "position": [
+                0,
+                0,
+                6,
+                12
+              ],
+              "sum": -502,
+              "denominator": 4,
+              "exact_average": -125.5,
+              "ties_to_even": -126,
+              "tosa": -125,
+              "nearest_positive_tie": -125
+            }
+          ]
+        },
+        {
+          "pool": "tosa_avg_pool2d_default_1",
+          "tosa_vs_even_count": 13,
+          "tosa_vs_up_count": 0,
+          "examples": [
+            {
+              "position": [
+                0,
+                0,
+                0,
+                12
+              ],
+              "sum": -956,
+              "denominator": 8,
+              "exact_average": -119.5,
+              "ties_to_even": -120,
+              "tosa": -119,
+              "nearest_positive_tie": -119
+            },
+            {
+              "position": [
+                0,
+                0,
+                2,
+                9
+              ],
+              "sum": -684,
+              "denominator": 8,
+              "exact_average": -85.5,
+              "ties_to_even": -86,
+              "tosa": -85,
+              "nearest_positive_tie": -85
+            },
+            {
+              "position": [
+                0,
+                0,
+                3,
+                2
+              ],
+              "sum": -1020,
+              "denominator": 8,
+              "exact_average": -127.5,
+              "ties_to_even": -128,
+              "tosa": -127,
+              "nearest_positive_tie": -127
+            },
+            {
+              "position": [
+                0,
+                0,
+                4,
+                13
+              ],
+              "sum": -940,
+              "denominator": 8,
+              "exact_average": -117.5,
+              "ties_to_even": -118,
+              "tosa": -117,
+              "nearest_positive_tie": -117
+            },
+            {
+              "position": [
+                0,
+                0,
+                5,
+                9
+              ],
+              "sum": -492,
+              "denominator": 8,
+              "exact_average": -61.5,
+              "ties_to_even": -62,
+              "tosa": -61,
+              "nearest_positive_tie": -61
+            },
+            {
+              "position": [
+                0,
+                0,
+                5,
+                14
+              ],
+              "sum": -1004,
+              "denominator": 8,
+              "exact_average": -125.5,
+              "ties_to_even": -126,
+              "tosa": -125,
+              "nearest_positive_tie": -125
+            },
+            {
+              "position": [
+                0,
+                0,
+                7,
+                1
+              ],
+              "sum": -876,
+              "denominator": 8,
+              "exact_average": -109.5,
+              "ties_to_even": -110,
+              "tosa": -109,
+              "nearest_positive_tie": -109
+            },
+            {
+              "position": [
+                0,
+                0,
+                7,
+                3
+              ],
+              "sum": -1020,
+              "denominator": 8,
+              "exact_average": -127.5,
+              "ties_to_even": -128,
+              "tosa": -127,
+              "nearest_positive_tie": -127
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -6,14 +6,15 @@ const predFixture=[0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,0,0];
 const cueFixture =[0,0,1,1,0,1,1,0,0,1,0,1,0,1,1,0,1,0,0,1,0,1,1,0];
 let source="mock";
 let correctPredictions=0,scoredPredictions=0;
-function updateTotals(){setText('accuracyValue',scoredPredictions?Math.round(100*correctPredictions/scoredPredictions)+'%':'—');setText('correctValue',correctPredictions+' / '+scoredPredictions);setText('accuracyLabel',source==='mock'?'Accuracy':'Accuracy');}
+function updateTotals(){setText('accuracyValue',scoredPredictions?Math.round(100*correctPredictions/scoredPredictions)+'%':'—');setText('correctValue',correctPredictions+' / '+scoredPredictions);setText('accuracyLabel',window.EdgeStreamingMode?'Visualized accuracy':'Accuracy');}
 // Only score a label explicitly paired with THIS prediction's EEG window.
 // Hardware adapter must supply ground_truth: 0|1 on the prediction message.
 // A separately displayed cue can belong to a different window and is never used here.
 function scorePrediction(message){if(message.ground_truth!==0&&message.ground_truth!==1)return;scoredPredictions++;if(message.class_id===message.ground_truth)correctPredictions++;updateTotals();}
 let playing=false, elapsed=0,lastFrame=null,nextPrediction=0,fixtureIndex=0,lastPredictionTime=-1,lastClass=null, cursorFrac=.5,dwell=0,hitCount=0,currentHit=null,lastViz=0;
 const playback=EdgePlayback.createPlayback({
- onTrial(message,index){feedPrediction(message);humanCue([0,1].includes(message.ground_truth)?message.ground_truth:null);setText('truthInfo',[0,1].includes(message.ground_truth)?'Verified Model 2 task · trial '+message.trial:'Ground truth unavailable · person neutral');setText('predDesc','Trial '+(message.trial??index)+' · Class '+message.class_id);window.EdgeRecordedEEG?.showTrial(message);},
+ continuous:!!window.EdgeStreamingMode,
+ onTrial(message,index){feedPrediction(message);humanCue([0,1].includes(message.ground_truth)?message.ground_truth:null);setText('truthInfo',[0,1].includes(message.ground_truth)?'Verified Model 2 task · trial '+message.trial:'Ground truth unavailable · person neutral');setText('predDesc','Trial '+(message.trial??index)+' · Class '+message.class_id);if(message.streaming){window.ArmEEGDemo.onEEGFrame(message.eeg_channels,{origin:"prerecorded",trial_id:message.trial_id,uart_trial:message.trial});setText("truthInfo","Verified Session2 task · "+message.trial_id+(message.artifact?" · artifact flagged":""));}else window.EdgeRecordedEEG?.showTrial(message);},
  onPosition(x){cursorFrac=x;},
  onComplete(){playing=false;humanCue(null);syncPlayback();}
 });
@@ -61,6 +62,7 @@ window.ArmEEGDemo={
  setSource(value){if(value!=='mock'&&value!=='hardware')throw new Error('Source must be mock or hardware');playback.clear();reset();source=value;playing=value==='hardware';updateTotals();syncPlayback();document.querySelector('.pill.mock').textContent=value==='mock'?'Mock mode':'Hardware mode';setText('boardStat',value==='mock'?'Board not connected':'Awaiting board connection');setText('truthInfo',value==='mock'?'Ground-truth cue':'Ground truth unavailable · select verified metadata');document.querySelector('.optional').textContent=value==='mock'?'Model output: every 2.5 s':'Delayed visualization · 1.8 s/trial';realEEG=null;setText('mapSource',value==='mock'?'EEG amplitude · relative RMS':'Awaiting EEG samples');document.querySelector('.trace-note').textContent=value==='mock'?'':'Awaiting EEG samples';drawScalp();drawSignals();},
  finishCapture(){playback.finish();syncPlayback();},
  setConnection(connected){if(!connected&&source==='hardware')playback.finish();setText('boardStat',connected?'Board connected':'Board disconnected');syncPlayback();},
+ setPlaying(value){playing=!!value;syncPlayback();},
  reset:reset,
  getState:()=>({source,playing,elapsed_ms:elapsed,current_class:lastClass,cursor_x:cursorFrac,playback:playback.state(),accuracy:{correct:correctPredictions,scored:scoredPredictions}})
 };

@@ -1,0 +1,16 @@
+'use strict';const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');const root=path.resolve(__dirname,'../..'),P=require(root+'/frontend/streaming/protocol.js'),{Controller}=require(root+'/frontend/streaming/controller.js');
+const meta=JSON.parse(fs.readFileSync(root+'/frontend/streaming/data/metadata.json')),buf=fs.readFileSync(root+'/frontend/streaming/data/inputs.bin'),dataset={...meta,input:async i=>new Uint8Array(buf.subarray(i*11000,(i+1)*11000))};
+function ready(){const p=new Uint8Array(69),v=new DataView(p.buffer);p.set(P.model.match(/../g).map(s=>parseInt(s,16)));v.setFloat32(32,.04422667250037193,true);v.setInt32(36,-10,true);v.setUint32(40,11000,true);[1,1,22,500].forEach((n,i)=>v.setUint16(44+2*i,n,true));p[52]=1;return p;}
+const delay=ms=>new Promise(ok=>setTimeout(ok,ms));
+class Fake{
+ constructor(mode){this.mode=mode;this.calls=0;this.onData=()=>{};this.onDisconnect=()=>{};this.parser=new P.Parser(f=>this.frame(f));}
+ async write(b){this.parser.push(b);}
+ send(f){this.onData(P.encode(f));}
+ frame(f){if(f.type===P.T.HELLO){const p=ready();if(this.mode==='model')p[0]^=1;this.send({...f,type:P.T.READY,payload:p});return;}if(f.type!==P.T.INFER)return;this.calls++;if(this.mode==='disconnect'){this.onDisconnect();return;}const sum=P.crc(f.payload),p=new Uint8Array(16),v=new DataView(p.buffer);v.setUint32(0,sum,true);v.setFloat32(4,1,true);v.setFloat32(8,-1,true);const ack=p.slice(0,4);if(this.mode==='ack')ack[0]^=1;this.send({...f,type:P.T.ACCEPTED,payload:ack});if(this.mode==='missing')return;if(this.mode==='crc')p[0]^=1;if(this.mode==='nan')v.setFloat32(4,NaN,true);if(this.mode==='class')p[12]=1;const respond=()=>{this.send({...f,type:P.T.RESULT,payload:p});if(this.mode==='duplicate')this.send({...f,type:P.T.RESULT,payload:p});};if(this.mode==='held')this.release=respond;else queueMicrotask(respond);}
+}
+(async()=>{
+ for(const mode of ['model','ack','crc','nan','class','disconnect','missing']){const fake=new Fake(mode);let c;c=new Controller({dataset,transport:fake,ackMs:30,timeoutMs:30,onRecord:()=>c.pause()});if(mode==='model')await assert.rejects(c.handshake(),/mismatch/);else{await c.handshake();await c.play();assert(c.failed,mode);}assert.equal(c.records.length,0,mode+' must not synthesize a prediction');assert.equal(c.paused,true);}
+ const dup=new Fake('duplicate');let c;c=new Controller({dataset,transport:dup,onRecord:()=>c.pause()});await c.handshake();await c.play();assert.equal(c.records.length,1);assert.equal(c.state().total,1);
+ const held=new Fake('held');const reset=new Controller({dataset,transport:held});await reset.handshake();const run=reset.play();for(let i=0;i<50&&!held.release;i++)await delay(1);assert(held.release);const resetting=reset.reset(99);assert.equal(reset.resetting,true);held.release();await resetting;await run;assert.equal(held.calls,1);assert.equal(reset.archives[0].length,1);assert.equal(reset.records.length,0);assert.equal(reset.sequence.position,0);
+ console.log('PASS: wrong model, bad ACK/input CRC, NaN, class/logit disagreement, disconnect, result timeout, duplicate response and Reset during in-flight inference; no fabricated predictions.');
+})().catch(e=>{console.error(e);process.exit(1);});
