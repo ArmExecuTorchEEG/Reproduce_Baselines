@@ -30,7 +30,7 @@ const message={type:'prediction',class_id:0,trial:0,logits:[3,-3]};assert(api.re
 assert.equal(gui.getState().playback.results[0].logits[0],3,'adapter and archive own their result data');advance(700);assert(gui.getState().cursor_x<.5);assert.equal(node('groundTruth').textContent,'—');
 assert.equal(api.receive({type:'prediction',class_id:3}),false);
 assert(api.receive({type:'eeg',channels:{POz:[1,2,3]}}));assert.equal(node('trace-POz').style.display,'flex');assert.equal(node('trace-C3').style.display,'none');
-api.receive({type:'ground_truth',label:1});assert(node('person').classList.contains('raiseR'),'public explicit ground-truth API preserved');
+api.receive({type:'ground_truth',label:1});assert(node('person').classList.contains('raiseL'),'public explicit ground-truth API preserved');
 api.useMock();
 let releaseRead,closed=0;
 const fakeReader={read:()=>new Promise(resolve=>{releaseRead=resolve;}),cancel:async()=>releaseRead({done:true}),releaseLock(){}};
@@ -71,14 +71,26 @@ const flush=()=>new Promise(resolve=>setImmediate(resolve));
  await node('replayBtn').onclick();for(const [id,f] of [...timers]){timers.delete(id);f();}
  assert.equal(gui.getState().playback.results.length,4);assert.match(node('transportStatus').textContent,/SAVED UART REPLAY.*Complete.*PASS.*EOT/);
  const labels=[0,0,1,1];
+ function assertRecordedSweep(trial){
+  const row=ctx.EdgeRecordedEEG.resolve(gui.getState().playback.results[trial]);
+  const fraction=gui.getState().playback.trial_elapsed_ms/1800;
+  ctx.EdgeRecordedEEGData.channel_order.forEach((name,i)=>{
+   const a=row.channels[name],peak=Math.max(...a.map(Math.abs)),count=1+Math.floor(fraction*(a.length-1));
+   const expected=Array.from({length:count},(_,j)=>(j?'L':'M')+(j/(a.length-1)*600).toFixed(1)+' '+(9.5-a[j]/peak*7).toFixed(1)).join(' ');
+   assert.equal(node('wave'+i).attributes.d,expected,'actual recorded samples, fixed scale and playback position: '+name);
+  });
+ }
+
  for(let i=0;i<4;i++){
-  advance(700);assert.equal(gui.getState().current_class,[0,1,1,1][i]);
+  advance(700);assert.equal(gui.getState().current_class,[0,1,1,1][i]);assertRecordedSweep(i);
   assert.equal(ctx.EdgeRecordedEEG.getState().uart_trial,i);assert.match(node('mapSource').textContent,/Prerecorded EEG.*filtered µV/);for(const name of ctx.EdgeRecordedEEGData.channel_order){assert.equal(node('trace-'+name).style.display,'flex');assert(Number(node('heat-'+name).attributes.opacity)>0);}
   assert.equal(node('groundTruth').textContent,labels[i]===0?'LEFT':'RIGHT');
-  assert(node('person').classList.contains(labels[i]===0?'raiseL':'raiseR'));
-  if(i===1){assert(gui.getState().cursor_x>.5);assert(node('person').classList.contains('raiseL'),'trial 1 LEFT ground truth must be independent of RIGHT prediction');}
+  assert(node('person').classList.contains(labels[i]===0?'raiseR':'raiseL'));
+  if(i===0){const wave=node('wave0').attributes.d;node('playBtn').click();advance(900);assert.equal(node('wave0').attributes.d,wave,'Pause freezes real EEG sweep');node('playBtn').click();}
+  if(i===1){assert(gui.getState().cursor_x>.5);assert(node('person').classList.contains('raiseR'),'trial 1 LEFT ground truth must be independent of RIGHT prediction');}
   advance(1100);
  }
+ assertRecordedSweep(3);assert.equal(node('wave0').attributes.d.match(/[ML]/g).length,500,'all 500 original samples revealed at completion');
  assert.equal(gui.getState().playing,false);assert.equal(node('groundTruth').textContent,'—');
  const rows=JSON.parse(JSON.stringify(gui.getState().playback.results));
  assert.deepEqual(rows.map(r=>r.class_id),[0,1,1,1]);assert.deepEqual(rows.map(r=>r.ground_truth),labels);

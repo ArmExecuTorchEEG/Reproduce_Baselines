@@ -28,7 +28,8 @@ function syncPlayback(){
 }
 const panel=$('targetArea'),mouse=$('mouse'),person=$('person'),truth=$('groundTruth'),predict=$('predictText');
 function setText(id,s){$(id).textContent=s}
-function humanCue(label){person.classList.remove('raiseL','raiseR');if(label===0)person.classList.add('raiseL');if(label===1)person.classList.add('raiseR');truth.textContent=label===0?'LEFT':label===1?'RIGHT':'—';setText('cueArrow',label===0?'←':label===1?'→':'↔');document.querySelector('.cue-direction').setAttribute('data-direction',label===0?'left':label===1?'right':'none');}
+function humanCue(label){person.classList.remove('raiseL','raiseR');// SVG arm names are anatomical: swap only the displayed side for the viewer.
+if(label===0)person.classList.add('raiseR');if(label===1)person.classList.add('raiseL');truth.textContent=label===0?'LEFT':label===1?'RIGHT':'—';setText('cueArrow',label===0?'←':label===1?'→':'↔');document.querySelector('.cue-direction').setAttribute('data-direction',label===0?'left':label===1?'right':'none');}
 function feedPrediction(message){ // Replace only this adapter with UART/bridge output handler later.
  if(message.class_id!==0&&message.class_id!==1)return;
  lastClass=message.class_id;lastPredictionTime=elapsed;scorePrediction(message);
@@ -49,7 +50,7 @@ function updateMotion(dt){if(source==='hardware')return;if(!playing||lastClass==
  if(pos>tr.left&&pos<tr.right){if(currentHit!==target){currentHit=target;dwell=0}else dwell+=dt; if(dwell>650&&!targetEl.classList.contains('hit')){targetEl.classList.add('hit');hitCount++;showHit(target);}}else{currentHit=null;dwell=0;$('leftTarget').classList.remove('hit');$('rightTarget').classList.remove('hit')}
 }
 function showHit(target){const el=$('popup');el.textContent=target.toUpperCase()+' target reached · '+hitCount;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1200)}
-function render(dt){updateCursor();const p=playback.state();$('progress').style.width=(source==='mock'?elapsed/DURATION*100:p.results.length?(p.index+(p.active_trial!==null?p.trial_elapsed_ms/p.duration_ms:0))/p.results.length*100:0)+'%';setText('clock',mmss(elapsed)+(source==='mock'?' / 01:00':' · VISUAL PLAYBACK'));const age=lastPredictionTime<0?0:Math.min(100,(elapsed-lastPredictionTime)/INTERVAL*100);$('predictionAge').style.width=age+'%';if(lastClass!==null){predict.className='predict '+(lastClass===0?'left':'right');predict.textContent=(lastClass===0?'← LEFT':'→ RIGHT');}}
+function render(dt){updateCursor();const p=playback.state();if(source==='hardware'&&realEEG){eegProgress=Math.min(1,p.trial_elapsed_ms/p.duration_ms);drawSignals();}$('progress').style.width=(source==='mock'?elapsed/DURATION*100:p.results.length?(p.index+(p.active_trial!==null?p.trial_elapsed_ms/p.duration_ms:0))/p.results.length*100:0)+'%';setText('clock',mmss(elapsed)+(source==='mock'?' / 01:00':' · VISUAL PLAYBACK'));const age=lastPredictionTime<0?0:Math.min(100,(elapsed-lastPredictionTime)/INTERVAL*100);$('predictionAge').style.width=age+'%';if(lastClass!==null){predict.className='predict '+(lastClass===0?'left':'right');predict.textContent=(lastClass===0?'← LEFT':'→ RIGHT');}}
 function loop(now){if(lastFrame===null)lastFrame=now;const dt=Math.min(now-lastFrame,100);lastFrame=now;if(playing){elapsed=source==="mock"?Math.min(DURATION,elapsed+dt):elapsed+dt;processFixture();if(source==='hardware')playback.tick(dt);updateMotion(dt);render(dt);syncPlayback();if(source==="mock"&&elapsed>=DURATION){playing=false;$('playBtn').textContent='▶ Replay';$('playBtn').classList.remove('running');predict.textContent='SESSION COMPLETE';}}requestAnimationFrame(loop)}
 $('playBtn').addEventListener('click',()=>{const p=playback.state();if(source==='mock'&&elapsed>=DURATION||source==='hardware'&&p.results.length&&p.complete)reset();playing=!playing;syncPlayback();if(playing&&elapsed===0&&source==='mock'){processFixture();render(0);}});
 $('resetBtn').addEventListener('click',reset);
@@ -67,16 +68,31 @@ window.ArmEEGDemo={
  getState:()=>({source,playing,elapsed_ms:elapsed,current_class:lastClass,cursor_x:cursorFrac,playback:playback.state(),accuracy:{correct:correctPredictions,scored:scoredPredictions}})
 };
 // Real EEG adapter accepts channel-keyed arrays; map uses RMS, independent of cue/class.
-let realEEG=null;
+let realEEG=null,eegProgress=0;
 const montage={"Fz":[110,48],"FC3":[58,83],"FC1":[84,83],"FCz":[110,83],"FC2":[136,83],"FC4":[162,83],"C5":[32,119],"C3":[58,119],"C1":[84,119],"Cz":[110,119],"C2":[136,119],"C4":[162,119],"C6":[188,119],"CP3":[58,155],"CP1":[84,155],"CPz":[110,155],"CP2":[136,155],"CP4":[162,155],"P1":[84,190],"Pz":[110,190],"P2":[136,190],"POz":[110,218]};
 Object.entries(montage).forEach(([name,xy])=>{const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');circle.id='heat-'+name;circle.setAttribute('cx',xy[0]);circle.setAttribute('cy',xy[1]);circle.setAttribute('r','45');circle.setAttribute('fill','url(#heat)');$('heatField').appendChild(circle)});
 function samplesFor(name,i){i=Object.keys(montage).indexOf(name);if(i<0)return [];if(source==='hardware'&&!realEEG)return [];if(realEEG)return realEEG[name]||[];return Array.from({length:160},(_,j)=>{const t=elapsed/1000*2+j*.085;return (1+.5*Math.sin(elapsed/3000+i))*(3.1*Math.sin(t*(1.8+i*.4)+i)+1.6*Math.sin(t*(4.5+i*.12)+i*.4)+.75*Math.sin(t*9+i*1.7))})}
 function drawScalp(){const vals=Object.keys(montage).map((name,i)=>{const a=samplesFor(name,i);return a.length?Math.sqrt(a.reduce((s,x)=>s+x*x,0)/a.length):0});const max=Math.max(...vals,1e-9);Object.keys(montage).forEach((name,i)=>{const c=$('heat-'+name);c.setAttribute('opacity',String(vals[i]/max));c.setAttribute('r',String(28+26*vals[i]/max))})}
-window.ArmEEGDemo.clearEEG=(label='Awaiting EEG samples')=>{realEEG=null;setText('mapSource',label);document.querySelector('.trace-note').textContent=label;drawScalp();drawSignals();};
-window.ArmEEGDemo.onEEGFrame=(channels,metadata={})=>{if(!channels||typeof channels!=='object')return;const clean={};for(const name of Object.keys(montage)){const a=channels[name];if(Array.isArray(a)&&a.length&&a.every(Number.isFinite))clean[name]=a.slice(-500)}if(!Object.keys(clean).length)return;realEEG=clean;const label=metadata.origin==='prerecorded'?'Prerecorded EEG · trial '+metadata.uart_trial+' · filtered µV':'Live EEG · relative channel RMS';setText('mapSource',label);$('mapSource').setAttribute('title',metadata.origin==='prerecorded'?metadata.trial_id+' · 250 Hz, 2 s · 7–30 Hz causal filtered µV, before normalization/quantization · relative per-channel RMS; not cortical source localization or clinical measurement':label);$('traces').setAttribute('aria-label',label+' · 22 channels');document.querySelector('.trace-note').textContent=metadata.origin==='prerecorded'?label:'';drawScalp();drawSignals()};
+window.ArmEEGDemo.clearEEG=(label='Awaiting EEG samples')=>{realEEG=null;eegProgress=0;setText('mapSource',label);document.querySelector('.trace-note').textContent=label;drawScalp();drawSignals();};
+window.ArmEEGDemo.onEEGFrame=(channels,metadata={})=>{if(!channels||typeof channels!=='object')return;const clean={};for(const name of Object.keys(montage)){const a=channels[name];if(Array.isArray(a)&&a.length&&a.every(Number.isFinite))clean[name]=a.slice(-500)}if(!Object.keys(clean).length)return;realEEG=clean;eegProgress=0;const label=metadata.origin==='prerecorded'?'Prerecorded EEG · trial '+metadata.uart_trial+' · filtered µV':'Live EEG · relative channel RMS';setText('mapSource',label);$('mapSource').setAttribute('title',metadata.origin==='prerecorded'?metadata.trial_id+' · 250 Hz, 2 s · 7–30 Hz causal filtered µV, before normalization/quantization · relative per-channel RMS; not cortical source localization or clinical measurement':label);$('traces').setAttribute('aria-label',label+' · 22 channels');document.querySelector('.trace-note').textContent=metadata.origin==='prerecorded'?label:'';drawScalp();drawSignals()};
 $('participant').addEventListener('change',()=>{realEEG=null;reset();setText('mapSource',source==='mock'?'EEG amplitude · relative RMS':'Awaiting EEG samples');document.querySelector('.trace-note').textContent=source==='mock'?'':'Awaiting EEG samples';drawScalp();drawSignals()});
 const colors=['#9f93c8','#779fcb','#80b9b7','#84b09c','#b1a1c8','#b7a47c'];const names=Object.keys(montage);const traces=$('traces');const traceColumns=Array.from({length:3},(_,i)=>{const col=document.createElement('div');col.className='trace-column';traces.appendChild(col);return col});names.forEach((n,i)=>{const tr=document.createElement('div');tr.className='trace';tr.id='trace-'+n;tr.innerHTML='<div class="trace-label">'+n+'</div><svg viewBox="0 0 600 19" preserveAspectRatio="none"><path stroke="'+colors[i%colors.length]+'" stroke-width="1.5" fill="none" id="wave'+i+'"></path></svg>';traceColumns[i<8?0:i<15?1:2].appendChild(tr)});
-function drawSignals(){if(!$('drawer').classList.contains('open'))return;names.forEach((n,i)=>{const out=[],a=samplesFor(n,i);const hasSignal=a.length>=2&&Math.max(...a)>Math.min(...a);$('trace-'+n).style.display=hasSignal?'flex':'none';if(!hasSignal){$('wave'+i).setAttribute('d','');return;}const peak=Math.max(...a.map(Math.abs),Number.MIN_VALUE);for(let j=0;j<160;j++){const x=j/159*600,y=9.5-(a[Math.floor(j/160*a.length)]||0)/peak*7;out.push((j?'L':'M')+x.toFixed(1)+' '+y.toFixed(1))};$('wave'+i).setAttribute('d',out.join(' '))})}
+function drawSignals(){
+ if(!$('drawer').classList.contains('open'))return;
+ names.forEach((name,i)=>{
+  const a=samplesFor(name,i),hasSignal=a.length>=2&&Math.max(...a)>Math.min(...a);
+  $('trace-'+name).style.display=hasSignal?'flex':'none';
+  if(!hasSignal){$('wave'+i).setAttribute('d','');return;}
+  // Reveal original samples, retaining a fixed full-trial axis and amplitude scale.
+  const peak=Math.max(...a.map(Math.abs),Number.MIN_VALUE),recorded=source==='hardware'&&realEEG;
+  const count=recorded?1+Math.floor(eegProgress*(a.length-1)):160,out=[];
+  for(let j=0;j<count;j++){
+   const x=j/(recorded?a.length-1:159)*600,y=9.5-a[recorded?j:Math.floor(j/160*a.length)]/peak*7;
+   out.push((j?'L':'M')+x.toFixed(1)+' '+y.toFixed(1));
+  }
+  $('wave'+i).setAttribute('d',out.join(' '));
+ });
+}
 
-setInterval(()=>{if(playing){drawScalp();drawSignals()}},70);reset();drawScalp();drawSignals();requestAnimationFrame(loop);
+setInterval(()=>{if(playing&&source==='mock'){drawScalp();drawSignals()}},70);reset();drawScalp();drawSignals();requestAnimationFrame(loop);
 })();
