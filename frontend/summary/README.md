@@ -21,6 +21,14 @@ for Resume. Before the first Play of a run the prediction view is shown even tho
 paused. No popup, backdrop, focus trap or close control; the panel fades in (disabled under
 `prefers-reduced-motion`).
 
+One centered primary action sits at the bottom of the panel: **Resume** while paused (only when the
+controller is ready and has not failed), **New Run** on a finalized snapshot, nothing on an interrupted
+live view. The panel's Resume clicks the top Play button, so both share the bridge's single Play
+handler; while paused after a run started the top button reads "▶ Resume". Supporting lines use
+" | " separators ("30 correct | 10 incorrect", "30 unique recordings | 10 repeat evaluations",
+"Prerecorded EEG | 30 recordings | 3 artifact-flagged"); the EEG line and the amplitude note sit directly
+under the Top EEG Channels ranking and wrap within that column.
+
 ## Files
 
 | File | Role |
@@ -73,8 +81,7 @@ The visible card shows: the title and run status; accuracy (hero) with correct/i
 Duration (“Includes pauses”); a “N unique recordings · M repeat evaluations” line; the Confusion Matrix
 (rows = actual, columns = predicted, blue diagonal = correct, muted amber off-diagonal = incorrect, each
 cell labelled by its ACTUAL class, e.g. “Correct left” / “Incorrect left”, from the metadata `short` names;
-each actual-class row labelled with its accuracy or “Unavailable”; “Includes repeats.” when applicable);
-and Top EEG Channels. Model name, experiment, source, model hash, firmware label, session id, seed,
+each actual-class row labelled with its accuracy or “Unavailable”); and Top EEG Channels. Model name, experiment, source, model hash, firmware label, session id, seed,
 dataset, subject, browser round trip and the full channel list stay in the frozen snapshot
 (`EdgeSessionRun.current.summary`, `history`) and in the capture export; they are not rendered. The
 synthetic-preview label is shown only by `preview.html`, outside the card.

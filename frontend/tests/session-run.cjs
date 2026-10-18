@@ -22,13 +22,14 @@ const EEG_NAMES=['Cz','C3','C4'];
 function fixtureChannels(i){const amp={Cz:1+i,C3:5,C4:10};const out={};for(const n of EEG_NAMES)out[n]=Object.freeze(Array.from({length:500},(_,j)=>amp[n]*Math.SQRT2*Math.sin(j/250*2*Math.PI*10)));return Object.freeze(out);}
 async function makeDataset(n=4,subject=1,{withEEG=true}={}){const trials=[],inputs=[];for(let i=0;i<n;i++){const b=new Uint8Array(11000).fill(i+1);inputs.push(b);trials.push({index:i,trial_id:`S${subject}/1test/run0/cue${100+i}`,ground_truth:i%2,source_trial:{subject,session:'1test',run:'0',cue_sample:100+i,artifact:i===1},input_sha256:await hash(b)});}const d={schema:1,model_sha256:P.model,channel_order:EEG_NAMES,trials,input:async i=>inputs[i]};if(withEEG){let calls=0;d.channels=i=>{calls++;return fixtureChannels(i);};d.channelCalls=()=>calls;}return d;}
 function visuals(){const v={auto:true,pending:null,count:0,visualize(){v.count++;return new Promise(ok=>{if(v.auto)setTimeout(ok,0);else v.pending=ok;});},cancel(){if(v.pending){const ok=v.pending;v.pending=null;ok();}}};return v;}
-function fakeView(){const calls=[];return {calls,render(s,o){calls.push(['render',s.session.status,!!o?.final,s.metrics.total]);},ending(d){calls.push(['ending',d]);},message(t){calls.push(['message',t]);},clear(){calls.push(['clear']);},hide(){calls.push(['hide']);},show(){}};}
+function fakeView(){const calls=[];const v={calls,lastOpts:null,render(s,o){v.lastOpts=o||{};calls.push(['render',s.session.status,!!o?.final,s.metrics.total]);},ending(d){calls.push(['ending',d]);},message(t){calls.push(['message',t]);},clear(){calls.push(['clear']);},hide(){calls.push(['hide']);},show(){}};return v;}
 let clockMs=1_000_000;const now=()=>clockMs;
 function harness(dataset,board,{stopAt=Infinity,timeoutMs=10000,ackMs=5000}={}){
  const visual=visuals(),view=fakeView(),rule={stopAt},resetErrors=[];let controller;
  controller=new Controller({dataset,transport:board,visualize:visual.visualize,cancelVisualization:visual.cancel,timeoutMs,ackMs,onRecord:()=>{if(controller.records.length>=rule.stopAt)controller.pause();}});
- const attach=()=>createRunManager({controller,dataset,firmware:controller.firmware,cancelVisualization:visual.cancel,view,now,reset:async()=>{try{await controller.reset(777);}catch(e){resetErrors.push(e.message);}}});
- return {controller,visual,view,rule,resetErrors,attach};
+ let resumes=0;const resume=()=>{resumes++;controller.play().catch(()=>{});}; // stands in for the bridge Play button handler
+ const attach=()=>createRunManager({controller,dataset,firmware:controller.firmware,cancelVisualization:visual.cancel,view,now,resume,reset:async()=>{try{await controller.reset(777);}catch(e){resetErrors.push(e.message);}}});
+ return {controller,visual,view,rule,resetErrors,attach,resumes:()=>resumes};
 }
 (async()=>{
  const dataset=await makeDataset(4);
@@ -38,8 +39,9 @@ function harness(dataset,board,{stopAt=Infinity,timeoutMs=10000,ackMs=5000}={}){
   assert.equal(mgr.metadata.modelId,'model2-subject1-tinyeegnet-int8-ethosu85','verified metadata resolved from the handshake hash');
   assert.deepEqual(h.view.calls,[],'no summary before the first Play');
   assert.equal(mgr.startedAt,null);clockMs+=5000;await h.controller.play();assert.equal(h.controller.records.length,2);assert.equal(mgr.startedAt,1_005_000,'started at first Play');
-  assert.deepEqual(h.view.calls,[['render','paused',false,2]],'Pause switches the panel to a live summary once');assert.equal(mgr.liveSummary.metrics.total,2);assert.equal(mgr.summary,null,'pause never finalizes');
-  h.rule.stopAt=4;clockMs+=20000;await h.controller.play();assert.equal(h.controller.records.length,4);assert.equal(mgr.startedAt,1_005_000,'Resume does not restart the clock');
+  assert.deepEqual(h.view.calls,[['render','paused',false,2]],'Pause switches the panel to a live summary once');assert.equal(mgr.liveSummary.metrics.total,2);assert.equal(mgr.summary,null,'pause never finalizes');assert.equal(h.view.lastOpts.resumable,true,'Resume offered while the controller can continue');
+  // The panel's Resume goes through the host's single Play flow.
+  h.rule.stopAt=4;clockMs+=20000;assert.equal(mgr.resume(),true);assert.equal(h.resumes(),1);await until(()=>h.controller.records.length===4&&h.controller.paused,'resumed to 4');assert.equal(mgr.startedAt,1_005_000,'Resume does not restart the clock');
   assert.deepEqual(h.view.calls.slice(1),[['hide'],['render','paused',false,4]],'Resume hides the summary; the next pause shows the updated one');
   // Repeated Pause/Resume keeps statistics and playback state.
   for(let k=0;k<3;k++){h.rule.stopAt=h.controller.records.length+1;const before=h.controller.records.length,played=h.visual.count;await h.controller.play();assert.equal(h.controller.records.length,before+1);assert.equal(h.visual.count,played+1,'queued visualization still runs');assert.deepEqual(h.view.calls.slice(-2),[['hide'],['render','paused',false,before+1]]);}
@@ -54,7 +56,7 @@ function harness(dataset,board,{stopAt=Infinity,timeoutMs=10000,ackMs=5000}={}){
   const e=summary.eeg;assert.equal(e.available,true);assert.equal(e.units,'µV');assert.equal(e.recordings.used,4);assert.equal(e.highest.name,'C4');assert.equal(e.lowest.name,'Cz');assert.equal(e.artifact.flagged,1);assert.equal(e.sampleCount,3*4*500);
   assert(Math.abs(e.highest.rms-10)<1e-9&&Math.abs(e.channels.find(c=>c.name==='C3').rms-5)<1e-9,'RMS of a sine with amplitude a*sqrt2 is a');assert(Math.abs(e.lowest.rms-Math.sqrt((1+4+9+16)/4))<1e-9,'Cz pooled over indices 0..3');
   assert.equal(dataset.channelCalls(),4,'EEG read once per unique recording, not per frame or per repeat');assert.throws(()=>{summary.eeg.channels.push(1);},TypeError);
-  assert.equal(await mgr.endRun(),summary,'repeated End Run returns the same snapshot');await assert.rejects(h.controller.play(),/Run ended/,'Play cannot restart a finalized run');
+  assert.equal(await mgr.endRun(),summary,'repeated End Run returns the same snapshot');await assert.rejects(h.controller.play(),/Run ended/,'Play cannot restart a finalized run');assert.equal(mgr.resume(),false,'no Resume once finalized');assert.equal(h.view.lastOpts.final,true);
   assert.equal(await mgr.newRun(),true);assert.equal(mgr.phase,'idle');assert.equal(mgr.summary,null);assert.equal(mgr.liveSummary,null);assert.equal(mgr.startedAt,null);assert.equal(h.controller.records.length,0);assert.equal(h.controller.archives[0].length,7);assert.equal(h.view.calls.at(-1)[0],'clear');
   assert.equal(h.controller.paused,true,'New Run never starts inference');const afterReset=h.view.calls.length;h.controller.pause();assert.equal(h.view.calls.length,afterReset,'paused before the first Play of a new run shows the prediction view, not a summary');
   h.rule.stopAt=1;await h.controller.play();assert.equal(h.controller.records.length,1);const second=await mgr.endRun();assert.equal(second.metrics.total,1);assert.equal(mgr.history.length,2);assert.notEqual(second.session.sessionId,summary.session.sessionId,'new session nonce after reset');
@@ -83,7 +85,7 @@ function harness(dataset,board,{stopAt=Infinity,timeoutMs=10000,ackMs=5000}={}){
   const h=harness(dataset,new Board(),{stopAt:2});await h.controller.handshake();const mgr=h.attach();await h.controller.play();assert.equal(mgr.liveSummary.metrics.total,2);
   await h.controller.reset(11);assert.equal(mgr.liveSummary,null);assert.equal(mgr.phase,'idle');assert.equal(h.view.calls.at(-1)[0],'clear');assert.equal(h.controller.archives[0].length,2);
   const d=harness(dataset,new Board({mode:'disconnect'}));await d.controller.handshake();const md=d.attach();await d.controller.play();
-  assert.equal(d.controller.failed!==null,true);assert.deepEqual(d.view.calls.at(-1),['render','interrupted',false,0],'errors show Run interrupted, not Run complete');assert.equal(md.summary,null,'error does not finalize by itself');
+  assert.equal(d.controller.failed!==null,true);assert.deepEqual(d.view.calls.at(-1),['render','interrupted',false,0],'errors show Run interrupted, not Run complete');assert.equal(md.summary,null,'error does not finalize by itself');assert.equal(d.view.lastOpts.resumable,false,'no Resume for a failed controller');
   const fin=await md.endRun();assert.equal(fin.session.status,'interrupted');assert.equal(md.history.length,1);
   console.log('PASS: Reset during pause restores the prediction view; a UART stop shows an interrupted live summary until End Run finalizes it.');
  }

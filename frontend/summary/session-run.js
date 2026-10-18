@@ -34,7 +34,7 @@ function defaultEEGProvider(dataset,meta){
 }
 const NO_EEG=Object.freeze({available:false,reason:'no EEG source for this session',label:'Prerecorded EEG · channel RMS',units:null,recordings:Object.freeze({total:0,withEEG:0,missing:0,used:0}),artifact:Object.freeze({known:false,flagged:0}),channels:Object.freeze([]),highest:null,lowest:null,excludedChannels:Object.freeze([]),sampleCount:0});
 function explainReset(error){const text=error?.message||String(error);return /unresolved/i.test(text)?text+'. Disconnect UART, then Connect UART to start a new session; the captured results stay available for export.':text+'. Reconnect the streaming firmware before starting a new run.';}
-function createRunManager({controller,dataset=null,firmware=null,metadata,eeg,cancelVisualization=null,reset=null,view=null,now=()=>Date.now(),clock=null,source='live-hardware',onPhase=()=>{}}){
+function createRunManager({controller,dataset=null,firmware=null,metadata,eeg,cancelVisualization=null,reset=null,resume=null,view=null,now=()=>Date.now(),clock=null,source='live-hardware',onPhase=()=>{},onView=()=>{}}){
  if(!controller)throw Error('Session run manager needs a controller');
  const meta=metadata!==undefined?metadata:M.resolve({firmware:firmware??controller.firmware??null,dataset});
  const provider=eeg!==undefined?eeg:defaultEEGProvider(dataset,meta);
@@ -65,11 +65,14 @@ function createRunManager({controller,dataset=null,firmware=null,metadata,eeg,ca
  function syncLive(state){
   if(phase!=='idle')return;
   const started=startedAt!==null||(controller.records||[]).length>0;
-  if(!started||(!state.paused&&!state.error)){if(liveKey!==null){liveKey=null;liveSummary=null;view?.hide?.();}return;}
-  const status=state.error?'interrupted':'paused',k=status+':'+(controller.records||[]).length+':'+(state.error||'')+':'+(controller.pending?.request??'');
+  if(!started||(!state.paused&&!state.error)){if(liveKey!==null){liveKey=null;liveSummary=null;view?.hide?.();}onView('hidden');return;}
+  const status=state.error?'interrupted':'paused',resumable=status==='paused'&&!!controller.ready&&!controller.failed,k=status+':'+(controller.records||[]).length+':'+(state.error||'')+':'+(controller.pending?.request??'')+':'+resumable;
+  onView(status);
   if(k===liveKey)return;
-  liveKey=k;liveSummary=snapshot(status);view?.render?.(liveSummary,{final:false});
+  liveKey=k;liveSummary=snapshot(status);view?.render?.(liveSummary,{final:false,resumable});
  }
+ /* Resume = the host's existing Play flow (bridge Play button); the panel's Resume button and the top button share it. */
+ function doResume(){if(phase!=='idle')return false;if(typeof resume==='function'){resume();return true;}controller.play().catch(()=>{});return true;}
  controller.onState=s=>{if(s&&!s.paused&&!s.error&&startedAt===null)startedAt=now();const p=s?.pending;if(p&&p.request!==undefined&&p.request!==null){const k=key(controller.session,p.request);if(!pendingStart.has(k))pendingStart.set(k,tick());}if(typeof original.onState==='function')original.onState.call(controller,s);if(s)syncLive(s);};
  controller.onRecord=r=>{const k=key(r.session,r.request);if(pendingStart.has(k)){roundTrips.set(k,tick()-pendingStart.get(k));pendingStart.delete(k);}accumulateEEG(r);if(typeof original.onRecord==='function')original.onRecord.call(controller,r);};
  controller.visualize=(record,trial)=>phase==='idle'&&typeof original.visualize==='function'?original.visualize.call(controller,record,trial):Promise.resolve();
@@ -77,7 +80,7 @@ function createRunManager({controller,dataset=null,firmware=null,metadata,eeg,ca
  controller.reset=async(...args)=>{generation++;setPhase('resetting');try{await original.reset.apply(controller,args);clear();view?.clear?.();setPhase('idle');}catch(e){setPhase(summary?'finalized':'idle');view?.message?.('New Run blocked',explainReset(e));throw e;}}; // A blocked reset keeps the ended run ended.
  function finalize(){
   const pending=controller.pending??null,records=controller.records||[];
-  summary=snapshot(pending?'interrupted':(records.length?'completed':'empty'));history.push(summary);liveSummary=null;liveKey=null;setPhase('finalized');view?.render?.(summary,{final:true});return summary;
+  summary=snapshot(pending?'interrupted':(records.length?'completed':'empty'));history.push(summary);liveSummary=null;liveKey=null;setPhase('finalized');onView('final');view?.render?.(summary,{final:true});return summary;
  }
  function endRun(){
   if(phase==='finalized'){view?.render?.(summary,{final:true});return Promise.resolve(summary);}
@@ -98,10 +101,16 @@ function createRunManager({controller,dataset=null,firmware=null,metadata,eeg,ca
   return cleared;
  }
  function detach(){controller.onState=original.onState;controller.onRecord=original.onRecord;controller.visualize=original.visualize;if(original.ownPlay)controller.play=original.play;else delete controller.play;if(original.ownReset)controller.reset=original.reset;else delete controller.reset;}
- return {endRun,newRun,detach,get phase(){return phase;},get summary(){return summary;},get liveSummary(){return liveSummary;},get history(){return history.slice();},get metadata(){return meta;},get eegProvider(){return provider;},get startedAt(){return startedAt;},roundTrips};
+ return {endRun,newRun,resume:doResume,detach,get phase(){return phase;},get summary(){return summary;},get liveSummary(){return liveSummary;},get history(){return history.slice();},get metadata(){return meta;},get eegProvider(){return provider;},get startedAt(){return startedAt;},roundTrips};
 }
 const api={current:null,view:null,createRunManager,defaultEEGProvider,explainReset,
- attach(host){api.current?.detach();api.view?.clear?.();api.current=createRunManager({...host,view:api.view,onPhase:p=>api.syncButtons(p)});api.syncButtons('idle');return api.current;},
+ /* The top Play button is the single resume flow (bridge handler); the panel's Resume button clicks it. */
+ clickPlay(){if(typeof document==='undefined')return;document.getElementById('playBtn')?.click();},
+ /* "▶ Resume" while paused after a run started. The bridge and gui.syncPlayback write "▶ Play" on the same pause
+  * emission (the queued record is pushed synchronously after it), so the relabel is applied now and once more on
+  * the following microtask; it never changes the Play/Pause flow itself. */
+ relabelPlay(kind){if(typeof document==='undefined')return;const apply=()=>{const b=document.getElementById('playBtn');if(b&&kind==='paused'&&api.current?.phase==='idle'&&b.textContent==='▶ Play')b.textContent='▶ Resume';};apply();queueMicrotask(apply);},
+ attach(host){api.current?.detach();api.view?.clear?.();api.current=createRunManager({resume:api.clickPlay,...host,view:api.view,onPhase:p=>api.syncButtons(p),onView:k=>api.relabelPlay(k)});api.syncButtons('idle');return api.current;},
  get history(){return api.current?api.current.history:[];},
  syncButtons(phase){if(typeof document==='undefined')return;const end=document.getElementById('endRunBtn'),fresh=document.getElementById('newRunBtn');if(!end||!fresh)return;const attached=!!api.current;
   end.disabled=!attached||phase!=='idle';end.textContent=phase==='ending'?'… Ending run':'■ End Run';end.title=!attached?'Connect streaming firmware first':phase==='finalized'?'Run ended · use New Run to start another session':phase==='ending'?'Finishing the outstanding request':'Stop scheduling trials, finish the outstanding request and show the final summary';
@@ -110,7 +119,7 @@ const api={current:null,view:null,createRunManager,defaultEEGProvider,explainRes
   if(typeof document==='undefined')return null;const $=id=>document.getElementById(id);const end=$('endRunBtn'),fresh=$('newRunBtn'),container=$('sessionSummary');
   if(!end||!fresh||!container||!root.EdgeSummaryView)return null;
   if(!(root.window||root).EdgeStreamingMode)return null; // Legacy four-trial replay keeps its original controls.
-  api.view=root.EdgeSummaryView.create(container,{onNewRun:()=>api.current?.newRun()});
+  api.view=root.EdgeSummaryView.create(container,{onNewRun:()=>api.current?.newRun(),onResume:()=>api.current?.resume()});
   end.hidden=false;fresh.hidden=false;api.syncButtons('idle');
   end.addEventListener('click',()=>{if(!api.current){api.view.message('No streaming session','Connect UART and verify the streaming firmware before ending a run.');return;}api.current.endRun();});
   fresh.addEventListener('click',()=>{api.current?.newRun();});

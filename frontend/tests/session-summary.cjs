@@ -41,9 +41,10 @@ html=V.renderHTML(s);assert.match(html,/ss-status-empty">Run complete</);assert.
 s=S.build({classLabels:LR,status:'interrupted',interruption:{message:'Hardware result timeout; request unresolved',unresolvedRequest:4,trialId:'S1/1test/run2/cue9'}},[r('a:1','s1',0,0),r('a:2','s2',1,0),r('a:3','s3',1,1)]);
 assert.equal(s.metrics.total,3);html=V.renderHTML(s);assert.match(html,/ss-status-interrupted">Run interrupted</);assert.match(html,/Request 4 \(S1\/1test\/run2\/cue9\) not counted/);assert.doesNotMatch(html,/Run complete/);
 // Live (paused) view versus finalized view: labels, hint vs New Run, and no modal controls anywhere.
-s=S.build({classLabels:LR,status:'paused'},[r('a:1','s1',0,0)]);html=V.renderHTML(s,{final:false});assert.match(html,/ss-status-paused">Run paused</);assert.match(html,/Press Play to resume/);assert.doesNotMatch(html,/ssNewRun|ssClose|Back to live view|role="dialog"|aria-modal/);
-html=V.renderHTML(S.build({classLabels:LR},[r('a:1','s1',0,0)]),{final:true});assert.match(html,/ss-status-completed">Run complete</);assert.match(html,/id="ssNewRun"/);assert.doesNotMatch(html,/ssClose|Press Play/);
-html=V.renderHTML(S.build({classLabels:LR,status:'interrupted',interruption:{message:'UART disconnected; results retained'}},[r('a:1','s1',0,0)]),{final:false});assert.match(html,/Run interrupted/);assert.match(html,/End Run to finalize/);
+s=S.build({classLabels:LR,status:'paused'},[r('a:1','s1',0,0)]);html=V.renderHTML(s,{final:false,resumable:true});assert.match(html,/ss-status-paused">Run paused</);assert.match(html,/id="ssResume" type="button">Resume</);assert.doesNotMatch(html,/ssNewRun|ssClose|Back to live view|Press Play|role="dialog"|aria-modal/);
+html=V.renderHTML(s,{final:false,resumable:false});assert.doesNotMatch(html,/ssResume|ssNewRun/,'no Resume when the controller cannot continue');
+html=V.renderHTML(S.build({classLabels:LR},[r('a:1','s1',0,0)]),{final:true});assert.match(html,/ss-status-completed">Run complete</);assert.match(html,/id="ssNewRun" type="button">New Run</);assert.doesNotMatch(html,/✦|ssResume|ssClose|Press Play/);
+html=V.renderHTML(S.build({classLabels:LR,status:'interrupted',interruption:{message:'UART disconnected; results retained'}},[r('a:1','s1',0,0)]),{final:false});assert.match(html,/Run interrupted/);assert.doesNotMatch(html,/ssResume|End Run to finalize/);
 assert.doesNotMatch(V.renderEnding({request:3}),/ssClose/);assert.match(V.renderEnding({request:3}),/Ending run…/);
 // Missing optional metadata: the subtitle says so, nothing is invented, and provenance stays in the snapshot rather than on screen.
 s=S.build({classLabels:LR,modelHash:'abc',sessionId:'sid',seed:42},[r('a:1','s1',0,0)]);
@@ -51,8 +52,8 @@ html=V.renderHTML(s);assert.match(html,/Session Summary/);assert.doesNotMatch(ht
 s=S.build({classLabels:LR,modelName:'Model 2 · subject-specific'},[r('a:1','s1',0,0)]);assert.doesNotMatch(V.renderHTML(s),/Model 2/,'model subtitle removed from the card; kept in session.modelName');assert.equal(s.session.modelName,'Model 2 · subject-specific');
 // Unique/repeat line and the repeat note appear only when meaningful.
 s=S.build({classLabels:LR},[r('a:1','rec1',0,0),r('a:2','rec2',1,1),r('a:3','rec1',0,1),r('a:4','rec1',0,0),r('a:5','rec2',1,0)]);html=V.renderHTML(s);
-assert.match(html,/2 unique recordings · 3 repeat evaluations/);assert.match(html,/Includes repeats\./);
-s=S.build({classLabels:LR},[r('a:1','rec1',0,0)]);html=V.renderHTML(s);assert.match(html,/1 unique recording</);assert.doesNotMatch(html,/repeat/);
+assert.match(html,/2 unique recordings \| 3 repeat evaluations/);assert.doesNotMatch(html,/Includes repeats/);assert.match(html,/3 correct \| 2 incorrect/);
+s=S.build({classLabels:LR},[r('a:1','rec1',0,0)]);html=V.renderHTML(s);assert.match(html,/1 unique recording</);assert.doesNotMatch(html,/repeat/);assert.match(html,/1 correct \| 0 incorrect/);
 s=S.build({classLabels:LR},[]);assert.doesNotMatch(V.renderHTML(s),/unique recording/);
 // Class names come from the supplied metadata, including a reversed mapping; nothing assumes 0 = left.
 s=S.build({classLabels:{0:'right_hand',1:'left_hand'}},[r('a:1','s1',0,0),r('a:2','s2',1,0)]);

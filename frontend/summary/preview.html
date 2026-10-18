@@ -27,14 +27,14 @@ iframe{flex:1;width:100%;border:0;min-height:0}
  function render(){
   if(!view)return;const sc=data[scenario];
   if(mode==='playing'){view.hide();window.previewSummary=null;}
-  else{const status=mode==='paused'?(sc.session.status==='interrupted'?'interrupted':'paused'):sc.session.status;const eeg=EdgeEEGOverview.summarize(sc.eeg,window.EdgeSummaryPreviewData.eegUnits);const summary=EdgeSessionSummary.build({...sc.session,status},sc.results,{eeg});view.render(summary,{final:mode==='complete'});window.previewSummary=summary;}
+  else{const status=mode==='paused'?(sc.session.status==='interrupted'?'interrupted':'paused'):sc.session.status;const eeg=EdgeEEGOverview.summarize(sc.eeg,window.EdgeSummaryPreviewData.eegUnits);const summary=EdgeSessionSummary.build({...sc.session,status},sc.results,{eeg});view.render(summary,{final:mode==='complete',resumable:status==='paused'});window.previewSummary=summary;}
   for(const b of scenarioBar.children)b.setAttribute('aria-pressed',String(b.dataset.key===scenario));for(const b of viewBar.children)b.setAttribute('aria-pressed',String(b.dataset.key===mode));
   history.replaceState(null,'','#'+scenario+'/'+mode);window.previewMode=mode;window.previewReady=true;
  }
  for(const [key,sc] of Object.entries(data)){const b=document.createElement('button');b.className='btn';b.dataset.key=key;b.textContent=sc.label;b.onclick=()=>{scenario=key;render();};scenarioBar.appendChild(b);}
  for(const [key,label] of Object.entries(VIEWS)){const b=document.createElement('button');b.className='btn';b.dataset.key=key;b.textContent=label;b.onclick=()=>{mode=key;render();};viewBar.appendChild(b);}
  const [h1,h2]=location.hash.slice(1).split('/');if(data[h1])scenario=h1;if(VIEWS[h2])mode=h2;
- frame.addEventListener('load',()=>{const doc=frame.contentDocument,container=doc.getElementById('sessionSummary');view=EdgeSummaryView.create(container,{onNewRun:()=>{mode='playing';render();}});window.previewDocument=doc;render();});
+ frame.addEventListener('load',()=>{const doc=frame.contentDocument,container=doc.getElementById('sessionSummary');view=EdgeSummaryView.create(container,{onNewRun:()=>{mode='playing';render();},onResume:()=>{mode='playing';render();}});window.previewDocument=doc;render();});
  window.previewShow=(key,viewMode)=>{if(data[key])scenario=key;if(VIEWS[viewMode])mode=viewMode;render();};
 })();
 </script>

@@ -27,22 +27,28 @@
 #sessionSummary .ss-tile.ss-hero strong{font-size:44px;line-height:1;color:#e6efff;text-shadow:0 0 24px #6e9bff33}
 #sessionSummary .ss-tile span{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#aebfdd}
 #sessionSummary .ss-tile small{font-size:11px;color:#aebfdd;overflow-wrap:anywhere}
-#sessionSummary .ss-line{margin:6px 0 14px;font-size:12px;color:#aebfdd}
-/* Lower row: matrix (dominant) beside the unboxed EEG ranking; headings share one baseline. */
-#sessionSummary .ss-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(200px,1fr);gap:22px;align-items:start}
+#sessionSummary .ss-line{margin:8px 0 26px;font-size:12px;color:#aebfdd}
+/* Lower row: matrix (dominant) beside the unboxed EEG ranking. Both columns are flex stacks with the same gap, the
+ * heading has one fixed line-height and the sub-header rows (matrix corner labels / RMS unit) share padding and
+ * line-height, so the headings and the sub-headers align by construction. The table's outer border-spacing is
+ * cancelled with a negative margin so its first row starts at the same y as the RMS label. */
+/* The lower section takes the leftover panel height and centres its rows in it, so the space above and below it stays
+ * balanced and the action keeps a deliberate gap; nothing inside is stretched. */
+#sessionSummary .ss-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(200px,1fr);gap:22px;align-items:start;align-content:center;flex:1;min-height:0}
 #sessionSummary .ss-col{min-width:0}
 #sessionSummary .ss-h3{margin:0;font-weight:400;font-size:15px;letter-spacing:-.2px;color:#f2f5fc;line-height:24px}
-#sessionSummary .ss-matrix-panel{display:flex;flex-direction:column;gap:8px}
-#sessionSummary .ss-matrix-wrap{overflow-x:auto;scrollbar-width:thin}
-#sessionSummary .ss-matrix{width:100%;border-collapse:separate;border-spacing:6px;font-variant-numeric:tabular-nums;font-size:12px;table-layout:fixed}
-#sessionSummary .ss-matrix th{font-weight:400;color:#aebfdd;font-size:12px;padding:4px 6px;text-align:center}
-#sessionSummary .ss-matrix thead th:not(.ss-corner){color:#e4edff}
-#sessionSummary .ss-matrix th[scope="row"]{text-align:right;color:#e4edff;width:104px;padding-right:10px}
+#sessionSummary .ss-matrix-panel,#sessionSummary .ss-eeg{display:flex;flex-direction:column;gap:8px}
+#sessionSummary .ss-matrix-wrap{overflow-x:auto;scrollbar-width:thin;margin:-6px -6px 0}
+#sessionSummary .ss-matrix{width:100%;margin:0;border-collapse:separate;border-spacing:6px;font-variant-numeric:tabular-nums;font-size:12px;table-layout:fixed}
+#sessionSummary .ss-matrix th{font-weight:400;color:#aebfdd;font-size:12px;padding:4px 6px;text-align:center;vertical-align:top}
+#sessionSummary .ss-matrix thead th:not(.ss-corner){color:#e4edff;line-height:14px}
+#sessionSummary .ss-matrix th[scope="row"]{text-align:right;color:#e4edff;width:104px;padding-right:10px;vertical-align:middle}
 #sessionSummary .ss-matrix th[scope="row"] span{display:block;font-size:13px}
 #sessionSummary .ss-matrix th[scope="row"] small{display:block;font-size:11px;color:#aebfdd;margin-top:2px;font-variant-numeric:tabular-nums}
-#sessionSummary .ss-matrix .ss-corner{width:104px;font-size:9px;letter-spacing:.6px;text-transform:uppercase;color:#8fa4c4;text-align:right;vertical-align:bottom}
-#sessionSummary .ss-matrix .ss-corner span{display:block}
-#sessionSummary .ss-matrix td{text-align:center;padding:16px 8px 12px;border-radius:14px;color:#f2f5fc;border:1px solid transparent;min-width:0}
+#sessionSummary .ss-matrix .ss-corner{width:104px;font-size:10px;line-height:14px;letter-spacing:.6px;text-transform:uppercase;color:#8fa4c4;text-align:right;padding:4px 10px 4px 6px}
+#sessionSummary .ss-matrix .ss-corner span{display:block;white-space:nowrap}
+#sessionSummary .ss-eeg-label{font-size:10px;line-height:14px;letter-spacing:.6px;text-transform:uppercase;color:#8fa4c4;padding:4px 0;margin:0}
+#sessionSummary .ss-matrix td{text-align:center;padding:20px 8px 16px;border-radius:14px;color:#f2f5fc;border:1px solid transparent;min-width:0}
 #sessionSummary .ss-matrix td strong{display:block;font-size:32px;line-height:1;font-weight:450;letter-spacing:-.8px;color:#f6f9ff}
 #sessionSummary .ss-matrix td small{display:block;margin-top:7px;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:#c9d6ee}
 #sessionSummary .ss-matrix td.ss-diag{background:linear-gradient(170deg,#4b7dff2e,#4b7dff12),#0d1526cc;border-color:#a5c5ff66;box-shadow:inset 0 0 22px #6e9bff14}
@@ -50,9 +56,11 @@
 #sessionSummary .ss-matrix td.ss-off{background:linear-gradient(170deg,#e9aa3c22,#e9aa3c0c),#120f0ccc;border-color:#e9aa3c55}
 #sessionSummary .ss-matrix td.ss-off small{color:#f1d2a0}
 #sessionSummary .ss-scope{margin:0;font-size:11px;color:#8fa4c4}
-#sessionSummary .ss-eeg{display:flex;flex-direction:column;gap:10px;padding:0;border:0;background:none;box-shadow:none}
-#sessionSummary .ss-eeg-label{font-size:11px;color:#aebfdd;margin-top:-6px}
-#sessionSummary .ss-ranks{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+#sessionSummary .ss-eeg{padding:0;border:0;background:none;box-shadow:none}
+#sessionSummary .ss-ranks{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:16px}
+/* Supporting line and note beneath the ranking; wraps within the column, never clipped. */
+#sessionSummary .ss-foot{display:flex;flex-direction:column;gap:5px;padding-top:10px;min-width:0}
+#sessionSummary .ss-foot p{overflow-wrap:anywhere}
 #sessionSummary .ss-rank{display:grid;grid-template-columns:16px minmax(40px,auto) minmax(40px,1fr) auto;align-items:center;gap:10px;min-width:0}
 #sessionSummary .ss-rank-n{font-size:11px;color:#8fa4c4;font-variant-numeric:tabular-nums}
 #sessionSummary .ss-rank-name{font-size:14px;color:#f2f5fc;white-space:nowrap}
@@ -61,11 +69,10 @@
 #sessionSummary .ss-rank-value{font-size:12px;color:#cfe0ff;font-variant-numeric:tabular-nums;white-space:nowrap}
 #sessionSummary .ss-eeg-meta{margin:0;font-size:11px;color:#aebfdd}
 #sessionSummary .ss-eeg-unavailable{margin:0;font-size:12px;color:#c9d6ee}
-#sessionSummary .ss-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:auto;padding-top:14px}
-#sessionSummary .ss-btn{font:inherit;cursor:pointer;border-radius:10px;padding:8px 13px;font-weight:600;background:#284e9c99;border:1px solid #9bbcff77;color:#f2f7ff}
+#sessionSummary .ss-actions{display:flex;justify-content:center;align-items:center;padding-top:24px}
+#sessionSummary .ss-btn{font:inherit;cursor:pointer;border-radius:12px;min-width:172px;padding:11px 22px;font-size:14px;font-weight:600;text-align:center;background:#284e9c99;border:1px solid #9bbcff77;color:#f2f7ff}
 #sessionSummary .ss-btn:hover{background:#34609f}
 #sessionSummary .ss-btn:focus-visible{outline:2px solid #a8c6f2;outline-offset:3px}
-#sessionSummary .ss-hint{font-size:11px;color:#8fa4c4}
 @media(max-width:1000px){#sessionSummary{padding:14px 16px 16px}#sessionSummary .ss-grid{grid-template-columns:1fr;gap:18px}#sessionSummary .ss-matrix td strong{font-size:28px}}
-@media(max-width:720px){#sessionSummary .ss-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}#sessionSummary .ss-tile.ss-hero{grid-column:1/-1;border-bottom:1px solid #a2bcff22;padding-bottom:8px;margin-bottom:6px}#sessionSummary .ss-tile+.ss-tile.ss-hero~.ss-tile:nth-of-type(2){border-left:0;padding-left:0}#sessionSummary .ss-tile:nth-of-type(2){border-left:0;padding-left:0}#sessionSummary .ss-tile.ss-hero strong{font-size:38px}#sessionSummary .ss-matrix{border-spacing:4px}#sessionSummary .ss-matrix th[scope="row"],#sessionSummary .ss-matrix .ss-corner{width:78px;padding-right:6px}#sessionSummary .ss-matrix td{padding:12px 6px 10px}#sessionSummary .ss-matrix td strong{font-size:26px}#sessionSummary .ss-matrix td small{font-size:9px;letter-spacing:.3px}}
+@media(max-width:720px){#sessionSummary .ss-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}#sessionSummary .ss-tile.ss-hero{grid-column:1/-1;border-bottom:1px solid #a2bcff22;padding-bottom:8px;margin-bottom:6px}#sessionSummary .ss-tile+.ss-tile.ss-hero~.ss-tile:nth-of-type(2){border-left:0;padding-left:0}#sessionSummary .ss-tile:nth-of-type(2){border-left:0;padding-left:0}#sessionSummary .ss-tile.ss-hero strong{font-size:38px}#sessionSummary .ss-matrix{border-spacing:4px}#sessionSummary .ss-matrix th[scope="row"],#sessionSummary .ss-matrix .ss-corner{width:78px;padding-right:6px}#sessionSummary .ss-matrix .ss-corner,#sessionSummary .ss-eeg-label{font-size:9px;letter-spacing:.3px}#sessionSummary .ss-matrix td{padding:12px 6px 10px}#sessionSummary .ss-matrix td strong{font-size:26px}#sessionSummary .ss-matrix td small{font-size:9px;letter-spacing:.3px}}
 @media(prefers-reduced-transparency:reduce){#sessionSummary{background:#10182a}}
