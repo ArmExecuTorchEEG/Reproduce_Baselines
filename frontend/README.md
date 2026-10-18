@@ -217,6 +217,48 @@ The pre-change frontend is preserved in the baseline repository at
 hardware-result path are tested; no physical-board run, serial claim, reset,
 firmware or model modification was performed for this change.
 
+## CorteX ARM design reference
+
+The approved visual reference is the standalone `gui-design-reference.html.html` (its inline CSS is
+this stylesheet plus one trailing block). Its changes are applied without its demo logic: the brand
+and browser title read **CorteX ARM**; Helvetica Neue (Helvetica/Arial fallbacks) applies throughout;
+the prediction summary uses the reference sizing (direction and Accuracy/Correct numbers 38 px,
+labels 11 px, scaled down below 1100 px and 720 px); LEFT/RIGHT tiles and arrows are larger while the
+cursor stays 39 × 52 px; the Reset button uses the clockwise icon with a solid arrowhead; and the
+LEFT cue raises the viewer-left arm in cyan, RIGHT the viewer-right arm in amber (CSS only; the
+`raiseL`/`raiseR` classes and all scoring are unchanged). The rules live in the last documented
+block of `styles.css`, mirrored into the design-reference copy so the geometry comparisons stay
+meaningful. Against Cindy's original markup the 390 px layout now differs only by the wider Reset
+button wrapping the controls row; against the reference it is identical:
+
+```sh
+mkdir -p /tmp/cortex-ref && cp frontend/gui-design-reference.html.html /tmp/cortex-ref/index.html
+CINDY_UI_DIR=/tmp/cortex-ref node frontend/tests/visual.mjs
+CINDY_UI_DIR=/tmp/cortex-ref node frontend/tests/browser.mjs
+```
+
+## Session summary (streaming mode)
+
+In `?stream=1` the right (cursor) panel switches views: **Pause** shows a live summary
+("Run paused") built from `controller.records` only; **Play** restores the prediction view and
+continues the same session; **End Run** lets the outstanding request finish or time out and
+shows the final summary ("Run complete", or "Run interrupted" after an error); **New Run**
+reuses the Reset flow and waits for Play. The summary shows accuracy, trials, duration, a
+prominent confusion matrix with per-class accuracy, and Top EEG Channels (pooled channel RMS in
+µV over unique completed recordings; amplitude, not neural activation). Board-free review:
+`summary/preview.html` runs the real GUI in a frame with synthetic, labeled data.
+Details, metric definitions and the multi-subject integration guide: [summary/README.md](summary/README.md).
+
+```sh
+node frontend/tests/session-summary.cjs
+node frontend/tests/session-run.cjs
+node frontend/tests/browser-summary.mjs   # isolated headless Chrome on port 9228
+```
+
+`tests/design.cjs` now verifies Cindy's stylesheet as the byte-identical leading block of
+`styles.css` and allows one documented appended sizing block (the larger EEG traces and
+compact prediction header), instead of requiring the whole file to be byte-identical.
+
 ## Preserved demonstration snapshot
 
 The user confirmed successful physical Alif E8 Model 2 operation with this UI,

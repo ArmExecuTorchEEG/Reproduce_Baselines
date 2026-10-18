@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Session summary preview — synthetic data</title>
+<link rel="icon" href="data:,">
+<style>
+/* Preview-only: the real GUI (mock mode, no board) runs in the frame; the right panel is switched between the
+ * prediction view and synthetic summaries from preview-data.js. Nothing here is loaded by index.html. */
+html,body{margin:0;height:100%;background:#060910;color:#f2f5fc;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:12px}
+body{display:flex;flex-direction:column}
+.preview-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 16px;background:#060a12f2;border-bottom:1px solid #f6bd6877;color:#ffe3b3;flex-shrink:0}
+.preview-bar strong{letter-spacing:.4px}
+.preview-bar .btn{font:inherit;cursor:pointer;background:#1a2336bb;border:1px solid #637da755;color:#e4edff;border-radius:10px;padding:6px 10px;font-weight:600}
+.preview-bar .btn[aria-pressed="true"]{background:#284e9c99;border-color:#9bbcff77;color:#f2f7ff}
+.preview-bar .group{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.preview-bar .group>span{color:#aebfdd;margin-left:6px}
+iframe{flex:1;width:100%;border:0;min-height:0}
+</style></head>
+<body>
+<div class="preview-bar" role="region" aria-label="Preview controls"><strong id="syntheticLabel">SYNTHETIC PREVIEW DATA — not hardware results</strong><div class="group"><span>Scenario:</span><span id="scenarioButtons"></span></div><div class="group"><span>Right panel:</span><span id="viewButtons"></span></div></div>
+<iframe id="gui" src="../?v=eeg-1" title="EdgeBCI GUI in mock mode (no board)"></iframe>
+<script src="session-summary.js?v=summary-1"></script><script src="eeg-overview.js?v=summary-1"></script><script src="summary-view.js?v=summary-1"></script><script src="preview-data.js?v=summary-1"></script>
+<script>
+(()=>{'use strict';
+ const data=window.EdgeSummaryPreviewData.scenarios,frame=document.getElementById('gui');
+ const scenarioBar=document.getElementById('scenarioButtons'),viewBar=document.getElementById('viewButtons');
+ const VIEWS={playing:'Playing (prediction view)',paused:'Run paused',complete:'Run complete'};
+ let view=null,scenario='completed',mode='complete';
+ function render(){
+  if(!view)return;const sc=data[scenario];
+  if(mode==='playing'){view.hide();window.previewSummary=null;}
+  else{const status=mode==='paused'?(sc.session.status==='interrupted'?'interrupted':'paused'):sc.session.status;const eeg=EdgeEEGOverview.summarize(sc.eeg,window.EdgeSummaryPreviewData.eegUnits);const summary=EdgeSessionSummary.build({...sc.session,status},sc.results,{eeg});view.render(summary,{final:mode==='complete'});window.previewSummary=summary;}
+  for(const b of scenarioBar.children)b.setAttribute('aria-pressed',String(b.dataset.key===scenario));for(const b of viewBar.children)b.setAttribute('aria-pressed',String(b.dataset.key===mode));
+  history.replaceState(null,'','#'+scenario+'/'+mode);window.previewMode=mode;window.previewReady=true;
+ }
+ for(const [key,sc] of Object.entries(data)){const b=document.createElement('button');b.className='btn';b.dataset.key=key;b.textContent=sc.label;b.onclick=()=>{scenario=key;render();};scenarioBar.appendChild(b);}
+ for(const [key,label] of Object.entries(VIEWS)){const b=document.createElement('button');b.className='btn';b.dataset.key=key;b.textContent=label;b.onclick=()=>{mode=key;render();};viewBar.appendChild(b);}
+ const [h1,h2]=location.hash.slice(1).split('/');if(data[h1])scenario=h1;if(VIEWS[h2])mode=h2;
+ frame.addEventListener('load',()=>{const doc=frame.contentDocument,container=doc.getElementById('sessionSummary');view=EdgeSummaryView.create(container,{onNewRun:()=>{mode='playing';render();}});window.previewDocument=doc;render();});
+ window.previewShow=(key,viewMode)=>{if(data[key])scenario=key;if(VIEWS[viewMode])mode=viewMode;render();};
+})();
+</script>
+</body></html>
