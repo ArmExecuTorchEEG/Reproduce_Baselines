@@ -1,0 +1,478 @@
+{
+  "status": "PASS",
+  "source": "Chrome Web Serial capture of physical Alif E8",
+  "capture_sha256": "118c3165b5a78546a2a7d5f1576243c6d01d82f586282240270164f2c9aa6e15",
+  "archived_session_results": 12,
+  "current_session_results": 9,
+  "total_verified_results": 21,
+  "unique_recordings_across_sessions": 21,
+  "correct_across_attempts": 19,
+  "current_session_correct": 8,
+  "current_session_total": 9,
+  "max_abs_fvp_logit_difference": 0,
+  "legacy_qdq_001_failures_retained": 3,
+  "requests": 21,
+  "acknowledgments": 21,
+  "results": 21,
+  "protocol_errors": 0,
+  "random_sequences_verified": true,
+  "input_sha_crc_ids_verified": true,
+  "final_state": {
+    "paused": true,
+    "ready": true,
+    "pending": null,
+    "error": null
+  },
+  "visual_behavior": "User confirmed EEG/person/cursor work well; capture verifies inference transport and identity, not visual rendering",
+  "archived_records": [
+    [
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 1,
+        "trial": 71,
+        "trial_id": "S1/1test/run2/cue95257",
+        "ground_truth": 0,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "2d77ceb4def06b20b41aa1c395d40c161f98b2bb09689c6301bb83be37b14e0d",
+        "input_crc32": 506078264,
+        "received_at": "2026-10-18T06:46:20.441Z",
+        "logits": [
+          0.894363284111023,
+          -0.6839248538017273
+        ],
+        "class_id": 0
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 2,
+        "trial": 47,
+        "trial_id": "S1/1test/run1/cue95257",
+        "ground_truth": 0,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "a36f610ae938992901d7bb0a24a2f40671836bb7b9742d4ffd4c4e628bd6862c",
+        "input_crc32": 1079541533,
+        "received_at": "2026-10-18T06:46:24.104Z",
+        "logits": [
+          5.313570022583008,
+          -5.1031317710876465
+        ],
+        "class_id": 0
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 3,
+        "trial": 12,
+        "trial_id": "S1/1test/run0/cue42768",
+        "ground_truth": 1,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "32745c4ca1177ac07c87d5c76111bac87bb020a6598be3f0cb149b7a717c2b19",
+        "input_crc32": 265619570,
+        "received_at": "2026-10-18T06:46:26.904Z",
+        "logits": [
+          -2.051774501800537,
+          2.104384183883667
+        ],
+        "class_id": 1
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 4,
+        "trial": 108,
+        "trial_id": "S1/1test/run4/cue50625",
+        "ground_truth": 1,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "01bc992b8d714aaf51c63bb21060f0aaf94e514cc731143a25ec3b0bd498ecd0",
+        "input_crc32": 1365261330,
+        "received_at": "2026-10-18T06:46:29.708Z",
+        "logits": [
+          -0.9995824694633484,
+          1.1048016548156738
+        ],
+        "class_id": 1
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 5,
+        "trial": 83,
+        "trial_id": "S1/1test/run3/cue50625",
+        "ground_truth": 1,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "25890822e7ee3d1a08fd62b6f1d0c3a7a64e8f65b3cbef663ab9640fc119d8ec",
+        "input_crc32": 126615300,
+        "received_at": "2026-10-18T06:46:32.472Z",
+        "logits": [
+          -0.6313152313232422,
+          0.2630480229854584
+        ],
+        "class_id": 1
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 6,
+        "trial": 97,
+        "trial_id": "S1/1test/run4/cue2753",
+        "ground_truth": 0,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "5c72c87bd562a35d090188677cc1d4a2f39b6fa030f7de9f3705b45f36ae6a12",
+        "input_crc32": 2432978965,
+        "received_at": "2026-10-18T06:46:35.239Z",
+        "logits": [
+          -0.6313152313232422,
+          0.6839248538017273
+        ],
+        "class_id": 1
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 7,
+        "trial": 3,
+        "trial_id": "S1/1test/run0/cue6623",
+        "ground_truth": 0,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "1b14bc83019ba380a688aed6f4b8f30ff791396dfedf44cecccb098b703951cf",
+        "input_crc32": 1972806176,
+        "received_at": "2026-10-18T06:46:38.002Z",
+        "logits": [
+          3.10396671295166,
+          -2.6830897331237793
+        ],
+        "class_id": 0
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 8,
+        "trial": 26,
+        "trial_id": "S1/1test/run1/cue8631",
+        "ground_truth": 0,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "777c2b1f95b07e04ddda6954f442977139f5839373182c93b85b1de168dbee72",
+        "input_crc32": 4244011972,
+        "received_at": "2026-10-18T06:46:40.808Z",
+        "logits": [
+          4.682254791259766,
+          -3.3670146465301514
+        ],
+        "class_id": 0
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 9,
+        "trial": 128,
+        "trial_id": "S1/1test/run5/cue28322",
+        "ground_truth": 1,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "5ee8f6f8db610e1bd64973020be2c60fa82ae37db87263f784bd95b479c6665a",
+        "input_crc32": 4111834513,
+        "received_at": "2026-10-18T06:46:43.603Z",
+        "logits": [
+          -0.5260960459709167,
+          0.5260960459709167
+        ],
+        "class_id": 1
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 10,
+        "trial": 88,
+        "trial_id": "S1/1test/run3/cue67095",
+        "ground_truth": 1,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "b53e2d36c2ec744e02bfecee68d08c4c8bc3be971910f7e6a5b8e84542ad5f6a",
+        "input_crc32": 704511668,
+        "received_at": "2026-10-18T06:46:46.368Z",
+        "logits": [
+          0.052609603852033615,
+          0.2630480229854584
+        ],
+        "class_id": 1
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 11,
+        "trial": 15,
+        "trial_id": "S1/1test/run0/cue52729",
+        "ground_truth": 0,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "47244d77b7f5bea80c259bfe4dc210e6e192f9e6f5b64425f566db3d56f2fcae",
+        "input_crc32": 4206381772,
+        "received_at": "2026-10-18T06:46:49.139Z",
+        "logits": [
+          1.0521920919418335,
+          -0.894363284111023
+        ],
+        "class_id": 0
+      },
+      {
+        "type": "prediction",
+        "streaming": true,
+        "source": "physical-e8",
+        "seed": 42,
+        "session": "962657877956871421",
+        "request": 12,
+        "trial": 8,
+        "trial_id": "S1/1test/run0/cue20544",
+        "ground_truth": 0,
+        "artifact": false,
+        "cycle": 0,
+        "input_sha256": "964b2e0d1595e8a9e3df12ec2496394e2f9ca3a8cf3db8dd1087fb9be93c4943",
+        "input_crc32": 2239172838,
+        "received_at": "2026-10-18T06:46:51.904Z",
+        "logits": [
+          0.4208768308162689,
+          -0.6839248538017273
+        ],
+        "class_id": 0
+      }
+    ]
+  ],
+  "current_records": [
+    {
+      "type": "prediction",
+      "streaming": true,
+      "source": "physical-e8",
+      "seed": 1176556338,
+      "session": "1452310815302052934",
+      "request": 1,
+      "trial": 95,
+      "trial_id": "S1/1test/run3/cue95257",
+      "ground_truth": 0,
+      "artifact": false,
+      "cycle": 0,
+      "input_sha256": "f8dc5f6b5a57359e293c5ac604a642b6da294db095ca2eb7f82b485e25dd939b",
+      "input_crc32": 136000100,
+      "received_at": "2026-10-18T06:46:57.636Z",
+      "logits": [
+        3.0513570308685303,
+        -2.2622129917144775
+      ],
+      "class_id": 0
+    },
+    {
+      "type": "prediction",
+      "streaming": true,
+      "source": "physical-e8",
+      "seed": 1176556338,
+      "session": "1452310815302052934",
+      "request": 2,
+      "trial": 141,
+      "trial_id": "S1/1test/run5/cue73222",
+      "ground_truth": 0,
+      "artifact": false,
+      "cycle": 0,
+      "input_sha256": "5dc08bb5e2c762c9e63648c93d21c34a0b92ad4f1544d4110261e3f1501abd70",
+      "input_crc32": 3137076302,
+      "received_at": "2026-10-18T06:47:00.403Z",
+      "logits": [
+        -0.15782880783081055,
+        0.052609603852033615
+      ],
+      "class_id": 1
+    },
+    {
+      "type": "prediction",
+      "streaming": true,
+      "source": "physical-e8",
+      "seed": 1176556338,
+      "session": "1452310815302052934",
+      "request": 3,
+      "trial": 1,
+      "trial_id": "S1/1test/run0/cue2753",
+      "ground_truth": 1,
+      "artifact": false,
+      "cycle": 0,
+      "input_sha256": "20120cc540c176bf82e280f531cc6efb3584b020b19eaa8a85bcfae9a2021b2e",
+      "input_crc32": 537446237,
+      "received_at": "2026-10-18T06:47:03.170Z",
+      "logits": [
+        -1.736116886138916,
+        1.6308977603912354
+      ],
+      "class_id": 1
+    },
+    {
+      "type": "prediction",
+      "streaming": true,
+      "source": "physical-e8",
+      "seed": 1176556338,
+      "session": "1452310815302052934",
+      "request": 4,
+      "trial": 25,
+      "trial_id": "S1/1test/run1/cue6623",
+      "ground_truth": 0,
+      "artifact": false,
+      "cycle": 0,
+      "input_sha256": "3153905626b4e09f56781538afa850f239c9dfacbf374daa7a445b778bf7622e",
+      "input_crc32": 2357946855,
+      "received_at": "2026-10-18T06:47:05.969Z",
+      "logits": [
+        0.9995824694633484,
+        -0.9469728469848633
+      ],
+      "class_id": 0
+    },
+    {
+      "type": "prediction",
+      "streaming": true,
+      "source": "physical-e8",
+      "seed": 1176556338,
+      "session": "1452310815302052934",
+      "request": 5,
+      "trial": 51,
+      "trial_id": "S1/1test/run2/cue8631",
+      "ground_truth": 0,
+      "artifact": false,
+      "cycle": 0,
+      "input_sha256": "1069ba6b1c294fa788ff7f67d293d5086ac703ca75a431afc9ab5ee9c699224d",
+      "input_crc32": 3146226392,
+      "received_at": "2026-10-18T06:47:08.739Z",
+      "logits": [
+        3.2617955207824707,
+        -2.8935282230377197
+      ],
+      "class_id": 0
+    },
+    {
+      "type": "prediction",
+      "streaming": true,
+      "source": "physical-e8",
+      "seed": 1176556338,
+      "session": "1452310815302052934",
+      "request": 6,
+      "trial": 24,
+      "trial_id": "S1/1test/run1/cue4671",
+      "ground_truth": 1,
+      "artifact": false,
+      "cycle": 0,
+      "input_sha256": "fe106ce2c18bad1139941ee843c79f84996a6f626a9104038cf818f02df37b30",
+      "input_crc32": 275594239,
+      "received_at": "2026-10-18T06:47:11.502Z",
+      "logits": [
+        0,
+        0.052609603852033615
+      ],
+      "class_id": 1
+    },
+    {
+      "type": "prediction",
+      "streaming": true,
+      "source": "physical-e8",
+      "seed": 1176556338,
+      "session": "1452310815302052934",
+      "request": 7,
+      "trial": 16,
+      "trial_id": "S1/1test/run0/cue60805",
+      "ground_truth": 0,
+      "artifact": false,
+      "cycle": 0,
+      "input_sha256": "1bd401bfaf41f59cbe553d8b1dd7b873bdf223572c71aae60a7976659bcf3f25",
+      "input_crc32": 701244352,
+      "received_at": "2026-10-18T06:47:14.277Z",
+      "logits": [
+        0.894363284111023,
+        -1.210020899772644
+      ],
+      "class_id": 0
+    },
+    {
+      "type": "prediction",
+      "streaming": true,
+      "source": "physical-e8",
+      "seed": 1176556338,
+      "session": "1452310815302052934",
+      "request": 8,
+      "trial": 13,
+      "trial_id": "S1/1test/run0/cue44680",
+      "ground_truth": 0,
+      "artifact": false,
+      "cycle": 0,
+      "input_sha256": "94df70dda01f7c10e5d22edae8332973226875c18700c9d854637d7eb3a06b60",
+      "input_crc32": 755093968,
+      "received_at": "2026-10-18T06:47:17.070Z",
+      "logits": [
+        3.3670146465301514,
+        -2.420041799545288
+      ],
+      "class_id": 0
+    },
+    {
+      "type": "prediction",
+      "streaming": true,
+      "source": "physical-e8",
+      "seed": 1176556338,
+      "session": "1452310815302052934",
+      "request": 9,
+      "trial": 36,
+      "trial_id": "S1/1test/run1/cue38618",
+      "ground_truth": 0,
+      "artifact": false,
+      "cycle": 0,
+      "input_sha256": "062d39615043a8dc509ce1a0fccbc5f64eb853520483ed4667235029d0879b6a",
+      "input_crc32": 737360336,
+      "received_at": "2026-10-18T06:47:19.837Z",
+      "logits": [
+        4.103549003601074,
+        -3.577453136444092
+      ],
+      "class_id": 0
+    }
+  ],
+  "firmware": {
+    "model_sha256": "644bf8865ed515ed41c5418070a0b147008c4326b9da34d3232884459d9b3298",
+    "build": "eeg-stream-v1.0"
+  }
+}

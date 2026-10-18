@@ -1,6 +1,8 @@
 # Model 2 streaming variant
 
-Implementation on `feature/model2-random-eeg-trials`; not deployed to the Alif E8.
+Physically validated on `feature/model2-random-eeg-trials`: 160 real E8 requests
+plus 21 Chrome-captured results match the saved FVP outputs exactly. See
+`tools/model2_random_trials/PHYSICAL_STREAMING_VALIDATION.md`.
 The four-trial fallback is unchanged on `demo/edgebci-model2-4trial` at
 `c85ab70f6030243283431f3a12b1a7ea87aa8b72`.
 
@@ -136,7 +138,7 @@ IDs/checksums, current results and prior session archives. Captures remain in pa
 memory; export before reload/closing the tab. Long-running raw-frame capture grows
 memory; indefinite unattended operation is not yet qualified.
 
-## Physical deployment procedure — NOT authorized or executed
+## Physical deployment procedure — verified; future loads require authorization
 
 Before asking for board approval, verify the final DevKit build and deployment
 manifest, the rollback archive, all original hashes, FVP comparison and local tests.
@@ -170,3 +172,18 @@ verification and restores the demo URL. Confirm the original four predictions an
 logits rather than treating a successful load as validation. Archive includes
 original source/config, model, AXF/HEX and prior physical UART evidence; no new
 firmware has overwritten that archive or the original worktree.
+
+## Corrected startup and preservation
+
+Use CMSIS `load_and_debug` on the isolated DevKit-E8/M55_HP context, wait for
+`main`, then explicitly `continue_execution`. Verify actual programmed bytes against
+the selected HEX using CMSIS memory tools before treating the deployment as done;
+a successful load task or a running server alone is insufficient. Confirm the
+receive loop and valid HELLO/READY model/tensor contract. Never rebuild/export the
+model or run provisioning tasks as part of this procedure. The successful physical
+image is fingerprinted in `tools/model2_random_trials/validation/physical-streaming-build.json`.
+
+The original four-trial rollback procedure and archive are unchanged. Compact
+physical results are tracked in `tools/model2_random_trials/validation/`; raw EEG,
+full Chrome captures and HEX/AXF stay ignored. See `tools/model2_random_trials/LOCAL_BACKUP_INVENTORY.md`
+for the local assets and tool dependencies required beyond a fresh Git clone.
